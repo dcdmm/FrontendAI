@@ -1,0 +1,6 @@
+.idea/
+*.pyc
+
+node_modules/
+dist/
+
