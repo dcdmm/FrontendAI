@@ -3,17 +3,17 @@
 ```
 demo0/                                    
 ├── 📁 backend/                    
-│   └── 📄 main.py                        # 后端主程序
+│   └── 📄 main.py                        # 后端主程序(python + fastapi)
 └── 📁 frontend/                
     ├── 📄 package.json                   # Node.js配置文件
-    ├── 📄 vite.config.js                 # Vite构建工具配置
-    ├── 📄 index.html                     # 浏览器加载的第一个文件
+    ├── 📄 vite.config.js                 # Vite构建工具配置文件
+    ├── 📄 index.html                     # HTML入口(提供空容器 + 引入启动脚本),浏览器加载的第一个文件
     ├── 📄 .env                           # 环境变量配置
-    ├── 📁 public/                        # 静态资源目录（不经过构建）
-    │   └── 📄 vite.svg                   # Vite图标
+    ├── 📁 public/                        # 静态资源目录
+    │   └── 📄 vite.svg                   # 标签页图标文件
     └── 📁 src/                           # 源代码目录
-        ├── 📄 main.js                    # 应用入口文件
-        ├── 📄 style.css                  # 全局样式表
+        ├── 📄 main.js                    # 应用程序入口
+        ├── 📄 style.css                  # 全局CSS样式文件
         ├── 📄 App.vue                    # 根组件（应用主入口）
         ├── 📁 components/                # UI 组件目录
         │   ├── 📄 TodoForm.vue           # 添加待办表单组件
@@ -122,7 +122,3 @@ A: 先在后端添加 API 端点，再在前端添加对应的 UI 和调用逻�
 - 🎨 优化 UI/UX 设计
 - 🔍 添加搜索和筛选功能
 - 📱 实现响应式移动端适配
-
-## 许可证
-
-MIT License
