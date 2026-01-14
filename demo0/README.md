@@ -1,36 +1,33 @@
-# Todo 全栈应用
-
-一个使用 **Vue 3 + FastAPI** 构建的全栈待办事项应用，适合入门学习前后端分离开发。
-
-## 技术栈
-
-### 后端
-- **FastAPI**: 现代化的 Python Web 框架
-- **Pydantic**: 数据验证
-- **Uvicorn**: ASGI 服务器
-
-### 前端
-- **Vue 3**: 渐进式 JavaScript 框架
-- **Vite**: 下一代前端构建工具
-- **Axios**: HTTP 客户端
-
-## 项目结构
+### 项目结构
 
 ```
-demo0/
-├── backend/              # 后端目录
-│   ├── main.py          # FastAPI 主程序
-│   └── requirements.txt # Python 依赖
-├── frontend/            # 前端目录
-│   ├── src/
-│   │   ├── App.vue     # 主组件
-│   │   ├── main.js     # 入口文件
-│   │   └── style.css   # 全局样式
-│   ├── index.html      # HTML 模板
-│   ├── package.json    # npm 依赖
-│   └── vite.config.js  # Vite 配置
-└── README.md           # 项目说明
+demo0/                                    
+├── 📁 backend/                    
+│   └── 📄 main.py                        # 后端主程序
+└── 📁 frontend/                
+    ├── 📄 package.json                   # Node.js配置文件
+    ├── 📄 vite.config.js                 # Vite构建工具配置
+    ├── 📄 index.html                     # 浏览器加载的第一个文件
+    ├── 📄 .env                           # 环境变量配置
+    ├── 📁 public/                        # 静态资源目录（不经过构建）
+    │   └── 📄 vite.svg                   # Vite图标
+    └── 📁 src/                           # 源代码目录
+        ├── 📄 main.js                    # 应用入口文件
+        ├── 📄 style.css                  # 全局样式表
+        ├── 📄 App.vue                    # 根组件（应用主入口）
+        ├── 📁 components/                # UI 组件目录
+        │   ├── 📄 TodoForm.vue           # 添加待办表单组件
+        │   ├── 📄 TodoItem.vue           # 单个待办项组件
+        │   └── 📄 TodoList.vue           # 待办列表容器组件
+        ├── 📁 services/                  # API 服务层
+        │   └── 📄 api.js                 # HTTP 请求封装
+        └── 📁 composables/               # 组合式函数（业务逻辑复用）
+            └── 📄 useTodos.js            # Todo 业务逻辑
 ```
+
+
+
+
 
 ## 快速开始
 
@@ -76,13 +73,13 @@ npm run dev
 
 ## API 端点
 
-| 方法 | 端点 | 说明 |
-|------|------|------|
-| GET | `/api/todos` | 获取所有待办 |
-| GET | `/api/todos/{id}` | 获取单个待办 |
-| POST | `/api/todos` | 创建待办 |
-| PUT | `/api/todos/{id}` | 更新待办 |
-| DELETE | `/api/todos/{id}` | 删除待办 |
+| 方法   | 端点              | 说明         |
+| ------ | ----------------- | ------------ |
+| GET    | `/api/todos`      | 获取所有待办 |
+| GET    | `/api/todos/{id}` | 获取单个待办 |
+| POST   | `/api/todos`      | 创建待办     |
+| PUT    | `/api/todos/{id}` | 更新待办     |
+| DELETE | `/api/todos/{id}` | 删除待办     |
 
 ## 学习要点
 
