@@ -10,10 +10,11 @@ demo0/
     ├── 📄 index.html                     # HTML入口(提供空容器 + 引入启动脚本),浏览器加载的第一个文件
     ├── 📄 .env                           # 环境变量配置
     ├── 📁 public/                        # 静态资源目录
-    │   └── 📄 vite.svg                   # 标签页图标文件
-    └── 📁 src/                           # 源代码目录
+    │   └── 📄 vite.svg                     # 标签页图标文件
+    └── 📁 src/                           
         ├── 📄 main.js                    # 应用程序入口
         ├── 📄 style.css                  # 全局CSS样式文件
+        
         ├── 📄 App.vue                    # 根组件（应用主入口）
         ├── 📁 components/                # UI 组件目录
         │   ├── 📄 TodoForm.vue           # 添加待办表单组件
