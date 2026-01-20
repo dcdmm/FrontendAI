@@ -6,8 +6,8 @@ console.log(fruits[0]); // 索引
 fruits[0] = "葡萄"; // 修改元素
 console.log(fruits[0]);
 
-
 let items: string[] = ["A", "B", "C"];
+// foreach遍历
 items.forEach((item, index) => {
     console.log(`索引 ${index}: ${item}`);
 });
