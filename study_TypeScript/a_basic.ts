@@ -24,4 +24,3 @@ console.log(MY_OBJECT)
 let b: boolean = false; // 布尔值(true or false)
 let n: number = 6; // 数字
 let s: string = "dmm"; // 字符串
-let none: null = null // 空值
