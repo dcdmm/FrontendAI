@@ -14,7 +14,6 @@
 // 3. Remove the parameter parentheses
 a => a + 100;
 
-
 (function (a, b) {
     return a + b + 100;
 });

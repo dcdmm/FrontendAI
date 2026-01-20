@@ -9,5 +9,9 @@ try {
     const result = divide(10, 0);
     console.log(result);
 } catch (error) {
-    console.log('出错了:', error.message);
+    if (error instanceof Error) {
+        console.log('出错了:', error.message);
+    } else {
+        console.log('出错了:', String(error));
+    }
 }

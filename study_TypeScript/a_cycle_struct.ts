@@ -25,7 +25,7 @@ for (let i in fruits) {
 }
 let person = {name: '张三', age: 25, city: '北京'};
 for (let key in person) {
-    console.log(`${key}: ${person[key]}`);
+    console.log(`${key}: ${person[key as keyof typeof person]}`);
 }
 
 // The for...of statement executes a loop that operates on a sequence of values sourced from an iterable object(Array, String, Map, Set等).
