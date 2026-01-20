@@ -33,3 +33,17 @@ function push(array: any[], ...items: any[]) {
 let a: any[] = [];
 push(a, 1, 2, 3);
 console.log(a);
+
+// 函数表达式(匿名)
+const square = function (number) {
+    return number * number;
+};
+
+console.log(square(4));
+
+// 函数表达式(提供名称)
+const factorial = function fac(n) {
+    return n < 2 ? 1 : n * fac(n - 1);
+};
+
+console.log(factorial(3));
