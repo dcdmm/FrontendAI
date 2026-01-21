@@ -53,7 +53,7 @@ class Dog extends Animal {
         }
     }
 
-    // 方法重写
+    // 方法重写(Override)
     print(name?: string) {
         if (name === undefined) {
             super.print();
