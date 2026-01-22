@@ -28,7 +28,9 @@ class Point {
     }
 }
 
-const pt = new Point();
+const pt = new Point(); // print->object
+console.log(typeof pt)
+console.log(pt instanceof Point)
 pt.print();
 pt.x = 10;
 pt.print();

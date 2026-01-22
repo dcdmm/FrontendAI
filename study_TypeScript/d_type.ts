@@ -31,6 +31,7 @@ const user1: User = {
     } // 可选,可以不实现
 };
 console.log(user1);
+user1.print?.()
 
 // 函数类型
 type MathOperation = (a: number, b: number) => number;
@@ -45,7 +46,7 @@ let productId: ID = 123;
 let customerId: ID = "cust_456";
 let orderStatus: Status = "pending";
 let Level = 4;
-console.log({ orderStatus, productId, customerId, Level });
+console.log({orderStatus, productId, customerId, Level});
 
 type Person = {
     name: string;

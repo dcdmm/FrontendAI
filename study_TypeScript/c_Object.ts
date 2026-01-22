@@ -16,18 +16,26 @@ console.log(typeof person) // print->object
 console.log(person.name); // 点号(.)访问
 console.log(person['name']) // 方括号访问(属性名是变量时,只能通过方括号访问对象属性)
 
-interface Company {
-    name: string;
-    address?: {
-        city: string;
-        street?: string;
-    };
-}
+type Point = {
+    x: number;
+    y: number;
 
-let company: Company = {name: "ABC公司"};
-console.log(company.address?.city);  // undefined，不会报错
+    area(): number;
+    print?(): void;
+};
+let p: Point = {
+    x: 10,
+    y: 20,
+    area(): number {
+        return this.x * this.y;
+    }
+};
+// The optional chaining (?.) operator accesses an object's property or calls a function.
+// If the object accessed or function called using this operator is undefined or null, the expression short circuits and evaluates to undefined instead of throwing an error.
+console.log(p?.x); // ?.:可选链操作符
+console.log(p.print?.())
 
-//
+
 // // ===================== 3. 修改和添加属性 =====================
 //
 // // 3.1 修改已有属性

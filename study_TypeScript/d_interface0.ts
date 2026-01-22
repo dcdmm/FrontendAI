@@ -61,7 +61,7 @@ const dog: Animal = {
 
 dog.speak();
 console.log(dog.move(100));
-console.log(dog.fly?.(100))
+console.log(dog.fly?.(100));
 
 // ========================================================================================
 
