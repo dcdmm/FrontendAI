@@ -1,6 +1,6 @@
 // 定义对象结构
 interface User {
-    username: string;
+    username: string; // 必须属性
     email: string;
     phone?: string; // 可选属性
     address?: string;
@@ -52,13 +52,54 @@ const dog: Animal = {
         console.log("汪汪汪!");
     }, // 必须实现
     move(distance) {
-        return `${this.name} 跑了 ${distance} 米`;
+        return `${this.name}跑了${distance} 米`;
     }, // 必须实现
     fly(height) {
-        return `${this.name} 飞到了 ${height} 米高`;
+        return `${this.name}飞到了${height} 米高`;
     } // 可选,可以不实现
 };
 
 dog.speak();
 console.log(dog.move(100));
 console.log(dog.fly?.(100))
+
+// ========================================================================================
+
+interface Vehicle {
+    id: number;
+    brand: string;
+    speed: number;
+    price?: string;
+
+    accelerate(amount: number): void;
+
+    brake?(): void;
+}
+
+// 类实现接口(可以实现多个接口)
+class Car implements Vehicle {
+    id: number;
+    brand: string;
+    speed: number = 0; // 直接初始化(必须)属性
+
+    constructor(id: number, brand: string) {
+        this.id = id; // 在构造函数中(必须)初始化属性
+        this.brand = brand;
+    }
+
+
+    accelerate(amount: number): void {
+        this.speed += amount;
+        console.log(`${this.brand}加速到 ${this.speed} km/h`);
+    }
+
+    brake(): void {
+        this.speed = 0;
+        console.log(`${this.brand}已刹车`);
+    }
+}
+
+const myCar = new Car(1, "特斯拉");
+myCar.accelerate(60);
+myCar.brake?.();
+
