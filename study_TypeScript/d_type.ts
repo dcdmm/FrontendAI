@@ -8,18 +8,29 @@ console.log(price)
 type User = {
     id: number;
     name: string;
-    email: string;
-    age?: number;
-    readonly createdAt: Date; // 只读属性
+    email: string; // 必须属性
+    age?: number; // 可选属性
+    readonly createdAt: Date; // 只读属性(初始化后不能被修改)
+
+    greet(): void;
+
+    print?(): void; // 可选方法
 };
 const user1: User = {
     id: 1,
     name: "张三",
     email: "zhangsan@example.com",
-    createdAt: new Date()
+    createdAt: new Date(),
+
+    greet() {
+        console.log('Hello');
+    }, // 必须实现
+
+    print() {
+        console.log('TypeScript');
+    } // 可选,可以不实现
 };
 console.log(user1);
-
 
 // 函数类型
 type MathOperation = (a: number, b: number) => number;

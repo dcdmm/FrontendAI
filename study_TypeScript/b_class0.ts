@@ -1,11 +1,13 @@
 class Point {
     x: number;
     y: number;
+    readonly z: number;  // 只读属性(初始化后不能被修改)
 
     // 构造函数
-    constructor(x = 0, y = 0) {
+    constructor(x = 0, y = 0, z = 0) {
         this.x = x;
         this.y = y;
+        this.z = z
     }
 
     // 方法

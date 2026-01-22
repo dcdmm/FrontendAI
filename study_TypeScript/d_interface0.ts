@@ -1,7 +1,7 @@
 // 定义对象结构
 interface User {
     username: string; // 必须属性
-    email: string;
+    readonly email: string; // 只读属性(初始化后不能被修改)
     phone?: string; // 可选属性
     address?: string;
 }
@@ -38,7 +38,7 @@ interface Animal {
     name: string;
     age: number;
 
-    speak(): void;
+    speak(): void; // 必须方法
 
     move(distance: number): string;
 
@@ -53,7 +53,7 @@ const dog: Animal = {
     }, // 必须实现
     move(distance) {
         return `${this.name}跑了${distance} 米`;
-    }, // 必须实现
+    },
     fly(height) {
         return `${this.name}飞到了${height} 米高`;
     } // 可选,可以不实现
