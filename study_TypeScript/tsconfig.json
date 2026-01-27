@@ -5,9 +5,9 @@
       "ES2020"
     ],
     "module": "NodeNext",
-    "moduleDetection": "force",
     "moduleResolution": "NodeNext",
     "esModuleInterop": true,
-    "strict": true
+    "strict": true,
+    "moduleDetection": "force"
   }
 }
