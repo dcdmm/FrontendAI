@@ -37,5 +37,15 @@ function divide(a: number, b: number): number {
     return a / b;
 }
 
+export type { User };
+
 // 先声明,后统一导出
 export { VERSION, AUTHOR, multiply, divide };
+
+interface Point {
+    x: number;
+    y: number;
+}
+
+// 明确导出的是类型(TS编译成JS后类型信息会被移除),不是值
+export { type Point };
