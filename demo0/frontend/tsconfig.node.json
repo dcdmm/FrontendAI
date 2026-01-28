@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "composite": true, // 被引用的项目必须启用composite选项
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true
+  },
+  "include": [
+    "vite.config.ts"
+  ] // 编译配置文件tsconfig.node.json作用域仅限于vite.config.ts文件
+}

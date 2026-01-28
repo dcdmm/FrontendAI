@@ -37,8 +37,6 @@ function divide(a: number, b: number): number {
     return a / b;
 }
 
-export type { User };
-
 // 先声明,后统一导出
 export { VERSION, AUTHOR, multiply, divide };
 

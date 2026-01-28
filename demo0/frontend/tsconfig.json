@@ -1,0 +1,42 @@
+{
+  "compilerOptions": {
+    "target": "ES2020", // TS编译后JavaScript代码使用的ECMAScript版本
+    "module": "ESNext", // import/export语句的编译输出格式
+    "lib": [
+      "ES2020",
+      "DOM",
+      "DOM.Iterable"
+    ], // 可以使用哪些内置JavaScript API类型定义
+    "moduleResolution": "bundler", // 模块解析策略
+    "esModuleInterop": true, // 可以通过import语法导入CommonJS模块
+    // allows TypeScript files to import each other with a TypeScript-specific extension like .ts, .mts, or .tsx
+    "allowImportingTsExtensions": true,
+    // Do not emit compiler output files like JavaScript source code, source-maps or declarations.
+    // 
+    "noEmit": true, // Vite项目应设置为true(通过Vite进行编译,TS只进行类型检查)
+    // Allows importing modules with a .json extension, which is a common practice in node projects.
+    "resolveJsonModule": true,
+    // 每个文件必须能在不了解其他文件类型信息的情况下单独编译(如:导出类型时必须明确使用export {type xxx}),Vite项目应设置为true
+    "isolatedModules": true,
+    // "force": 强制所有文件都当作模块处理(有独立作用域)
+    "moduleDetection": "force", // "auto": 包含import/export语句--->模块
+    "strict": true, // 启用所有严格类型检查选项
+    "jsx": "preserve", // Emit .jsx files with the JSX unchanged(由构建工具Vite处理)
+    // By default all visible ”@types” packages are included in your compilation. Packages in node_modules/@types of any enclosing folder are considered visible.
+    // If types is specified, only packages listed will be included in the global scope.
+    "types": [
+      // 显式指定要包含到全局作用域的类型声明包名(类型声明文件: .d.ts)
+      "vite/client"
+    ]
+  },
+  // Specifies an array of filenames or patterns to include in the program. These filenames are resolved relative to the directory containing the tsconfig.json file.
+  "include": [
+    "src/**/*"
+  ], // 编译配置文件ts.config作用域: src目录及其子目录下的所有文件
+  // Project references are a way to structure your TypeScript programs into smaller pieces. Using Project References can greatly improve build and editor interaction times, enforce logical separation between components, and organize your code in new and improved ways.
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ] 
+}
