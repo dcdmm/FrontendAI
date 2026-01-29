@@ -1,18 +1,18 @@
-declare const APP_VERSION: string;
-declare let DEBUG_MODE: boolean;
+declare const APP_VERSION_m: string;
+declare let DEBUG_MODE_m: boolean;
 
-declare function log(message: string): string;
+declare function log_m(message: string): string;
 
-interface User {
+interface User_m {
     id: number;
     name: string;
     email: string;
     age?: number;
 }
 
-type UserId = number | string;
+type UserId_m = number | string;
 
-declare namespace MyApp {
+declare namespace MyApp_m {
     interface Config {
         timeout: number;
         retries: number;
@@ -28,7 +28,7 @@ declare namespace MyApp {
     }
 }
 
-declare module 'my-library' {
+declare module 'my-library_m' {
     export function helper(input: string): string;
     export class Calculator {
         add(a: number, b: number): number;
@@ -36,3 +36,10 @@ declare module 'my-library' {
     }
 }
 
+declare module 'express' {
+    interface Request {
+        user?: User;
+    }
+}
+
+export { };
