@@ -3,7 +3,7 @@ declare const APP_VERSION: string;
 declare let DEBUG_MODE: boolean;
 
 // 声明全局函数
-declare function log(message: string): void;
+declare function log(message: string): string;
 
 // 声明全局接口
 interface User {
@@ -33,7 +33,7 @@ declare namespace MyApp {
     }
 }
 
-// 声明模块
+// 声明外部模块
 declare module 'my-library' {
     export function helper(input: string): string;
     export class Calculator {
