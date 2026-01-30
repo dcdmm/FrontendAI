@@ -14,3 +14,11 @@ let sub_r = eme.subtract(10, 3);
 let div_r = eme.divide(20, 4);
 let pi_value = eme.PI;
 console.log(sub_r, add_r, div_r, pi_value);
+
+const user: User = {
+    id: 1,
+    name: "张三",
+    email: "test@example.com"
+}; // 直接可用
+
+const id: UserId = 123;
