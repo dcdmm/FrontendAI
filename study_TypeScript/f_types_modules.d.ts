@@ -1,18 +1,18 @@
-// 模块.d.ts(有import/export语句)(需import导入)
+// 模块.d.ts(有import/export语句)(需通过import导入)
 
 export declare const APP_VERSION_m: string;
 export declare let DEBUG_MODE_m: boolean;
 
-declare function log_m(message: string): string;
+export declare function log_m(message: string): string;
 
-// 将声明添加到全局作用域
+export interface User_m {
+    id: number;
+    name: string;
+    email: string;
+    age?: number;
+}
+
+// 将声明添加到全局作用域(也可以自动可用)
 declare global {
-    interface User_m {
-        id: number;
-        name: string;
-        email: string;
-        age?: number;
-    }
-
     type UserId_m = number | string;
 }

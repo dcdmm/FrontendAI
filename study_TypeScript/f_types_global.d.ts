@@ -14,7 +14,7 @@ interface User {
 
 type UserId = number | string;
 
-// 模块声明
+// 声明新模块(需通过import导入)
 declare module 'my-library' {
     export function helper(input: string): string;
 
@@ -22,11 +22,5 @@ declare module 'my-library' {
         add(a: number, b: number): number;
 
         subtract(a: number, b: number): number;
-    }
-}
-
-declare module 'express' {
-    interface Request {
-        user?: User;
     }
 }
