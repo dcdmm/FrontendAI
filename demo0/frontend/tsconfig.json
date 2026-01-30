@@ -19,7 +19,7 @@
     // 每个文件必须能在不了解其他文件类型信息的情况下单独编译(如:导出类型时必须明确使用export {type xxx}),Vite项目应设置为true
     "isolatedModules": true,
     // "force": 强制所有文件都当作模块处理(有独立作用域)
-    "moduleDetection": "force", // "auto": 包含import/export语句--->模块
+    "moduleDetection": "force", // "auto": 包含import/export语句--->视为模块; 否则--->视为处理(全局作用域)
     "strict": true, // 启用所有严格类型检查选项
     "jsx": "preserve", // Emit .jsx files with the JSX unchanged(由构建工具Vite处理)
     // By default all visible ”@types” packages are included in your compilation. Packages in node_modules/@types of any enclosing folder are considered visible.
