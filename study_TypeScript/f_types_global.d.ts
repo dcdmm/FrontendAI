@@ -1,10 +1,6 @@
-// 全局.d.ts(无import/export语句)(全局作用域,自动可用)
+// 全局类型声明文件(可直接使用,无需导入): 无任何import/export语句
 
-declare const APP_VERSION: string;
-declare let DEBUG_MODE: boolean;
-
-declare function log(message: string): string;
-
+// 全局接口
 interface User {
     id: number;
     name: string;
@@ -12,15 +8,5 @@ interface User {
     age?: number;
 }
 
+// 全局类型定义
 type UserId = number | string;
-
-// 声明新模块(需通过import导入)
-declare module 'my-library' {
-    export function helper(input: string): string;
-
-    export class Calculator {
-        add(a: number, b: number): number;
-
-        subtract(a: number, b: number): number;
-    }
-}
