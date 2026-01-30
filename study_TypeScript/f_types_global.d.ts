@@ -1,3 +1,5 @@
+// 全局.d.ts(无import/export语句)(全局作用域,自动可用)
+
 declare const APP_VERSION: string;
 declare let DEBUG_MODE: boolean;
 
@@ -12,27 +14,19 @@ interface User {
 
 type UserId = number | string;
 
-declare namespace MyApp {
-    interface Config {
-        timeout: number;
-        retries: number;
-    }
-
-    function initialize(config: Config): void;
-    function destroy(): void;
-
-    class Storage {
-        get(key: string): string | null;
-        set(key: string, value: string): void;
-        remove(key: string): void;
-    }
-}
-
+// 模块声明
 declare module 'my-library' {
     export function helper(input: string): string;
+
     export class Calculator {
         add(a: number, b: number): number;
+
         subtract(a: number, b: number): number;
     }
 }
 
+declare module 'express' {
+    interface Request {
+        user?: User;
+    }
+}
