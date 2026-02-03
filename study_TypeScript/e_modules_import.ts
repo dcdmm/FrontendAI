@@ -3,7 +3,6 @@ import {add, PI, subtract, User, Calculator, VERSION, AUTHOR, multiply} from './
 // 重命名导入
 import {divide as divide_as} from './e_modules_export';
 
-
 let result_d = divide_as(10, 2);
 console.log(`10 / 2 = ${result_d}`);
 
@@ -13,6 +12,10 @@ let add_r = eme.add(5, 7);
 let sub_r = eme.subtract(10, 3);
 let div_r = eme.divide(20, 4);
 console.log(sub_r, add_r, div_r, eme.PI);
+
+// export default(不用添加花括号,名称可自定义)
+import hello_x from './e_modules_export';
+console.log(hello_x("TypeScript"));
 
 const user: User = {
     id: 1,
