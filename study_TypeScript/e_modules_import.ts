@@ -12,8 +12,7 @@ import * as eme from './e_modules_export';
 let add_r = eme.add(5, 7);
 let sub_r = eme.subtract(10, 3);
 let div_r = eme.divide(20, 4);
-let pi_value = eme.PI;
-console.log(sub_r, add_r, div_r, pi_value);
+console.log(sub_r, add_r, div_r, eme.PI);
 
 const user: User = {
     id: 1,
