@@ -1,4 +1,4 @@
-// 为"my-custom"模块提供类型声明(假装存在,避免导入时编译报错,并获得类型检查)
+// 为"my-custom"模块提供类型声明(使TS能识别到该模块,避免编译报错,并对模块中导出的内容进行类型检查)
 declare module 'my-custom' {
     export function greet(name: string): string
 
