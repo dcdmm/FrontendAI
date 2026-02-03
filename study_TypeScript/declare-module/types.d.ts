@@ -11,7 +11,7 @@ declare module 'my-custom' {
     export function add(a: number, b: number): number
 }
 
-// 为所有`.json`文件的导入提供类型声明(`*`表示匹配任意文件名)
+// 为所有`.json`(`*`表示匹配任意文件名)文件的导入提供类型声明
 declare module '*.json' {
     interface MyDataContent {
         name: string

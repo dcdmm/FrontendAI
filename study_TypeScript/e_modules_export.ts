@@ -48,7 +48,7 @@ interface Point {
 // 明确导出的是类型(TS编译成JS后类型信息会被移除),不是值
 export { type Point };
 
-// 只能有一个export default
+// 只能有一个export default(默认导出)
 export default function hello(name: string): string {
     return `Hello, ${name}!`;
 }
