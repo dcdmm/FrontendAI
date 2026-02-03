@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "module": "nodenext",
+    "esModuleInterop": true,
+    "resolveJsonModule": false
+  },
+  "files": [
+    "main.ts"
+  ]
+}
