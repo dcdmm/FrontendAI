@@ -1,7 +1,5 @@
 {
   "compilerOptions": {
-    "allowJs": true,
-    "checkJs": true,
     "module": "nodenext",
     "esModuleInterop": true,
     "resolveJsonModule": false
