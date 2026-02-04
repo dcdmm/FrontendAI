@@ -34,66 +34,180 @@
 	</div>
 </template>
 
-<script>
+<!--
+============================================
+TypeScript 转换说明
+============================================
+主要变化：
+1. <script> 改为 <script setup lang="ts">
+2. 使用 defineProps 定义类型安全的 props
+3. 使用 defineEmits 定义类型安全的 emits
+4. 为函数参数添加类型注解
+-->
+<script setup lang="ts">
+// ============================================
+// 导入依赖
+// ============================================
 import TodoItem from './TodoItem.vue'
 
-export default {
-	name: 'TodoList',
-	components: {
-		TodoItem,
-	},
-	props: {
-		// 待办事项列表
-		todos: {
-			type: Array,
-			required: true,
-		},
-		// 加载状态
-		loading: {
-			type: Boolean,
-			default: false,
-		},
-		// 错误信息
-		error: {
-			type: String,
-			default: null,
-		},
-		// 日期格式化函数
-		formatDate: {
-			type: Function,
-			required: true,
-		},
-	},
-	emits: ['refresh', 'toggle', 'delete'], // 声明事件
-	setup(props, { emit }) {
+// TS 新增：导入类型定义
+import type { Ref } from 'vue'
+import type { Todo } from '../services/api'
+
+// ============================================
+// Props 定义（TS 新增）
+// ============================================
+
+/**
+ * defineProps - 定义组件的 props（Vue 3.3+ 新语法）
+ *
+ * 这是 <script setup> 中定义 props 的方式
+ *
+ * 类型说明：
+ * - todos: Todo[] - 待办事项列表（必填）
+ * - loading: boolean - 加载状态（可选，默认 false）
+ * - error: string | null - 错误信息（可选，默认 null）
+ * - formatDate: (dateString: string) => string - 日期格式化函数（必填）
+ *
+ * TypeScript 优势：
+ * - 明确的类型定义，避免传入错误类型的数据
+ * - IDE 自动补全，知道有哪些 props 可用
+ * - 如果父组件传入错误类型，编译时就会报错
+ *
+ * withDefaults：
+ * - 用于为可选 props 设置默认值
+ * - 第一个参数是 props 定义
+ * - 第二个参数是默认值对象
+ */
+const props = withDefaults(
+	defineProps<{
 		/**
-		 * 处理刷新按钮点击
+		 * todos - 待办事项列表
+		 * 类型：Todo[]（Todo 对象的数组）
+		 * 必填
 		 */
-		const handleRefresh = () => {
-			emit('refresh')
-		}
+		todos: Todo[]
 
 		/**
-		 * 处理待办事项切换
+		 * loading - 加载状态
+		 * 类型：boolean
+		 * 可选，默认值为 false
 		 */
-		const handleToggle = (todo) => {
-			emit('toggle', todo)
-		}
+		loading?: boolean
 
 		/**
-		 * 处理待办事项删除
+		 * error - 错误信息
+		 * 类型：string | null
+		 * 可选，默认值为 null
 		 */
-		const handleDelete = (id) => {
-			emit('delete', id)
-		}
+		error?: string | null
 
-		return {
-			handleRefresh,
-			handleToggle,
-			handleDelete,
-		}
-	},
+		/**
+		 * formatDate - 日期格式化函数
+		 * 类型：(dateString: string) => string
+		 * 接收一个日期字符串，返回格式化后的字符串
+		 * 必填
+		 */
+		formatDate: (dateString: string) => string
+	}>(),
+	{
+		// 为可选 props 设置默认值
+		loading: false,  // loading 默认为 false
+		error: null,     // error 默认为 null
+	}
+)
+
+// ============================================
+// Emits 定义（TS 新增）
+// ============================================
+
+/**
+ * defineEmits - 定义组件触发的事件
+ *
+ * 类型说明：
+ * - refresh: 无参数，刷新列表
+ * - toggle: 传递一个 Todo 对象，切换完成状态
+ * - delete: 传递一个 number（todo ID），删除待办事项
+ *
+ * TypeScript 优势：
+ * - 父组件监听这些事件时，TypeScript 会自动推断参数类型
+ * - 如果传递了错误类型的数据，编译时就会报错
+ */
+const emit = defineEmits<{
+	refresh: []                // 无参数
+	toggle: [todo: Todo]       // 传递 Todo 对象
+	delete: [id: number]       // 传递 ID（数字）
+}>()
+
+// ============================================
+// 事件处理函数
+// ============================================
+
+/**
+ * 处理刷新按钮点击
+ *
+ * @returns void - 无返回值（TS 新增类型注解）
+ */
+const handleRefresh = (): void => {
+	// 触发 refresh 事件，不传递参数
+	emit('refresh')
 }
+
+/**
+ * 处理待办事项切换
+ *
+ * @param todo - 待办事项对象（TS 新增类型注解）
+ * @returns void - 无返回值（TS 新增类型注解）
+ *
+ * TS 说明：
+ * - 参数 todo 的类型是 Todo
+ * - TypeScript 会检查 todo 对象是否包含所有必需的属性
+ */
+const handleToggle = (todo: Todo): void => {
+	// 触发 toggle 事件，传递 todo 对象
+	emit('toggle', todo)
+}
+
+/**
+ * 处理待办事项删除
+ *
+ * @param id - 待办事项的 ID（TS 新增类型注解）
+ * @returns void - 无返回值（TS 新增类型注解）
+ *
+ * TS 说明：
+ * - 参数 id 的类型是 number
+ * - 如果传入字符串或其他类型，TypeScript 会报错
+ */
+const handleDelete = (id: number): void => {
+	// 触发 delete 事件，传递 ID
+	emit('delete', id)
+}
+
+// ============================================
+// setup 语法糖说明
+// ============================================
+/**
+ * 使用 <script setup> 后：
+ *
+ * 1. 不需要 export default
+ *    - 组件自动导出
+ *
+ * 2. 不需要 components 配置
+ *    - 导入的组件（如 TodoItem）自动注册
+ *
+ * 3. 不需要 return
+ *    - props 通过 defineProps 定义，自动可用
+ *    - 事件处理函数自动暴露给模板
+ *
+ * 4. 使用 defineProps 和 defineEmits
+ *    - 类型安全的 props 和事件定义
+ *    - 更好的 TypeScript 支持
+ *
+ * 5. TypeScript 优势
+ *    - 编译时类型检查
+ *    - IDE 智能提示
+ *    - 重构更安全
+ */
 </script>
 
 <style scoped>

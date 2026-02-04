@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 export interface Todo {
   id: number
   title: string
@@ -15,10 +17,6 @@ export interface CreateTodoData {
 
 export type UpdateTodoData = Partial<Omit<Todo, 'id' | 'created_at' | 'updated_at'>>
 
-
-import axios, { AxiosResponse } from 'axios'
-
-
 const apiClient = axios.create({
   baseURL: import.meta.env.VITE_API_URL || 'http://localhost:8000/api',
   timeout: 10000,
@@ -27,20 +25,8 @@ const apiClient = axios.create({
   },
 })
 
-
-apiClient.interceptors.request.use(
-  (config) => {
-    return config
-  },
-  (error) => {
-    return Promise.reject(error)
-  }
-)
-
 apiClient.interceptors.response.use(
-  (response) => {
-    return response
-  },
+  response => response,
   (error) => {
     if (error.response) {
       switch (error.response.status) {
@@ -53,11 +39,9 @@ apiClient.interceptors.response.use(
         default:
           console.error('请求失败:', error.response.data)
       }
-    }
-    else if (error.request) {
+    } else if (error.request) {
       console.error('网络错误，请检查后端服务是否启动')
-    }
-    else {
+    } else {
       console.error('请求配置错误:', error.message)
     }
     return Promise.reject(error)
@@ -65,22 +49,27 @@ apiClient.interceptors.response.use(
 )
 
 export const todoApi = {
-  getAll(): Promise<AxiosResponse<Todo[]>> {
-    return apiClient.get<Todo[]>('/todos')
-  },
-  getById(id: number): Promise<AxiosResponse<Todo>> {
-    return apiClient.get<Todo>(`/todos/${id}`)
-  },
-  create(data: CreateTodoData): Promise<AxiosResponse<Todo>> {
-    return apiClient.post<Todo>('/todos', data)
+  async getAll(): Promise<Todo[]> {
+    const { data } = await apiClient.get<Todo[]>('/todos')
+    return data
   },
 
-  update(id: number, data: UpdateTodoData): Promise<AxiosResponse<Todo>> {
-    return apiClient.put<Todo>(`/todos/${id}`, data)
+  async getById(id: number): Promise<Todo> {
+    const { data } = await apiClient.get<Todo>(`/todos/${id}`)
+    return data
   },
-  delete(id: number): Promise<AxiosResponse<void>> {
-    return apiClient.delete<void>(`/todos/${id}`)
+
+  async create(todoData: CreateTodoData): Promise<Todo> {
+    const { data } = await apiClient.post<Todo>('/todos', todoData)
+    return data
+  },
+
+  async update(id: number, updateData: UpdateTodoData): Promise<Todo> {
+    const { data } = await apiClient.put<Todo>(`/todos/${id}`, updateData)
+    return data
+  },
+
+  async delete(id: number): Promise<void> {
+    await apiClient.delete(`/todos/${id}`)
   },
 }
-
-export default apiClient
