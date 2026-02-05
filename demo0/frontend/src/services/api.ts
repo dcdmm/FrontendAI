@@ -6,7 +6,6 @@ export interface Todo {
 	description?: string | null
 	completed: boolean
 	created_at: string
-	updated_at: string
 }
 
 export interface CreateTodoData {
@@ -15,10 +14,10 @@ export interface CreateTodoData {
 	completed?: boolean
 }
 
-export type UpdateTodoData = Partial<Omit<Todo, 'id' | 'created_at' | 'updated_at'>>
+export type UpdateTodoData = Partial<Omit<Todo, 'id' | 'created_at'>>
 
 const apiClient = axios.create({
-	baseURL: import.meta.env.VITE_API_URL || 'http://localhost:8000/api',
+	baseURL: import.meta.env.VITE_API_URL || '/api',
 	timeout: 10000,
 	headers: {
 		'Content-Type': 'application/json',

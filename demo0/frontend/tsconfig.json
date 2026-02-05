@@ -12,7 +12,6 @@
     // allows TypeScript files to import each other with a TypeScript-specific extension like .ts, .mts, or .tsx
     "allowImportingTsExtensions": true,
     // Do not emit compiler output files like JavaScript source code, source-maps or declarations.
-    // 
     "noEmit": true, // Vite项目应设置为true(通过Vite进行编译,TS只进行类型检查)
     // Allows importing modules with a .json extension, which is a common practice in node projects.
     "resolveJsonModule": true,
@@ -21,9 +20,8 @@
     // "force": 强制所有文件都当作模块处理(有独立作用域)
     "moduleDetection": "force", // "auto": 包含import/export语句--->视为模块; 否则--->视为处理(全局作用域)
     "strict": true, // 启用所有严格类型检查选项
-    "jsx": "preserve", // Emit .jsx files with the JSX unchanged(由构建工具Vite处理)
-    // By default all visible ”@types” packages are included in your compilation. Packages in node_modules/@types of any enclosing folder are considered visible.
-    // If types is specified, only packages listed will be included in the global scope.
+    // Controls how JSX constructs are emitted in JavaScript files. 
+    "jsx": "react-jsx", // react项目推荐使用react-jsx
     "types": [
       // 显式指定要包含到全局作用域的类型声明包名(类型声明文件: .d.ts)
       "vite/client"

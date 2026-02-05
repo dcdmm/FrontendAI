@@ -7,5 +7,5 @@
   },
   "include": [
     "vite.config.ts"
-  ] // 编译配置文件tsconfig.node.json作用域仅限于vite.config.ts文件
+  ] // 编译配置文件tsconfig.node.json作用域: 仅限于vite.config.ts文件
 }

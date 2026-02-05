@@ -1,0 +1,19 @@
+.app-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.app-title {
+    color: white;
+    font-size: 48px;
+    text-align: center;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.app-subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 18px;
+}
