@@ -1,4 +1,4 @@
-// 全局类型声明文件(可直接使用,无需导入): 无任何import/export语句
+// 全局类型声明文件(类型声明文件: .d.ts)(可直接使用,无需导入): 无任何import/export语句
 
 // 全局接口
 interface User {

@@ -23,7 +23,7 @@
     // Controls how JSX constructs are emitted in JavaScript files. 
     "jsx": "react-jsx", // react项目推荐使用react-jsx
     "types": [
-      // 显式指定要包含到全局作用域的类型声明包名(类型声明文件: .d.ts)
+      // 显式指定要包含到全局作用域的类型声明包名
       "vite/client"
     ]
   },
