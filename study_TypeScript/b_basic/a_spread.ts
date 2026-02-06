@@ -1,5 +1,6 @@
 const arr1 = [1, 2, 3];
 const arr2 = [4, 5, 6];
+// The spread (...) syntax allows an iterable, such as an array or string, to be expanded in places where zero or more arguments (for function calls) or elements (for array literals) are expected.
 const merged = [...arr1, ...arr2];
 console.log(merged); // print->[1, 2, 3, 4, 5, 6]
 
