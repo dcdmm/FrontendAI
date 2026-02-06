@@ -1,5 +1,5 @@
 // 为"my-custom"模块提供类型声明
-// * 使TS识别该模块(仅编译时生效,运行时若模块不存在仍会报错)
+// * 使TS识别该模块(仅编译时生效,运行时若该模块不存在仍会报错)
 // * 对模块导出内容提供类型约束与智能提示
 declare module 'my-custom' {
     export function greet(name: string): string
