@@ -5,6 +5,7 @@ import conditionalRendering from './quick_start/b_conditional-rendering'
 import renderingLists from './quick_start/c_rendering_lists'
 import respondingToEvents from './quick_start/d_responding-to-events'
 import updatingTheScreen from './quick_start/e_updating_the_screen'
+import hooks from './quick_start/f_hooks'
 
 const demos = [
     { path: '/a', name: '基础', component: base },
@@ -12,6 +13,7 @@ const demos = [
     { path: '/c', name: '列表渲染', component: renderingLists },
     { path: '/d', name: '响应事件', component: respondingToEvents },
     { path: '/e', name: '更新屏幕', component: updatingTheScreen },
+    { path: '/f', name: 'Hooks入门', component: hooks },
 ]
 
 function Home() {
