@@ -11,7 +11,7 @@ const demos = [
 function Home() {
 	return (
 		<div>
-			<h1>React 学习 Demo 合集</h1>
+			<h1>React学习</h1>
 			<ul className="demo-list">
 				{demos.map((demo) => (
 					<li key={demo.path}>
