@@ -3,11 +3,13 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 import base from './quick_start/a_base'
 import conditionalRendering from './quick_start/b_conditional-rendering'
 import renderingLists from './quick_start/c_rendering_lists'
+import respondingToEvents from './quick_start/d_responding-to-events'
 
 const demos = [
     { path: '/a', name: '基础', component: base },
     { path: '/b', name: '条件渲染', component: conditionalRendering },
-    { path: '/c', name: '列表渲染', component: renderingLists }
+    { path: '/c', name: '列表渲染', component: renderingLists },
+    { path: '/d', name: '响应事件', component: respondingToEvents }
 ]
 
 function Home() {

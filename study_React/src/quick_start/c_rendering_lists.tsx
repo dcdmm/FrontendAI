@@ -4,7 +4,7 @@ const products = [
     { title: 'Apple', isFruit: true, id: 3 },
 ];
 
-export default function ShoppingList() {
+export default function MyApp() {
     const listItems = products.map(product =>
         <li
             key={product.id}
