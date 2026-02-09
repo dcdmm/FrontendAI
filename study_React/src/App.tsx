@@ -1,11 +1,9 @@
-import {BrowserRouter, Routes, Route, Link} from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 
-import Demo1_Counter from './demos/Demo1_Counter'
-import Demo2_UseEffect from './demos/Demo2_UseEffect'
+import base0 from './quick_start/a_base'
 
 const demos = [
-    {path: '/demo1', name: 'useState 计数器', component: Demo1_Counter},
-    {path: '/demo2', name: 'useEffect 副作用', component: Demo2_UseEffect}
+    { path: '/demo1', name: 'useState 计数器', component: base0 }
 ]
 
 function Home() {
@@ -32,12 +30,12 @@ function App() {
 
             <main className="main">
                 <Routes>
-                    <Route path="/" element={<Home/>}/>
+                    <Route path="/" element={<Home />} />
                     {demos.map((demo) => (
                         <Route
                             key={demo.path}
                             path={demo.path}
-                            element={<demo.component/>}
+                            element={<demo.component />}
                         />
                     ))}
                 </Routes>
