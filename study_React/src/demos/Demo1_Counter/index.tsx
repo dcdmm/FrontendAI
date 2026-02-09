@@ -1,16 +1,20 @@
-import { useState } from 'react'
+// React component names must always start with a capital letter, while HTML tags must be lowercase.
+function MyButton() {
+    return (
+        <>
+            <h1>About</h1>
+            <button>I'm a button</button>
+            <p>Hello there.<br/>How do you do?</p>
+        </>
+    );
+}
 
-// Demo 1: useState 基础用法
-export default function Counter() {
-	const [count, setCount] = useState(0)
 
-	return (
-		<div>
-			<h2>Demo 1: useState 计数器</h2>
-			<p>当前计数: {count}</p>
-			<button onClick={() => setCount(count + 1)}>+1</button>
-			<button onClick={() => setCount(count - 1)}>-1</button>
-			<button onClick={() => setCount(0)}>重置</button>
-		</div>
-	)
+export default function MyApp() {
+    return (
+        <div>
+            <h1>Welcome to my app</h1>
+            <MyButton/>
+        </div>
+    );
 }
