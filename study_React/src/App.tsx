@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
-import './App.css'
 
 // 导入所有 demos
 import Demo1_Counter from './demos/Demo1_Counter'
