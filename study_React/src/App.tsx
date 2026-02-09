@@ -1,9 +1,11 @@
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 
 import base0 from './quick_start/a_base'
+import conditionalRendering from './quick_start/b_conditional-rendering'
 
 const demos = [
-    { path: '/demo1', name: 'useState 计数器', component: base0 }
+    { path: '/a', name: '基础', component: base0 },
+    { path: '/b', name: '条件渲染', component: conditionalRendering }
 ]
 
 function Home() {
