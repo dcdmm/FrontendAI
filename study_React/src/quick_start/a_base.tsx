@@ -7,7 +7,18 @@ function MyButton() {
 		<>
 			<h1>About</h1>
 			<button>I'm a button</button>
-			<p>Hello there.<br />How do you do?</p>
+			<br />
+			<button>I'm a button</button>
+			<p>
+				Hello there
+				<br />
+				How do you do?
+			</p>
+			<ul>
+				<li>Invent new traffic lights</li>
+				<li>Rehearse a movie scene</li>
+				<li>Improve the spectrum technology</li>
+			</ul>
 		</>
 	);
 }
@@ -26,6 +37,7 @@ export default function MyApp() {
 
 			<h1>{user.name}</h1>
 			{/* In React, you specify a CSS class with className. It works the same way as the HTML class attribute: */}
+			{/* JSX is a special way of writing JavaScript. That means it’s possible to use JavaScript inside it—with curly braces { }. */}
 			<img
 				className="avatar"
 				src={user.imageUrl}
