@@ -28,7 +28,6 @@ function ShowDetail(detail: Detail) {
     );
 }
 
-
 // function Avatar(props: { person: Person; size: number; detail: Detail }) {
 //     return (
 //         <>
