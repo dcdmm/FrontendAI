@@ -24,7 +24,7 @@ function MyButton() {
 }
 
 const user = {
-	name: '海蒂·拉玛',
+	name: <span style={{ color: 'red' }}>海蒂·拉玛</span>,
 	imageUrl: 'https://i.imgur.com/yXOvdOSs.jpg',
 	imageSize: 90,
 };
