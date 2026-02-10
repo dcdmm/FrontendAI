@@ -112,10 +112,10 @@ function FocusInput() {
     // 每次组件渲染时，renderCount +1
     renderCount.current += 1
 
-    function handleFocus() {
-        // 通过 ref 直接操作 DOM
-        inputRef.current?.focus()
-    }
+    // function handleFocus() {
+    //     // 通过 ref 直接操作 DOM
+    //     inputRef.current?.focus()
+    // }
 
     return (
         <div style={{ padding: 12, border: '1px solid #ddd', borderRadius: 8, marginBottom: 16 }}>
@@ -126,7 +126,7 @@ function FocusInput() {
                 onChange={(e) => setText(e.target.value)}
                 placeholder="试试点下面的按钮"
             />{' '}
-            <button onClick={handleFocus}>聚焦输入框</button>
+            {/* <button onClick={handleFocus}>聚焦输入框</button> */}
             <p style={{ color: '#999', fontSize: 12 }}>
                 组件已渲染 {renderCount.current} 次（用 useRef 记录，不会触发额外渲染）
             </p>
