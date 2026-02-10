@@ -1,3 +1,5 @@
+import type React from "react";
+
 interface Person {
     name: string;
     imageId: string;
@@ -60,8 +62,9 @@ function Avatar({ person, size, detail }: { person: Person; size: number; detail
     );
 }
 
-
-function Box({ title = "人物卡片", children }: { title?: React.ReactNode; children: React.ReactNode }) {
+// title带有默认值并为可选
+// When you nest content inside a JSX tag, the parent component will receive that content in a prop called children. 
+function Box({ title = "人物卡片", children }: { title?: string | React.ReactElement; children: React.ReactNode }) {
     return (
         <div style={{ border: '2px solid red', padding: 10 }}>
             <h3>{title}</h3>
@@ -91,7 +94,7 @@ export default function Profile() {
                     detail={{ age: 70, gender: true, nation: 'Ethiopia' }}
                 />
             </Box>
-            <Box title={<span style={{ color: 'red' }}>人物卡片</span>}>
+            <Box title={<span style={{ color: 'red' }}>人物详细信息</span>}>
                 <Avatar
                     size={50}
                     person={{
@@ -100,9 +103,24 @@ export default function Profile() {
                     }}
                     detail={{ age: 75, gender: false, nation: 'China' }}
                 />
-                <li>中国人</li>
-                <li>75岁</li>
-                <li>女性</li>
+                <li style={{ color: 'blue', fontWeight: 'bold' }}>
+                    职业：<em>物理学家</em>
+                </li>
+                <li>薪资：$100,000</li>
+                <li>
+                    标签：{['物理', '科学家', '女性先驱', '中国'].map((tag, i) => (
+                        <span key={i} style={{
+                            background: '#eee',
+                            borderRadius: 4,
+                            padding: '2px 6px',
+                            marginRight: 4,
+                            fontSize: 12
+                        }}>
+                            {tag}
+                        </span>
+                    ))}
+                </li>
+                <li>兴趣：阅读、写作、旅行</li>
             </Box>
         </div>
     );
