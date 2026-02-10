@@ -61,6 +61,15 @@ function Avatar({ person, size, detail }: { person: Person; size: number; detail
 }
 
 
+function Box({ title = "人物卡片", children }: { title?: React.ReactNode; children: React.ReactNode }) {
+    return (
+        <div style={{ border: '2px solid red', padding: 10 }}>
+            <h3>{title}</h3>
+            <ul>{children}</ul>
+        </div>
+    );
+}
+
 export default function Profile() {
     return (
         <div>
@@ -72,22 +81,29 @@ export default function Profile() {
                 }}
                 detail={{ age: 80, gender: false, nation: 'Japan' }}
             />
-            <Avatar
-                size={80}
-                person={{
-                    name: 'Aklilu Lemma',
-                    imageId: 'OKS67lh'
-                }}
-                detail={{ age: 70, gender: true, nation: 'Ethiopia' }}
-            />
-            <Avatar
-                size={50}
-                person={{
-                    name: 'Lin Lanying',
-                    imageId: '1bX5QH6'
-                }}
-                detail={{ age: 75, gender: false, nation: 'China' }}
-            />
+            <Box>
+                <Avatar
+                    size={80}
+                    person={{
+                        name: 'Aklilu Lemma',
+                        imageId: 'OKS67lh'
+                    }}
+                    detail={{ age: 70, gender: true, nation: 'Ethiopia' }}
+                />
+            </Box>
+            <Box title={<span style={{ color: 'red' }}>人物卡片</span>}>
+                <Avatar
+                    size={50}
+                    person={{
+                        name: 'Lin Lanying',
+                        imageId: '1bX5QH6'
+                    }}
+                    detail={{ age: 75, gender: false, nation: 'China' }}
+                />
+                <li>中国人</li>
+                <li>75岁</li>
+                <li>女性</li>
+            </Box>
         </div>
     );
 }
