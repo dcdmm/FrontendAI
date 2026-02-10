@@ -73,7 +73,7 @@ function Box({ title = "人物卡片", children }: { title?: string | React.Reac
     );
 }
 
-export default function Profile() {
+export default function MyApp() {
     return (
         <div>
             <Avatar
