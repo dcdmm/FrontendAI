@@ -19,13 +19,13 @@ const user = {
 };
 
 export default function MyApp() {
-	// In React, you specify a CSS class with className. It works the same way as the HTML class attribute:
 	return (
 		<div>
 			<h1>Welcome to my app</h1>
 			<MyButton />
 
 			<h1>{user.name}</h1>
+			{/* In React, you specify a CSS class with className. It works the same way as the HTML class attribute: */}
 			<img
 				className="avatar"
 				src={user.imageUrl}
