@@ -5,21 +5,19 @@ import props0 from './quick_start/b_props0'
 import props1 from './quick_start/b_props1'
 import conditionalRendering from './quick_start/c_conditional-rendering'
 import renderingLists from './quick_start/c_rendering_lists'
-import respondingToEvents from './quick_start/d_responding-to-events'
-
-// import updatingTheScreen from './quick_start/e_updating_the_screen'
-// import hooks from './quick_start/f_hooks'
+import eventHandler from './quick_start/d_event-handler'
+import useState0 from './quick_start/e_hooks_useState0'
+import useState1 from './quick_start/e_hooks_useState1'
 
 const demos = [
     { path: '/a', name: '基础', component: base },
-    { path: '/b0', name: 'props学习0', component: props0 },
-    { path: '/b1', name: 'props学习1', component: props1 },
+    { path: '/b0', name: 'props0', component: props0 },
+    { path: '/b1', name: 'props1', component: props1 },
     { path: '/c0', name: '条件渲染', component: conditionalRendering },
-    { path: '/c1', name: '列表渲染', component: renderingLists },    
-    { path: '/d', name: '响应事件', component: respondingToEvents },
-    
-    // { path: '/e', name: '更新屏幕', component: updatingTheScreen },
-    // { path: '/f', name: 'Hooks入门', component: hooks },
+    { path: '/c1', name: '列表渲染', component: renderingLists },
+    { path: '/d', name: '事件处理', component: eventHandler },
+    { path: '/e0', name: "Hooks: useState0", component: useState0 },
+    { path: '/e1', name: "Hooks: useState1", component: useState1 },
 ]
 
 function Home() {

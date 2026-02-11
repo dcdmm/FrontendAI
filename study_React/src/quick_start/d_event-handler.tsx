@@ -1,4 +1,5 @@
 function MyButton() {
+    // 事件处理函数
     function handleClick() {
         alert('你点击了我!');
     }
