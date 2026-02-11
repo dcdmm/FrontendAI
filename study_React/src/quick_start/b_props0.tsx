@@ -106,22 +106,11 @@ export default function MyApp() {
                     detail={{ age: 75, gender: false, nation: 'China' }}
                 />
                 <li style={{ color: 'blue', fontWeight: 'bold' }}>
-                    职业：<em>物理学家</em>
+                    职业：<em>算法工程师</em>
                 </li>
+                <li>职衔：P8</li>
                 <li>薪资：$100,000</li>
-                <li>
-                    标签：{['物理', '科学家', '女性先驱', '中国'].map((tag, i) => (
-                        <span key={i} style={{
-                            background: '#eee',
-                            borderRadius: 4,
-                            padding: '2px 6px',
-                            marginRight: 4,
-                            fontSize: 12
-                        }}>
-                            {tag}
-                        </span>
-                    ))}
-                </li>
+                <li>特长：Python、C++、机器学习、NLP</li>
                 <li>兴趣：阅读、写作、旅行</li>
             </Box>
         </div>

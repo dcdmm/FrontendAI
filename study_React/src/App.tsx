@@ -3,22 +3,21 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 import base from './quick_start/a_base'
 import props0 from './quick_start/b_props0'
 import props1 from './quick_start/b_props1'
-import conditionalRendering from './quick_start/b_conditional-rendering'
-import renderingLists from './quick_start/c_rendering_lists'
-import respondingToEvents from './quick_start/d_responding-to-events'
-import updatingTheScreen from './quick_start/e_updating_the_screen'
-import hooks from './quick_start/f_hooks'
+import conditionalRendering from './quick_start/c_conditional-rendering'
+// import renderingLists from './quick_start/c_rendering_lists'
+// import respondingToEvents from './quick_start/d_responding-to-events'
+// import updatingTheScreen from './quick_start/e_updating_the_screen'
+// import hooks from './quick_start/f_hooks'
 
 const demos = [
     { path: '/a', name: '基础', component: base },
     { path: '/b0', name: 'props学习0', component: props0 },
     { path: '/b1', name: 'props学习1', component: props1 },
-    
-    { path: '/b', name: '条件渲染', component: conditionalRendering },
-    { path: '/c', name: '列表渲染', component: renderingLists },
-    { path: '/d', name: '响应事件', component: respondingToEvents },
-    { path: '/e', name: '更新屏幕', component: updatingTheScreen },
-    { path: '/f', name: 'Hooks入门', component: hooks },
+    { path: '/c', name: '条件渲染', component: conditionalRendering },
+    // { path: '/c', name: '列表渲染', component: renderingLists },
+    // { path: '/d', name: '响应事件', component: respondingToEvents },
+    // { path: '/e', name: '更新屏幕', component: updatingTheScreen },
+    // { path: '/f', name: 'Hooks入门', component: hooks },
 ]
 
 function Home() {
