@@ -57,7 +57,7 @@ function Avatar({ person, size, detail }: { person: Person; size: number; detail
                 height={size}
             />
             {/* 等价于 <ShowDetail age={detail.age} gender={detail.gender} nation={detail.nation} /> */}
-            <ShowDetail {...detail} /> {/* spread (...) syntax */}
+            <ShowDetail {...detail} /> {/* 父组件(Avatar)--props(age、gender、nation)-->子组件(ShowDetail) */} {/* spread (...) syntax */}
         </>
     );
 }
@@ -76,6 +76,7 @@ function Box({ title = "人物卡片", children }: { title?: string | React.Reac
 export default function MyApp() {
     return (
         <div>
+            {/* 父组件(MyApp)--props(size、person、detail)-->子组件(Avatar) */}
             <Avatar
                 size={100}
                 person={{
@@ -84,6 +85,7 @@ export default function MyApp() {
                 }}
                 detail={{ age: 80, gender: false, nation: 'Japan' }}
             />
+            {/* 父组件(MyApp)--props(children、title)-->子组件(Box)  */}
             <Box>
                 <Avatar
                     size={80}

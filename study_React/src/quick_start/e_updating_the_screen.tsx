@@ -1,8 +1,6 @@
 import { useState } from 'react';
 
 function MyButton() {
-    // count:当前状态
-    // setCount:更新状态的函数
     const [count, setCount] = useState(0);
 
     function handleClick() {
