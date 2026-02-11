@@ -1,29 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
 
-// ============================================
-// 什么是 Hook？
-// Hook 是以 "use" 开头的特殊函数，让你在函数组件中"钩入" React 的功能
-// 最常用的三个：useState、useEffect、useRef
-// ============================================
-
-// ---------- 示例1: useState ----------
-// useState 让组件"记住"数据，数据变了界面自动更新
-// function Counter() {
-//     // useState(0) 的意思：创建一个状态，初始值是 0
-//     // count      → 当前的值
-//     // setCount   → 用来修改值的函数
-//     const [count, setCount] = useState(0)
-
-//     return (
-//         <div style={{ padding: 12, border: '1px solid #ddd', borderRadius: 8, marginBottom: 16 }}>
-//             <h3>🔢 useState - 计数器</h3>
-//             <p>你点击了 <strong>{count}</strong> 次</p>
-//             <button onClick={() => setCount(count + 1)}>+1</button>{' '}
-//             <button onClick={() => setCount(count - 1)}>-1</button>{' '}
-//             <button onClick={() => setCount(0)}>归零</button>
-//         </div>
-//     )
-// }
 
 // ---------- 示例2: useState 管理多种类型 ----------
 // useState 不只能存数字，字符串、布尔值、对象、数组都可以
