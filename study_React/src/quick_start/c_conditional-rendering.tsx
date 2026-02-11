@@ -4,7 +4,7 @@ function Greeting({ isLoggedIn }: { isLoggedIn: boolean }) {
     if (isLoggedIn) {
         return <h2>欢迎回来！</h2>;
     }
-    return <h2>请先登录。</h2>;
+    return null; // 不渲染任何内容
 }
 
 // 三元运算符
@@ -55,7 +55,7 @@ export default function MyApp() {
             </section>
 
             <section style={{ marginBottom: 20 }}>
-                <h3>&& 短路运算符</h3>
+                <h3>逻辑与运算符&&</h3>
                 <NotificationBell count={msgCount} />
                 <button onClick={() => setMsgCount(msgCount > 0 ? 0 : 5)} style={{ marginTop: 8 }}>
                     {msgCount > 0 ? '清空通知' : '模拟新通知'}
@@ -64,4 +64,3 @@ export default function MyApp() {
         </div>
     );
 }
-
