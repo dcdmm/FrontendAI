@@ -8,6 +8,7 @@ import renderingLists from './quick_start/c_rendering_lists'
 import eventHandler from './quick_start/d_event-handler'
 import useState0 from './quick_start/e_hooks_useState0'
 import useState1 from './quick_start/e_hooks_useState1'
+import useState2 from './quick_start/e_hooks_useState2'
 
 const demos = [
     { path: '/a', name: '基础', component: base },
@@ -16,8 +17,9 @@ const demos = [
     { path: '/c0', name: '条件渲染', component: conditionalRendering },
     { path: '/c1', name: '列表渲染', component: renderingLists },
     { path: '/d', name: '事件处理', component: eventHandler },
-    { path: '/e0', name: "Hooks: useState0", component: useState0 },
-    { path: '/e1', name: "Hooks: useState1", component: useState1 },
+    { path: '/e0', name: "Hooks: useState基础", component: useState0 },
+    { path: '/e1', name: "Hooks: useState更新对象", component: useState1 },
+    { path: '/e2', name: "Hooks: useState更新数组", component: useState2 },
 ]
 
 function Home() {
