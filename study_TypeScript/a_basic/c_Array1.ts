@@ -2,6 +2,7 @@ let nums: number[] = [1, 2, 3, 4, 5];
 // The map() method of Array instances creates a new array populated with the results of calling a provided function on every element in the calling array.
 let doubled = nums.map(n => n * 2);
 console.log(doubled); // print->[2, 4, 6, 8, 10]
+console.log(nums); // print->[1, 2, 3, 4, 5];nums不变
 
 let evens = nums.filter(n => n % 2 === 0);
 console.log(evens); // print->[2, 4]
