@@ -10,6 +10,8 @@ import useState0 from './quick_start/e_hooks_useState0'
 import useState1 from './quick_start/e_hooks_useState1'
 import useState2 from './quick_start/e_hooks_useState2'
 import useState3 from './quick_start/e_hooks_useState3'
+import useState4 from './quick_start/e_hooks_useState4'
+
 
 const demos = [
     { path: '/a', name: '基础', component: base },
@@ -22,6 +24,7 @@ const demos = [
     { path: '/e1', name: "Hooks: useState更新对象", component: useState1 },
     { path: '/e2', name: "Hooks: useState更新数组", component: useState2 },
     { path: '/e3', name: "Hooks: useState组件之间共享状态", component: useState3 },
+    { path: '/e4', name: "Hooks: useState重置状态", component: useState4 },
 ]
 
 function Home() {
