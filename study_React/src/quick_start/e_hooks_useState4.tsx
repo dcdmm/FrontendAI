@@ -3,15 +3,20 @@ import { useState } from 'react';
 export default function MyApp() {
     return (
         <>
-            <h2>示例1：相同组件状态保留</h2>
+            <h2>示例1:移除组件,状态重置</h2>
             <CounterApp0 />
             <hr />
-            <h2>示例2：条件渲染状态保留</h2>
+            <h2>示例2:相同位置相同组件,状态保留</h2>
             <CounterApp1 />
+            <hr />
+            <h2>示例3:相同位置不同组件,状态重置</h2>
+            <CounterApp2 />
         </>
     );
 }
 
+// Notice how the moment you stop rendering the second counter, its state disappears completely. That’s because when React removes a component, it destroys its state.
+// When you tick “Render the second counter”, a second Counter and its state are initialized from scratch (score = 0) and added to the DOM.
 function CounterApp0() {
     const [showB, setShowB] = useState(true);
     return (
@@ -55,7 +60,6 @@ function Counter0() {
     );
 }
 
-
 function CounterApp1() {
     const [isFancy, setIsFancy] = useState(false);
     return (
@@ -89,6 +93,54 @@ function Counter1({ isFancy }: { isFancy: boolean }) {
     }
     if (isFancy) {
         className += ' fancy';
+    }
+
+    return (
+        <div
+            className={className}
+            onPointerEnter={() => setHover(true)}
+            onPointerLeave={() => setHover(false)}
+        >
+            <h1>{score}</h1>
+            <button onClick={() => setScore(score + 1)}>
+                Add one
+            </button>
+        </div>
+    );
+}
+
+
+function CounterApp2() {
+    const [isPaused, setIsPaused] = useState(false);
+    return (
+        <div>
+            {isPaused ? (
+                <p>See you later!</p>
+            ) : (
+                <Counter2 />
+            )}
+            <label>
+                <input
+                    type="checkbox"
+                    checked={isPaused}
+                    onChange={e => {
+                        setIsPaused(e.target.checked)
+                    }}
+                />
+                Take a break
+            </label>
+        </div>
+    );
+}
+
+// Here, you switch between different component types at the same position. Initially, the first child of the <div> contained a Counter. But when you swapped in a p, React removed the Counter from the UI tree and destroyed its state.
+function Counter2() {
+    const [score, setScore] = useState(0);
+    const [hover, setHover] = useState(false);
+
+    let className = 'counter';
+    if (hover) {
+        className += ' hover';
     }
 
     return (
