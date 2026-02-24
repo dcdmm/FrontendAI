@@ -11,6 +11,12 @@ export default function MyApp() {
             <hr />
             <h2>示例3:相同位置不同组件,状态重置</h2>
             <CounterApp2 />
+            <hr />
+            <h2>重置状态方式1:Rendering a component in different positions</h2>
+            <ResettingState1 />
+            <hr />
+            <h2>重置状态方式2:Resetting state with a key</h2>
+            <ResettingState2 />
         </>
     );
 }
@@ -103,7 +109,7 @@ function Counter1({ isFancy }: { isFancy: boolean }) {
         >
             <h1>{score}</h1>
             <button onClick={() => setScore(score + 1)}>
-                Add one
+                +1
             </button>
         </div>
     );
@@ -151,7 +157,95 @@ function Counter2() {
         >
             <h1>{score}</h1>
             <button onClick={() => setScore(score + 1)}>
-                Add one
+                +1
+            </button>
+        </div>
+    );
+}
+
+function ResettingState1() {
+    const [isPlayerA, setIsPlayerA] = useState(true);
+    return (
+        <div>
+            {isPlayerA &&
+                <Counter_way1 person="Taylor" />
+            }
+            {!isPlayerA &&
+                <Counter_way1 person="Sarah" />
+            }
+            <button onClick={() => {
+                setIsPlayerA(!isPlayerA);
+            }}>
+                Next player!
+            </button>
+        </div>
+    );
+}
+
+/*
+Initially, isPlayerA is true. So the first position contains Counter state, and the second one is empty.
+When you click the “Next player” button the first position clears but the second one now contains a Counter.
+*/
+function Counter_way1({ person }: { person: string }) {
+    const [score, setScore] = useState(0);
+    const [hover, setHover] = useState(false);
+
+    let className = 'counter';
+    if (hover) {
+        className += ' hover';
+    }
+
+    return (
+        <div
+            className={className}
+            onPointerEnter={() => setHover(true)}
+            onPointerLeave={() => setHover(false)}
+        >
+            <h1>{person}'s score: {score}</h1>
+            <button onClick={() => setScore(score + 1)}>
+                +1
+            </button>
+        </div>
+    );
+}
+
+function ResettingState2() {
+    const [isPlayerA, setIsPlayerA] = useState(true);
+    return (
+        <div>
+            {/* Switching between Taylor and Sarah does not preserve the state. This is because you gave them different keys: */}
+            {isPlayerA ? (
+                <Counter_way2 key="Taylor" person="Taylor" />
+            ) : (
+                <Counter_way2 key="Sarah" person="Sarah" />
+            )}
+            <button onClick={() => {
+                setIsPlayerA(!isPlayerA);
+            }}>
+                Next player!
+            </button>
+        </div>
+    );
+}
+
+function Counter_way2({ person }: { person: string }) {
+    const [score, setScore] = useState(0);
+    const [hover, setHover] = useState(false);
+
+    let className = 'counter';
+    if (hover) {
+        className += ' hover';
+    }
+
+    return (
+        <div
+            className={className}
+            onPointerEnter={() => setHover(true)}
+            onPointerLeave={() => setHover(false)}
+        >
+            <h1>{person}'s score: {score}</h1>
+            <button onClick={() => setScore(score + 1)}>
+                +1
             </button>
         </div>
     );
