@@ -69,6 +69,7 @@ type TodoState = {
     nextId: number;
 };
 
+// A reducer function is where you will put your state logic. It takes two arguments, the current state and the action object, and it returns the next state:
 function todoReducer(state: TodoState, action: TodoAction): TodoState {
     switch (action.type) {
         case 'added':
@@ -89,11 +90,20 @@ function todoReducer(state: TodoState, action: TodoAction): TodoState {
         case 'cleared':
             return { ...state, todos: [] };
         default:
-            throw new Error('未知 action');
+            throw new Error('未知action');
     }
 }
 
 function TodoWithReducer() {
+    /*
+    The useReducer Hook takes two arguments:
+    * A reducer function
+    * An initial state
+    
+    And it returns:
+    * A stateful value
+    * A dispatch function (to “dispatch” user actions to the reducer)
+    */
     const [state, dispatch] = useReducer(
         todoReducer,
         {
