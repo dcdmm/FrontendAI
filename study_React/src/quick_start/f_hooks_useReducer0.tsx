@@ -4,8 +4,8 @@ import { useState, useReducer } from 'react';
 
 function TodoWithState() {
     const [todos, setTodos] = useState([
-        { id: 1, text: '学习 React', done: false },
-        { id: 2, text: '学习 TypeScript', done: true },
+        { id: 1, text: '学习Rust', done: false },
+        { id: 2, text: '学习TypeScript', done: true },
     ]);
     const [nextId, setNextId] = useState(3);
     const [input, setInput] = useState('');
@@ -108,8 +108,8 @@ function TodoWithReducer() {
         todoReducer,
         {
             todos: [
-                { id: 1, text: '学习 React', done: false },
-                { id: 2, text: '学习 TypeScript', done: true },
+                { id: 1, text: '学习Rust', done: false },
+                { id: 2, text: '学习TypeScript', done: true },
             ],
             nextId: 3,
         }
