@@ -9,6 +9,7 @@ import eventHandler from './quick_start/d_event-handler'
 import useState0 from './quick_start/e_hooks_useState0'
 import useState1 from './quick_start/e_hooks_useState1'
 import useState2 from './quick_start/e_hooks_useState2'
+import useState3 from './quick_start/e_hooks_useState3'
 
 const demos = [
     { path: '/a', name: '基础', component: base },
@@ -20,6 +21,7 @@ const demos = [
     { path: '/e0', name: "Hooks: useState基础", component: useState0 },
     { path: '/e1', name: "Hooks: useState更新对象", component: useState1 },
     { path: '/e2', name: "Hooks: useState更新数组", component: useState2 },
+    { path: '/e3', name: "Hooks: useState组件之间共享状态", component: useState3 },
 ]
 
 function Home() {
