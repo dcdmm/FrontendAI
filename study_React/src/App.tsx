@@ -24,7 +24,7 @@ const demos = [
     { path: '/e1', name: "Hooks: useState更新对象", component: useState1 },
     { path: '/e2', name: "Hooks: useState更新数组", component: useState2 },
     { path: '/e3', name: "Hooks: useState组件之间共享状态", component: useState3 },
-    { path: '/e4', name: "Hooks: useState重置状态", component: useState4 },
+    { path: '/e4', name: "Hooks: useState保存和重置状态", component: useState4 },
 ]
 
 function Home() {
