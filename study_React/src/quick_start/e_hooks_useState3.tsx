@@ -22,7 +22,7 @@ function Panel({
                 (
                     <p>{children}</p>) : (
                     <button onClick={onShow}>
-                        Show
+                        显示
                     </button>
                 )
             }
@@ -35,7 +35,7 @@ export default function MyApp() {
     const [activeIndex, setActiveIndex] = useState(0);
     return (
         <>
-            <h2>中国介绍</h2>
+            <h2>中国介绍(每次只显示一个)</h2>
             {/* 共享父组件状态activeIndex(任何时候都只有一个面板处于展开状态 */}
             <Panel
                 title="人口"
