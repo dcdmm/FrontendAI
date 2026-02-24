@@ -11,7 +11,7 @@ import useState1 from './quick_start/e_hooks_useState1'
 import useState2 from './quick_start/e_hooks_useState2'
 import useState3 from './quick_start/e_hooks_useState3'
 import useState4 from './quick_start/e_hooks_useState4'
-
+import useReducer from './quick_start/f_hooks_useReducer0'
 
 const demos = [
     { path: '/a', name: '基础', component: base },
@@ -25,6 +25,7 @@ const demos = [
     { path: '/e2', name: "Hooks: useState更新数组", component: useState2 },
     { path: '/e3', name: "Hooks: useState组件之间共享状态", component: useState3 },
     { path: '/e4', name: "Hooks: useState保存和重置状态", component: useState4 },
+    { path: '/f0', name: "Hooks: useReducer基础", component: useReducer },
 ]
 
 function Home() {
