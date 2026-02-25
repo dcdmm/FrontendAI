@@ -7,25 +7,44 @@ export default function Counter() {
     return (
         <>
             <h2>示例1: 计数器useState实现</h2>
-            <Counter_state />
+            <Counter_state0 />
             <hr />
-            <h2>示例2: 计数器useRef实现</h2>
+            <h2>示例2: 计数器useState实现</h2>
+            <Counter_state1 />
+            <h2>示例3: 计数器useRef实现</h2>
             <Counter_ref />
         </>
     );
 }
 
-function Counter_state() {
+function Counter_state0() {
     const [count, setCount] = useState(0);
 
     function handleClick() {
         setCount(count + 1); // 重新渲染组件,并且count的值会更新
     }
-
     return (
-        <button onClick={handleClick}>
-            你点击了 {count} 次
-        </button>
+        <>
+            <button onClick={handleClick}>
+                state:你点击了{count}次
+            </button>
+        </>
+    );
+}
+
+function Counter_state1() {
+    const [count, setCount] = useState(0);
+
+    function handleClick() {
+        setCount(count + 1);
+    }
+    return (
+        <>
+            <button onClick={handleClick}>
+                state:你点击了{count}次
+            </button>
+            <Counter_ref />
+        </>
     );
 }
 
@@ -38,7 +57,7 @@ function Counter_ref() {
 
     return (
         <button onClick={handleClick}>
-            你点击了 {countRef.current} 次
+            ref:你点击了{countRef.current}次
         </button>
     );
 }
