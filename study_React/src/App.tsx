@@ -29,7 +29,7 @@ const demos = [
     { path: '/e4', name: "Hooks: useState保存和重置状态", component: useState4 },
     { path: '/f0', name: "Hooks: useReducer vs useState", component: useReducer },
     { path: '/g0', name: 'Hooks: useContext(通过Context深层传递数据)', component: context },
-    { path: '/h0', name: 'Hooks: Context和useReducer结合使用demo0', component: demo0_useReduce_useContext },
+    { path: '/h0', name: 'Hooks: Context和useReducer结合demo0', component: demo0_useReduce_useContext },
 ]
 
 function Home() {

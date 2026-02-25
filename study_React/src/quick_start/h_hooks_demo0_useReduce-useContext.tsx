@@ -9,7 +9,6 @@ interface Task {
     text: string;
     done: boolean;
 }
-
 type TaskAction =
     | { type: 'added'; id: number; text: string }
     | { type: 'changed'; task: Task }
@@ -37,7 +36,7 @@ function tasksReducer(tasks: Task[], action: TaskAction): Task[] {
             return tasks.filter(t => t.id !== action.id);
         }
         default: {
-            throw new Error('Unknown action: ' + (action as TaskAction).type);
+            throw new Error('Unknown action');
         }
     }
 }
@@ -160,9 +159,8 @@ function TaskList() {
     );
 }
 
+// 直接props传递:
 /*
-// 直接props传递
-
 function AddTask({ dispatch }: { dispatch: Dispatch<TaskAction> }) {
     // ...原有逻辑不变
 }
@@ -198,15 +196,15 @@ export default function MyApp() {
 /*
 当组件树层级较深时(如下所示),若仅少数深层组件(如AddTask、TaskList、Task)需要访问共享状态(tasks)或更新函数(dispatch),
 若采用props逐层传递,则中间层组件(Layout / Sidebar / Panel / Section)即使不消费这些数据,也必须承担“接收并继续透传”的职责,
-从而形成典型的 props drilling问题.这会导致组件接口膨胀、职责不清、耦合度上升,并增加类型维护与重构成本.
-对此,可使用React Context将tasks与dispatch上移至Provider统一提供,由实际需要的后代组件通过useContext按需消费,从而避免无意义的层层传参
+从而形成典型的props drilling(属性透传)问题.这会导致组件接口膨胀、职责不清、耦合度上升.
+对此,可通过Context将tasks与dispatch上移至Provider统一提供,由实际需要的后代组件通过useContext按需消费,从而避免无意义的层层传参
 
 MyApp
-    └───Layout
-        └───Sidebar
-            └───Panel
-                └───Section
-                    └───AddTask       ← 需要dispatch 
-                    └───TaskList      ← 需要tasks
-                        └───Task      ← 需要dispatch
+    └───Layout                     ← 不需要,但若用props须透传
+        └───Sidebar                ← 不需要,但若用props须透传
+            └───Panel              ← 不需要,但若用props须透传
+                └───Section        ← 不需要,但若用props须透传
+                    └───AddTask    ← 需要dispatch
+                    └───TaskList   ← 需要tasks
+                        └───Task    ← 需要dispatch
 */
