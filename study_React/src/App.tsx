@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 import base from './quick_start/a_base'
 import props0 from './quick_start/b_props0'
 import props1 from './quick_start/b_props1'
-import context from './quick_start/ba_Context'
+import context from './quick_start/g_useContext0'
 import conditionalRendering from './quick_start/c_conditional-rendering'
 import renderingLists from './quick_start/c_rendering_lists'
 import eventHandler from './quick_start/d_event-handler'
@@ -18,7 +18,6 @@ const demos = [
     { path: '/a', name: '基础', component: base },
     { path: '/b0', name: 'props0', component: props0 },
     { path: '/b1', name: 'props1', component: props1 },
-    { path: '/ba', name: '通过Context深度传递数据', component: context },
     { path: '/c0', name: '条件渲染', component: conditionalRendering },
     { path: '/c1', name: '列表渲染', component: renderingLists },
     { path: '/d', name: '事件处理', component: eventHandler },
@@ -28,6 +27,7 @@ const demos = [
     { path: '/e3', name: "Hooks: useState组件之间共享状态", component: useState3 },
     { path: '/e4', name: "Hooks: useState保存和重置状态", component: useState4 },
     { path: '/f0', name: "Hooks: useReducer vs useState", component: useReducer },
+    { path: '/g0', name: 'Hooks: 通过Context深度传递数据', component: context },
 ]
 
 function Home() {
