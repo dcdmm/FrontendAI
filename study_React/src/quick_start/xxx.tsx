@@ -1,5 +1,11 @@
 import { useState, createContext, useContext, useReducer, type Dispatch, type ReactNode } from 'react';
 
+let nextId = 3;
+
+const TasksContext = createContext<Task[]>([]);
+
+const TasksDispatchContext = createContext<Dispatch<TaskAction>>(() => { });
+
 interface Task {
     id: number;
     text: string;
@@ -10,33 +16,6 @@ type TaskAction =
     | { type: 'added'; id: number; text: string }
     | { type: 'changed'; task: Task }
     | { type: 'deleted'; id: number };
-
-const TasksContext = createContext<Task[]>([]);
-
-const TasksDispatchContext = createContext<Dispatch<TaskAction>>(() => { });
-
-function TasksProvider({ children }: { children: ReactNode }) {
-    const [tasks, dispatch] = useReducer(
-        tasksReducer,
-        initialTasks
-    );
-
-    return (
-        <TasksContext value={tasks}>
-            <TasksDispatchContext value={dispatch}>
-                {children}
-            </TasksDispatchContext>
-        </TasksContext>
-    );
-}
-
-function useTasks() {
-    return useContext(TasksContext);
-}
-
-function useTasksDispatch() {
-    return useContext(TasksDispatchContext);
-}
 
 function tasksReducer(tasks: Task[], action: TaskAction): Task[] {
     switch (action.type) {
@@ -66,14 +45,28 @@ function tasksReducer(tasks: Task[], action: TaskAction): Task[] {
 }
 
 const initialTasks = [
-    { id: 0, text: 'Philosopher’s Path', done: true },
-    { id: 1, text: 'Visit the temple', done: false },
-    { id: 2, text: 'Drink matcha', done: false }
+    { id: 0, text: '早睡早起', done: true },
+    { id: 1, text: '持续学习', done: false },
+    { id: 2, text: '努力工作', done: false }
 ];
+
+function TasksProvider({ children }: { children: ReactNode }) {
+    const [tasks, dispatch] = useReducer(
+        tasksReducer,
+        initialTasks
+    );
+    return (
+        <TasksContext value={tasks}>
+            <TasksDispatchContext value={dispatch}>
+                {children}
+            </TasksDispatchContext>
+        </TasksContext>
+    );
+}
 
 function AddTask() {
     const [text, setText] = useState('');
-    const dispatch = useTasksDispatch();
+    const dispatch = useContext(TasksDispatchContext);
     return (
         <>
             <input
@@ -93,23 +86,9 @@ function AddTask() {
     );
 }
 
-let nextId = 3;
-function TaskList() {
-    const tasks = useTasks();
-    return (
-        <ul>
-            {tasks.map(task => (
-                <li key={task.id}>
-                    <Task task={task} />
-                </li>
-            ))}
-        </ul>
-    );
-}
-
 function Task({ task }: { task: Task }) {
     const [isEditing, setIsEditing] = useState(false);
-    const dispatch = useTasksDispatch();
+    const dispatch = useContext(TasksDispatchContext);
     let taskContent;
     if (isEditing) {
         taskContent = (
@@ -168,10 +147,23 @@ function Task({ task }: { task: Task }) {
     );
 }
 
+function TaskList() {
+    const tasks = useContext(TasksContext);
+    return (
+        <ul>
+            {tasks.map(task => (
+                <li key={task.id}>
+                    <Task task={task} />
+                </li>
+            ))}
+        </ul>
+    );
+}
+
 export default function App() {
     return (
         <TasksProvider>
-            <h1>Day off in Kyoto</h1>
+            <h1>每日计划</h1>
             <AddTask />
             <TaskList />
         </TasksProvider>
