@@ -14,6 +14,7 @@ import useState3 from './quick_start/e_hooks_useState3'
 import useState4 from './quick_start/e_hooks_useState4'
 import useReducer from './quick_start/f_hooks_useReducer0'
 import demo0_useReduce_useContext from './quick_start/h_hooks_demo0_useReduce-useContext'
+import useRef0 from './quick_start/i_hooks_useRef0'
 
 const demos = [
     { path: '/a', name: '基础', component: base },
@@ -30,6 +31,7 @@ const demos = [
     { path: '/f0', name: "Hooks: useReducer vs useState", component: useReducer },
     { path: '/g0', name: 'Hooks: useContext(通过Context深层传递数据)', component: context },
     { path: '/h0', name: 'Hooks: Context和useReducer结合demo0', component: demo0_useReduce_useContext },
+    { path: '/i0', name: 'Hooks: useRef基础', component: useRef0 }
 ]
 
 function Home() {

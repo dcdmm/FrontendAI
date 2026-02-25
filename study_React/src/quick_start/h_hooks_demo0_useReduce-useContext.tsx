@@ -200,11 +200,11 @@ export default function MyApp() {
 对此,可通过Context将tasks与dispatch上移至Provider统一提供,由实际需要的后代组件通过useContext按需消费,从而避免无意义的层层传参
 
 MyApp
-    └───Layout                     ← 不需要,但若用props须透传
-        └───Sidebar                ← 不需要,但若用props须透传
-            └───Panel              ← 不需要,但若用props须透传
-                └───Section        ← 不需要,但若用props须透传
+    └───Layout                     
+        └───Sidebar                
+            └───Panel              
+                └───Section        
                     └───AddTask    ← 需要dispatch
                     └───TaskList   ← 需要tasks
-                        └───Task    ← 需要dispatch
+                        └───Task   ← 需要dispatch
 */
