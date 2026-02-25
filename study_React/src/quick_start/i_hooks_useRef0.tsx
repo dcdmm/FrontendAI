@@ -4,8 +4,13 @@ import { useRef, useState } from 'react';
 // Unlike state, setting the ref’s current value does not trigger a re-render.
 
 export default function Counter() {
+    const [, forceRender] = useState(0);
+
     return (
         <>
+            <button onClick={() => forceRender(n => n + 1)}>
+                强制重新渲染整个页面
+            </button>
             <h2>示例1: 计数器useState实现</h2>
             <Counter_state0 />
             <hr />
