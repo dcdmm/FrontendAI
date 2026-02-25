@@ -13,7 +13,7 @@ import useState2 from './quick_start/e_hooks_useState2'
 import useState3 from './quick_start/e_hooks_useState3'
 import useState4 from './quick_start/e_hooks_useState4'
 import useReducer from './quick_start/f_hooks_useReducer0'
-import zzz from './quick_start/xxx'
+import demo0_useReduce_useContext from './quick_start/h_hooks_demo0_useReduce-useContext'
 
 const demos = [
     { path: '/a', name: '基础', component: base },
@@ -28,8 +28,8 @@ const demos = [
     { path: '/e3', name: "Hooks: useState组件之间共享状态", component: useState3 },
     { path: '/e4', name: "Hooks: useState保存和重置状态", component: useState4 },
     { path: '/f0', name: "Hooks: useReducer vs useState", component: useReducer },
-    { path: '/g0', name: 'Hooks: 通过Context深度传递数据', component: context },
-    { path: '/g1', name: 'Hooks: xxxx', component: zzz },
+    { path: '/g0', name: 'Hooks: useContext(通过Context深层传递数据)', component: context },
+    { path: '/h0', name: 'Hooks: Context和useReducer结合使用demo0', component: demo0_useReduce_useContext },
 ]
 
 function Home() {

@@ -2,6 +2,7 @@ let numbers: number[] = [1, 2, 3, 4, 5]; // 数组
 let flags: boolean[] = [true, false, true];
 
 let fruits: string[] = ["苹果", "香蕉", "橙子"];
+console.log("数组长度: ", fruits.length)
 console.log(fruits[0]); // 索引
 fruits[0] = "葡萄"; // 修改元素
 console.log(fruits[0]);
@@ -27,5 +28,5 @@ let testArr: number[] = [1, 2, 3, 4, 5];
 console.log("includes(3):", testArr.includes(3)); // 判断数组是否包含某元素
 console.log("includes(10):", testArr.includes(10));
 // The indexOf() method of Array instances returns the first index at which a given element can be found in the array, or -1 if it is not present.
-console.log("indexOf(3):", testArr.indexOf(3)); //
+console.log("indexOf(3):", testArr.indexOf(3));
 console.log("indexOf(10):", testArr.indexOf(10));
