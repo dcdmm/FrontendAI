@@ -10,7 +10,7 @@ export default function MyApp() {
         <>
             {/* 重新渲染MyApp,(默认)子组件也重新渲染 */}
             <button onClick={() => forceRender(n => n + 1)}>
-                强制重新渲染
+                重新渲染所有
             </button>
             <h2>示例1: 计数器useState实现</h2>
             <Counter_state0 />
