@@ -49,27 +49,28 @@ export default function MyApp() {
     return (
         <>
             <nav>
-                <button onClick={() => scrollToCat(catList[0])}>Neo</button>
-                <button onClick={() => scrollToCat(catList[5])}>Millie</button>
-                <button onClick={() => scrollToCat(catList[8])}>Bella</button>
+                <button onClick={() => scrollToCat(catList[0])}>狸花猫</button>
+                <button onClick={() => scrollToCat(catList[5])}>橘猫</button>
+                <button onClick={() => scrollToCat(catList[8])}>小猫</button>
             </nav>
             <div>
-                <ul>
-                    {catList.map((cat) => (
-                        <li
-                            key={cat.id}
-                            ref={(node) => {
+                <ul>{catList.map((cat) => (
+                    <li
+                        key={cat.id}
+                        ref={
+                            (node) => {
                                 const map = getMap();
                                 if (node) {
                                     map.set(cat, node);
                                 } else {
                                     map.delete(cat);
                                 }
-                            }}
-                        >
-                            <img src={cat.imageUrl} alt={`Cat ${cat.id}`} />
-                        </li>
-                    ))}
+                            }
+                        }
+                    >
+                        <img src={cat.imageUrl} alt={`Cat ${cat.id}`} />
+                    </li>
+                ))}
                 </ul>
             </div>
         </>
