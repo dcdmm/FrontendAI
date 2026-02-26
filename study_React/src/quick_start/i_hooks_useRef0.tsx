@@ -3,19 +3,21 @@ import { useRef, useState } from 'react';
 // Like state, refs let you retain information between re-renders of a component.
 // Unlike state, setting the ref’s current value does not trigger a re-render.
 
-export default function Counter() {
+export default function MyApp() {
     const [, forceRender] = useState(0);
 
     return (
         <>
+            {/* 重新渲染MyApp,(默认)子组件也重新渲染 */}
             <button onClick={() => forceRender(n => n + 1)}>
-                强制重新渲染整个页面
+                强制重新渲染
             </button>
             <h2>示例1: 计数器useState实现</h2>
             <Counter_state0 />
             <hr />
-            <h2>示例2: 计数器useState实现</h2>
+            <h2>示例2: useState + 内嵌useRef子组件</h2>
             <Counter_state1 />
+            <hr />
             <h2>示例3: 计数器useRef实现</h2>
             <Counter_ref />
         </>
@@ -26,7 +28,7 @@ function Counter_state0() {
     const [count, setCount] = useState(0);
 
     function handleClick() {
-        setCount(count + 1); // 重新渲染组件,并且count的值会更新
+        setCount(count + 1); // 更新count的值,触发组件Counter_state0重新渲染
     }
     return (
         <>
@@ -41,7 +43,7 @@ function Counter_state1() {
     const [count, setCount] = useState(0);
 
     function handleClick() {
-        setCount(count + 1);
+        setCount(count + 1); // 更新count的值,触发组件Counter_state1重新渲染,(默认)子组件Counter_ref也重新渲染
     }
     return (
         <>
@@ -57,7 +59,7 @@ function Counter_ref() {
     let countRef = useRef(0);
 
     function handleClick() {
-        countRef.current = countRef.current + 1; // 不会重新渲染组件,但countRef.current的值会更新
+        countRef.current = countRef.current + 1; // 更新countRef.current的值,但不会重新渲染组件Counter_ref(其他原因导致渲染时显示最新的countRef.current值)
     }
 
     return (
