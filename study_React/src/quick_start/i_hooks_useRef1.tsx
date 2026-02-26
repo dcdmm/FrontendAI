@@ -27,16 +27,26 @@ function setupCatList() {
 
 export default function MyApp() {
     const itemsRef = useRef<Map<Cat, HTMLLIElement> | null>(null);
-    const [catList] = useState(setupCatList);
+    const [catList, setCatList] = useState(setupCatList);
 
-    function scrollToCat(cat: Cat) {
+    function scrollToCat(cat: Cat | undefined) {
+        if (!cat) {
+            console.log("【滚动】这只猫已经不存在了");
+            return;
+        }
         const map = getMap();
         const node = map.get(cat);
+        console.log("【滚动】猫" + cat.id, "对应DOM:", node, "Map大小:", map.size);
         node?.scrollIntoView({
             behavior: "smooth",
             block: "nearest",
             inline: "center",
         });
+    }
+
+    function removeCat(cat: Cat) {
+        console.log("【删除】删除猫" + cat.id, "删除前Map大小:", getMap().size);
+        setCatList(catList.filter(c => c.id !== cat.id));
     }
 
     function getMap() {
@@ -62,13 +72,16 @@ export default function MyApp() {
                                 const map = getMap();
                                 if (node) {
                                     map.set(cat, node);
+                                    console.log("【ref】猫" + cat.id + " 挂载, Map大小:", map.size);
                                 } else {
                                     map.delete(cat);
+                                    console.log("【ref】猫" + cat.id + " 卸载, Map大小:", map.size);
                                 }
                             }
                         }
                     >
                         <img src={cat.imageUrl} alt={`Cat ${cat.id}`} />
+                        <button onClick={() => removeCat(cat)}>删除猫{cat.id}</button>
                     </li>
                 ))}
                 </ul>
