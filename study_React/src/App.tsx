@@ -33,7 +33,7 @@ const demos = [
     { path: '/g0', name: 'Hooks: useContext(通过Context深层传递数据)', component: context },
     { path: '/h0', name: 'Hooks: Context和useReducer结合demo0', component: demo0_useReduce_useContext },
     { path: '/i0', name: 'Hooks: useRef基础', component: useRef0 },
-    { path: '/i1', name: 'Hooks: useRef进阶', component: useRef1 }
+    { path: '/i1', name: 'Hooks: useRef操作DOM', component: useRef1 }
 ]
 
 function Home() {
