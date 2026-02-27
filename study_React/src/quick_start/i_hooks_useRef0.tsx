@@ -3,27 +3,6 @@ import { useRef, useState } from 'react';
 // Like state, refs let you retain information between re-renders of a component.
 // Unlike state, setting the ref’s current value does not trigger a re-render.
 
-export default function MyApp() {
-    const [, forceRender] = useState(0);
-
-    return (
-        <>
-            {/* 重新渲染MyApp,(默认)子组件也重新渲染 */}
-            <button onClick={() => forceRender(n => n + 1)}>
-                重新渲染所有
-            </button>
-            <h2>示例1: 计数器useState实现</h2>
-            <Counter_state0 />
-            <hr />
-            <h2>示例2: useState + 内嵌useRef子组件</h2>
-            <Counter_state1 />
-            <hr />
-            <h2>示例3: 计数器useRef实现</h2>
-            <Counter_ref />
-        </>
-    );
-}
-
 function Counter_state0() {
     const [count, setCount] = useState(0);
 
@@ -66,5 +45,26 @@ function Counter_ref() {
         <button onClick={handleClick}>
             ref:你点击了{countRef.current}次
         </button>
+    );
+}
+
+export default function MyApp() {
+    const [, forceRender] = useState(0);
+
+    return (
+        <>
+            {/* 重新渲染MyApp,(默认)子组件也重新渲染 */}
+            <button onClick={() => forceRender(n => n + 1)}>
+                重新渲染所有
+            </button>
+            <h2>示例1: 计数器useState实现</h2>
+            <Counter_state0 />
+            <hr />
+            <h2>示例2: useState + 内嵌useRef子组件</h2>
+            <Counter_state1 />
+            <hr />
+            <h2>示例3: 计数器useRef实现</h2>
+            <Counter_ref />
+        </>
     );
 }
