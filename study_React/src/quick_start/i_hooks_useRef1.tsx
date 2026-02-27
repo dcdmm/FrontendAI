@@ -5,14 +5,19 @@ function Form0() {
     const inputRef = useRef<HTMLInputElement>(null);
 
     function handleClick() {
-        inputRef.current?.focus();
+        const input = inputRef.current;
+        console.log("input:", input);
+        if (input) {
+            input.focus();
+        }
     }
 
     return (
         <>
+            {/* Pass it as <input ref={inputRef}>. This tells React to put this <input>’s DOM node into inputRef.current. */}
             <input ref={inputRef} />
             <button onClick={handleClick}>
-                Focus the input
+                点击我
             </button>
         </>
     );
@@ -27,14 +32,17 @@ function Form1() {
     const inputRef = useRef<HTMLInputElement>(null);
 
     function handleClick() {
-        inputRef.current?.focus();
+        const input = inputRef.current;
+        if (input) {
+            input.focus();
+        }
     }
 
     return (
         <>
             <MyInput ref={inputRef} />
             <button onClick={handleClick}>
-                Focus the input
+                点击我
             </button>
         </>
     );
@@ -43,9 +51,9 @@ function Form1() {
 export default function MyApp() {
     return (
         <>
-            <h2></h2>
+            <h2>useRef对象直接操作DOM</h2>
             <Form0 />
-            <h2></h2>
+            <h2>useRef对象操作子组件DOM</h2>
             <Form1 />
         </>
     );

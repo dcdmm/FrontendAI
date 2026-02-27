@@ -38,7 +38,7 @@ function Counter_ref() {
     let countRef = useRef(0);
 
     function handleClick() {
-        countRef.current = countRef.current + 1; // 更新countRef.current的值,但不会重新渲染组件Counter_ref(其他原因导致渲染时显示最新的countRef.current值)
+        countRef.current = countRef.current + 1; // 更新countRef.current的值,但不会重新渲染组件Counter_ref(其他原因导致渲染时将显示最新的countRef.current值)
     }
 
     return (
