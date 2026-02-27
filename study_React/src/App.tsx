@@ -17,6 +17,7 @@ import demo0_useReduce_useContext from './quick_start/h_hooks_demo0_useReduce-us
 import useRef0 from './quick_start/i_hooks_useRef0'
 import useRef1 from './quick_start/i_hooks_useRef1'
 import useRef2 from './quick_start/i_hooks_useRef2'
+import useEffect0 from './quick_start/j_hooks_useEffect0'
 
 const demos = [
     { path: '/a', name: '基础', component: base },
@@ -35,7 +36,8 @@ const demos = [
     { path: '/h0', name: 'Hooks: Context和useReducer结合demo0', component: demo0_useReduce_useContext },
     { path: '/i0', name: 'Hooks: useRef基础', component: useRef0 },
     { path: '/i1', name: 'Hooks: useRef操作DOM0', component: useRef1 },
-    { path: '/i2', name: 'Hooks: useRef操作DOM1', component: useRef2 }
+    { path: '/i2', name: 'Hooks: useRef操作DOM1', component: useRef2 },
+    { path: '/j0', name: 'Hooks: useEffect基础', component: useEffect0 },
 ]
 
 function Home() {

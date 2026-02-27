@@ -57,7 +57,7 @@ export default function MyApp() {
 
     function removeCat(cat: Cat) {
         console.log("*********************************删除猫" + cat.id + "*********************************");
-        // 触发重新渲染,导致ref回调函数(每次渲染都是新函数)被调用,先执行前一个回调函数返回的清理函数,然后以DOM节点为参数调用新的回调函数 
+        // 触发重新渲染,导致ref(内联)回调函数(每次渲染都是新函数)被调用,先执行前一个回调函数返回的清理函数,然后以DOM节点为参数调用新的回调函数 
         setCatList(catList.filter(c => c.id !== cat.id));
     }
     function getMap() {
@@ -78,7 +78,7 @@ export default function MyApp() {
                 <ul>{catList.map((cat) => (
                     <li
                         key={cat.id}
-                        // ref等于回调函数
+                        // ref等于(内联)回调函数
                         ref={
                             (node) => {
                                 if (!node) return;
