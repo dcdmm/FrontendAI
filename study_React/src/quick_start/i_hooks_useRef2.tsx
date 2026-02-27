@@ -1,5 +1,17 @@
 import { useRef, useState } from "react";
 
+/*
+<div ref={(node) => {
+    console.log('Attached', node);
+
+    return () => {
+        console.log('Clean up', node)
+    }
+}}>
+
+When the <div> DOM node is added to the screen, React will call your ref callback with the DOM node as the argument. When that <div> DOM node is removed, React will call your the cleanup function returned from the callback.
+*/
+
 interface Cat {
     id: number;
     imageUrl: string;
@@ -31,12 +43,11 @@ export default function MyApp() {
 
     function scrollToCat(cat: Cat | undefined) {
         if (!cat) {
-            console.log("【滚动】这只猫已经不存在了");
             return;
         }
         const map = getMap();
         const node = map.get(cat);
-        console.log("【滚动】猫" + cat.id, "对应DOM:", node, "Map大小:", map.size);
+        console.log("滚动到猫" + cat.id, ",对应DOM:", node);
         node?.scrollIntoView({
             behavior: "smooth",
             block: "nearest",
@@ -46,9 +57,9 @@ export default function MyApp() {
 
     function removeCat(cat: Cat) {
         console.log("*********************************删除猫" + cat.id + "*********************************");
+        // 触发重新渲染,导致ref回调函数(每次渲染都是新函数)被调用,先执行前一个回调函数返回的清理函数,然后以DOM节点为参数调用新的回调函数 
         setCatList(catList.filter(c => c.id !== cat.id));
     }
-
     function getMap() {
         if (!itemsRef.current) {
             itemsRef.current = new Map();
@@ -67,21 +78,23 @@ export default function MyApp() {
                 <ul>{catList.map((cat) => (
                     <li
                         key={cat.id}
+                        // ref等于回调函数
                         ref={
                             (node) => {
+                                if (!node) return;
                                 const map = getMap();
-                                if (node) {
-                                    map.set(cat, node);
-                                    console.log("添加node: ", node);
-                                    console.log("添加cat: ", cat)
-                                    console.log("map.set(cat, node) 执行了,Map大小:", map.size);
-                                    console.log("######################################################") 
-                                } else {
+                                map.set(cat, node);
+                                console.log("添加node: ", node);
+                                console.log("添加cat: ", cat);
+                                console.log("map.set(cat, node) 执行了,Map大小:", map.size);
+                                console.log("######################################################");
+                                // 返回清理函数
+                                return () => {
                                     map.delete(cat);
                                     console.log("删除cat: ", cat);
                                     console.log("map.delete(cat) 执行了,Map大小:", map.size);
-                                    console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-                                }
+                                    console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                                };
                             }
                         }
                     >
