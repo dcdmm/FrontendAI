@@ -45,7 +45,7 @@ export default function MyApp() {
     }
 
     function removeCat(cat: Cat) {
-        console.log("【删除】删除猫" + cat.id, "删除前Map大小:", getMap().size);
+        console.log("*********************************删除猫" + cat.id + "*********************************");
         setCatList(catList.filter(c => c.id !== cat.id));
     }
 
@@ -72,10 +72,15 @@ export default function MyApp() {
                                 const map = getMap();
                                 if (node) {
                                     map.set(cat, node);
-                                    console.log("【ref】猫" + cat.id + " 挂载, Map大小:", map.size);
+                                    console.log("添加node: ", node);
+                                    console.log("添加cat: ", cat)
+                                    console.log("map.set(cat, node) 执行了,Map大小:", map.size);
+                                    console.log("######################################################") 
                                 } else {
                                     map.delete(cat);
-                                    console.log("【ref】猫" + cat.id + " 卸载, Map大小:", map.size);
+                                    console.log("删除cat: ", cat);
+                                    console.log("map.delete(cat) 执行了,Map大小:", map.size);
+                                    console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
                                 }
                             }
                         }

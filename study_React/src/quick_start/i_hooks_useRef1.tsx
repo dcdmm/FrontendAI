@@ -20,7 +20,7 @@ function Form0() {
             {/* Pass it as <input ref={inputRef}>. This tells React to put this <input>’s DOM node into inputRef.current. */}
             <input ref={inputRef} defaultValue={"dmm"} />
             <button onClick={handleClick}>
-                选中文本
+                获得焦点并选中文本
             </button>
         </>
     );
@@ -46,7 +46,7 @@ function Form1() {
         <>
             <MyInput ref={inputRef} />
             <button onClick={handleClick}>
-                选中文本
+                获得焦点并选中文本
             </button>
         </>
     );
