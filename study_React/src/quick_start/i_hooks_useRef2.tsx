@@ -87,7 +87,7 @@ export default function MyApp() {
                                 console.log("添加node: ", node);
                                 console.log("添加cat: ", cat);
                                 console.log("map.set(cat, node) 执行了,Map大小:", map.size);
-                                console.log("######################################################");
+                                console.log("#######################################################");
                                 // 返回清理函数
                                 return () => {
                                     map.delete(cat);

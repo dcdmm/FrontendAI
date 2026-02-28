@@ -1,11 +1,12 @@
 import { useEffect } from 'react';
 
-
 export default function ChatRoom() {
     useEffect(() => {
         const connection = createConnection();
         connection.connect();
-        return () => connection.disconnect();
+
+        // React will call your cleanup function each time before the Effect runs again, and one final time when the component unmounts (gets removed).
+        return () => connection.disconnect(); // 返回清理函数
     }, []);
     return <h1>Welcome to the chat!</h1>;
 }

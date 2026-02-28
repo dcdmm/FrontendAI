@@ -19,6 +19,7 @@ import useRef1 from './quick_start/i_hooks_useRef1'
 import useRef2 from './quick_start/i_hooks_useRef2'
 import useEffect0 from './quick_start/j_hooks_useEffect0'
 import useEffect1 from './quick_start/j_hooks_useEffect1'
+import useEffect2 from './quick_start/j_hooks_useEffect2'
 
 const demos = [
     { path: '/a', name: '基础', component: base },
@@ -39,7 +40,8 @@ const demos = [
     { path: '/i1', name: 'Hooks: useRef操作DOM0', component: useRef1 },
     { path: '/i2', name: 'Hooks: useRef操作DOM1', component: useRef2 },
     { path: '/j0', name: 'Hooks: useEffect基础', component: useEffect0 },
-    { path: '/j1', name: 'Hooks: useEffect', component: useEffect1 },
+    { path: '/j1', name: 'Hooks: useEffect清理函数', component: useEffect1 },
+    { path: '/j2', name: 'Hooks: useEffect', component: useEffect2 },
 ]
 
 function Home() {
