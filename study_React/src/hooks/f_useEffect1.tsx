@@ -35,15 +35,14 @@ function Playground() {
 /*
 执行流程:
 
-
-* 初始渲染: text='a'
+* 点击"安装组件"按钮,触发初始渲染: text='a'
 $ 打印: 🔵 Schedule "a" log
 
 # 等待3秒......
 $ 打印: ⏰ a
 
 * 用户输入'ab',触发重新渲染: text='ab'
-===>上一轮("a")定时器已触发,clearTimeout无实际效果
+===>执行上一轮清理函数.("a")定时器已触发,clearTimeout无实际效果
 $ 打印: 🟡 Cancel "a" log
 $ 打印: 🔵 Schedule "ab" log
 
@@ -51,21 +50,27 @@ $ 打印: 🔵 Schedule "ab" log
 $ 打印: ⏰ ab
 
 * 用户输入'abc',触发重新渲染: text='abc'
-===>上一轮("ab")定时器已触发,clearTimeout无实际效果
+===>执行上一轮清理函数.("ab")定时器已触发,clearTimeout无实际效果
 $ 打印: 🟡 Cancel "ab" log          
 $ 打印: 🔵 Schedule "abc" log
 
 * 用户输入'abcd',触发重新渲染: text='abcd'
-===>上一轮("abc")定时器未触发,clearTimeout取消该定时器(即不打印"⏰ abc")
+===>执行上一轮清理函数.("abc")定时器未触发,clearTimeout取消该定时器(即不打印"⏰ abc")
 $ 打印: 🟡 Cancel "abc" log  
 $ 打印: 🔵 Schedule "abcd" log
+
+* 点击"卸载组件"按钮,
+===>移除组件,执行最后一次清理函数,状态重置
+$ 打印: 🟡 Cancel "abcd" log
+
+......
 */
 export default function MyApp() {
     const [show, setShow] = useState(false);
     return (
         <>
             <button onClick={() => setShow(!show)}>
-                {show ? '卸载' : '安装'} 组件
+                {show ? '卸载' : '安装'}组件
             </button>
             {show && <hr />}
             {show && <Playground />}
