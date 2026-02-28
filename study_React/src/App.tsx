@@ -44,7 +44,7 @@ const demos = [
     { path: '/i2', name: 'Hooks: useRef操作DOM1', component: useRef2 },
     { path: '/j0', name: 'Hooks: useEffect基础', component: useEffect0 },
     { path: '/j1', name: 'Hooks: useEffect清理函数', component: useEffect1 },
-    { path: '/j2', name: 'Hooks: useEffect', component: useEffect2 },
+    { path: '/j2', name: 'Hooks: useEffect不被滥用', component: useEffect2 },
     { path: '/j3', name: 'Hooks: useEffect', component: useEffect3 }
 ]
 
