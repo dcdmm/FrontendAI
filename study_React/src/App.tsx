@@ -7,6 +7,7 @@ import context from './hooks/c_useContext0'
 import conditionalRendering from './base/c_conditional-rendering'
 import renderingLists from './base/c_rendering_lists'
 import eventHandler from './base/d_event-handler'
+
 import useState0 from './hooks/a_useState0'
 import useState1 from './hooks/a_useState1'
 import useState2 from './hooks/a_useState2'
@@ -20,6 +21,8 @@ import useRef2 from './hooks/e_useRef2'
 import useEffect0 from './hooks/f_useEffect0'
 import useEffect1 from './hooks/f_useEffect1'
 import useEffect2 from './hooks/f_useEffect2'
+import useEffect3 from './hooks/f_useEffect3'
+
 
 const demos = [
     { path: '/a', name: '基础', component: base },
@@ -42,6 +45,7 @@ const demos = [
     { path: '/j0', name: 'Hooks: useEffect基础', component: useEffect0 },
     { path: '/j1', name: 'Hooks: useEffect清理函数', component: useEffect1 },
     { path: '/j2', name: 'Hooks: useEffect', component: useEffect2 },
+    { path: '/j3', name: 'Hooks: useEffect', component: useEffect3 }
 ]
 
 function Home() {

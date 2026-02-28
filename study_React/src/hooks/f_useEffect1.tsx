@@ -1,24 +1,74 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
-export default function ChatRoom() {
+function Playground() {
+    const [text, setText] = useState('a');
+
     useEffect(() => {
-        const connection = createConnection();
-        connection.connect();
+        function onTimeout() {
+            console.log('⏰ ' + text);
+        }
+
+        console.log('🔵 Schedule "' + text + '" log');
+        const timeoutId = setTimeout(onTimeout, 3000); // 定时器(3秒后执行onTimeout函数)
 
         // React will call your cleanup function each time before the Effect runs again, and one final time when the component unmounts (gets removed).
-        return () => connection.disconnect(); // 返回清理函数
-    }, []);
-    return <h1>Welcome to the chat!</h1>;
+        return () => {
+            console.log('🟡 Cancel "' + text + '" log');
+            clearTimeout(timeoutId); // 取消定时器
+        }; // 添加清理函数
+    }, [text]);
+
+    return (
+        <>
+            <label>
+                What to log:{' '}
+                <input
+                    value={text}
+                    onChange={e => setText(e.target.value)}
+                />
+            </label>
+            <h1>{text}</h1>
+        </>
+    );
 }
 
+/*
+执行流程:
 
-export function createConnection() {
-    return {
-        connect() {
-            console.log('✅ Connecting...');
-        },
-        disconnect() {
-            console.log('❌ Disconnected.');
-        }
-    };
+
+* 初始渲染: text='a'
+$ 打印: 🔵 Schedule "a" log
+
+# 等待3秒......
+$ 打印: ⏰ a
+
+* 用户输入'ab',触发重新渲染: text='ab'
+===>上一轮("a")定时器已触发,clearTimeout无实际效果
+$ 打印: 🟡 Cancel "a" log
+$ 打印: 🔵 Schedule "ab" log
+
+# 等待3秒......
+$ 打印: ⏰ ab
+
+* 用户输入'abc',触发重新渲染: text='abc'
+===>上一轮("ab")定时器已触发,clearTimeout无实际效果
+$ 打印: 🟡 Cancel "ab" log          
+$ 打印: 🔵 Schedule "abc" log
+
+* 用户输入'abcd',触发重新渲染: text='abcd'
+===>上一轮("abc")定时器未触发,clearTimeout取消该定时器(即不打印"⏰ abc")
+$ 打印: 🟡 Cancel "abc" log  
+$ 打印: 🔵 Schedule "abcd" log
+*/
+export default function MyApp() {
+    const [show, setShow] = useState(false);
+    return (
+        <>
+            <button onClick={() => setShow(!show)}>
+                {show ? '卸载' : '安装'} 组件
+            </button>
+            {show && <hr />}
+            {show && <Playground />}
+        </>
+    );
 }

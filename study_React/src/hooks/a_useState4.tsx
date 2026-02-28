@@ -33,9 +33,7 @@ function CounterApp0() {
                 <input
                     type="checkbox"
                     checked={showB}
-                    onChange={e => {
-                        setShowB(e.target.checked)
-                    }}
+                    onChange={e => {setShowB(e.target.checked)}}
                 />
                 渲染第二个计数器
             </label>
