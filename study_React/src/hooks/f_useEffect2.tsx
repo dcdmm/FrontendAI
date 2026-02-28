@@ -27,6 +27,7 @@ function Form() {
     // ...
 }\
 `,
+        goodDesc: 'When something can be calculated from the existing props or state, don’t put it in state. Instead, calculate it during rendering. This makes your code faster (you avoid the extra “cascading” updates), simpler (you remove some code), and less error-prone (you avoid bugs caused by different state variables getting out of sync with each other).',
     },
     {
         title: 'Adjusting some state when a prop changes ',
@@ -57,6 +58,7 @@ function List({ items }) {
     // ...
 }\
 `,
+        goodDesc: '',
     },
 ];
 
@@ -119,7 +121,7 @@ export default function MyApp() {
                     width: navWidth, flexShrink: 0,
                     paddingRight: 12,
                 }}>
-                    <h4 style={{ fontWeight: 600, marginBottom: 12, color: '#555' }}>Navigation</h4>
+                    <h4 style={{ fontWeight: 600, marginBottom: 12, color: '#555' }}>导航菜单</h4>
                     {comparisons.map((item, i) => (
                         <a key={i} href={`#section-${i}`} style={{
                             display: 'block', padding: '6px 0',
@@ -147,7 +149,7 @@ export default function MyApp() {
             <div style={{ flex: 1, minWidth: 0, paddingLeft: navVisible ? 24 : 0 }}>
                 <h2 style={{ fontWeight: 600, marginBottom: 8 }}>You Might Not Need an Effect</h2>
                 <p style={{ color: '#555', lineHeight: 1.8, marginBottom: 20 }}>
-                    Effects are an <b>escape hatch</b> from the React paradigm.
+                    Effects are an escape hatch from the React paradigm.
                     They let you step outside of React and synchronize your components
                     with some external system. If there is no external system involved,
                     you shouldn't need an Effect.
@@ -177,6 +179,11 @@ export default function MyApp() {
                             customStyle={{ borderRadius: 8, fontSize: 13, margin: 0 }}>
                             {item.good}
                         </SyntaxHighlighter>
+                        {item.goodDesc && (
+                            <p style={{ color: '#27ae60', fontSize: 14, margin: '6px 0 0', lineHeight: 1.5 }}>
+                                {item.goodDesc}
+                            </p>
+                        )}
                     </div>
                 ))}
             </div>
