@@ -11,6 +11,20 @@ function MyComponent() {
 Every time your component renders, React will update the screen and then run the code inside useEffect. In other words, useEffect “delays” a piece of code from running until that render is reflected on the screen.
 */
 
+/*
+useEffect(() => {
+  // This runs after every render
+});
+
+useEffect(() => {
+  // This runs only on mount (when the component appears)
+}, []);
+
+useEffect(() => {
+  // This runs on mount *and also* if either a or b have changed since the last render
+}, [a, b]);
+*/
+
 function VideoPlayer0({ src, isPlaying }: { src: string; isPlaying: boolean }) {
     const ref = useRef<HTMLVideoElement>(null);
 
@@ -25,7 +39,7 @@ function VideoPlayer0({ src, isPlaying }: { src: string; isPlaying: boolean }) {
                 ref.current.pause();
             }
         }
-    });
+    });  // By default, Effects run after every render
     return <video ref={ref} src={src} loop playsInline width={300} />;
 }
 
@@ -43,7 +57,7 @@ function VideoPlayer1({ src, isPlaying }: { src: string; isPlaying: boolean }) {
                 ref.current.pause();
             }
         }
-    }, [isPlaying]); 
+    }, [isPlaying]); // Specify the Effect dependencies 
     return <video ref={ref} src={src} loop playsInline width={300} />;
 }
 
