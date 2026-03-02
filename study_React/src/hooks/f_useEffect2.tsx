@@ -5,6 +5,7 @@ import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 const comparisons = [
     {
         title: 'Updating state based on props or state',
+        desc: '',
         badDesc: 'This is more complicated than necessary. It is inefficient too: it does an entire render pass with a stale value for fullName, then immediately re-renders with the updated value.',
         bad: `\
 function Form() {
@@ -31,6 +32,7 @@ function Form() {
     },
     {
         title: 'Adjusting some state when a prop changes ',
+        desc: '',
         badDesc: 'This, too, is not ideal. Every time the items change, the List and its child components will render with a stale selection value at first. Then React will update the DOM and run the Effects. Finally, the setSelection(null) call will cause another re-render of the List and its child components, restarting this whole process again.',
         bad: `\
 function List({ items }) {
@@ -60,6 +62,62 @@ function List({ items }) {
 `,
         goodDesc: '',
     },
+    {
+        title: 'Notifying parent components about state changes ',
+        desc: 'Let’s say you’re writing a Toggle component with an internal isOn state which can be either true or false. There are a few different ways to toggle it (by clicking or dragging). You want to notify the parent component whenever the Toggle internal state changes, so you expose an onChange event and call it from an Effect:',
+        badDesc: '',
+        bad: `\
+function Toggle({ onChange }) {
+    const [isOn, setIsOn] = useState(false);
+
+    // 🔴 Avoid: The onChange handler runs too late
+    useEffect(() => {
+        onChange(isOn);
+    }, [isOn, onChange])
+
+    function handleClick() {
+        setIsOn(!isOn);
+    }
+
+    function handleDragEnd(e) {
+        if (isCloserToRightEdge(e)) {
+            setIsOn(true);
+        } else {
+            setIsOn(false);
+        }
+    }
+
+    // ...
+}
+}\
+`,
+        good: `\
+function Toggle({ onChange }) {
+    const [isOn, setIsOn] = useState(false);
+
+    function updateToggle(nextIsOn) {
+        // ✅ Good: Perform all updates during the event that caused them
+        setIsOn(nextIsOn);
+        onChange(nextIsOn);
+    }
+
+    function handleClick() {
+        updateToggle(!isOn);
+    }
+
+    function handleDragEnd(e) {
+        if (isCloserToRightEdge(e)) {
+            updateToggle(true);
+        } else {
+            updateToggle(false);
+        }
+    }
+
+    // ...
+}\
+`,
+        goodDesc: ''
+    }
 ];
 
 
@@ -161,7 +219,12 @@ export default function MyApp() {
 
                 {comparisons.map((item, i) => (
                     <div key={i} id={`section-${i}`} style={{ marginBottom: 48 }}>
-                        <h3 style={{ fontWeight: 500, marginBottom: 12 }}>{item.title}</h3>
+                        <h3 style={{ fontWeight: 500, marginBottom: 8 }}>{item.title}</h3>
+                        {item.desc && (
+                            <p style={{ color: '#666', fontSize: 14, lineHeight: 1.7, marginBottom: 14 }}>
+                                {item.desc}
+                            </p>
+                        )}
 
                         <h4 style={{ color: '#c0392b', fontWeight: 500, margin: '0 0 4px' }}>Bad</h4>
                         <SyntaxHighlighter language="tsx" style={vscDarkPlus}
