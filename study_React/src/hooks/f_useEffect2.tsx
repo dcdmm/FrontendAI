@@ -117,6 +117,52 @@ function Toggle({ onChange }) {
 }\
 `,
         goodDesc: 'With this approach, both the Toggle component and its parent component update their state during the event. React batches updates from different components together, so there will only be one render pass.'
+    },
+    {
+        title: 'Fetching data',
+        desc: 'Many apps use Effects to kick off data fetching. It is quite common to write a data fetching Effect like this:',
+        badDesc: 'However, the code above has a bug. Imagine you type "hello" fast. Then the query will change from "h", to "he", "hel", "hell", and "hello". This will kick off separate fetches, but there is no guarantee about which order the responses will arrive in. For example, the "hell" response may arrive after the "hello" response. Since it will call setResults() last, you will be displaying the wrong search results. This is called a “race condition”: two different requests “raced” against each other and came in a different order than you expected. \nTo fix the race condition, you need to add a cleanup function to ignore stale responses:',
+        bad: `\
+function SearchResults({ query }) {
+    const [results, setResults] = useState([]);
+    const [page, setPage] = useState(1);
+
+    useEffect(() => {
+        // 🔴 Avoid: Fetching without cleanup logic
+        fetchResults(query, page).then(json => {
+            setResults(json);
+        });
+    }, [query, page]);
+
+    function handleNextPageClick() {
+        setPage(page + 1);
+    }
+    // ...
+} \    
+`,
+        good: `\
+function SearchResults({ query }) {
+    const [results, setResults] = useState([]);
+    const [page, setPage] = useState(1);
+    useEffect(() => {
+        let ignore = false; // 是否被忽略
+        fetchResults(query, page).then(json => {
+            if (!ignore) {
+                setResults(json); // 只有当ignore为false时才更新结果
+            }
+        });
+        return () => {
+            ignore = true; // 将之前的请求标记为忽略
+        };
+    }, [query, page]);
+
+    function handleNextPageClick() {
+        setPage(page + 1);
+    }
+    // ...
+}\
+`,
+        goodDesc: 'This ensures that when your Effect fetches data, all responses except the last requested one will be ignored.'
     }
 ];
 
