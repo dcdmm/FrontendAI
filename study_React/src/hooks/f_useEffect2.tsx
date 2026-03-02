@@ -64,8 +64,8 @@ function List({ items }) {
     },
     {
         title: 'Notifying parent components about state changes ',
-        desc: 'Let’s say you’re writing a Toggle component with an internal isOn state which can be either true or false. There are a few different ways to toggle it (by clicking or dragging). You want to notify the parent component whenever the Toggle internal state changes, so you expose an onChange event and call it from an Effect:',
-        badDesc: '',
+        desc: 'Let\'s say you\'re writing a Toggle component with an internal isOn state which can be either true or false. There are a few different ways to toggle it (by clicking or dragging). You want to notify the parent component whenever the Toggle internal state changes, so you expose an onChange event and call it from an Effect:',
+        badDesc: `Like earlier, this is not ideal. The Toggle updates its state first, and React updates the screen. Then React runs the Effect, which calls the onChange function passed from a parent component. Now the parent component will update its own state, starting another render pass. It would be better to do everything in a single pass.\nDelete the Effect and instead update the state of both components within the same event handler:`,
         bad: `\
 function Toggle({ onChange }) {
     const [isOn, setIsOn] = useState(false);
@@ -116,7 +116,7 @@ function Toggle({ onChange }) {
     // ...
 }\
 `,
-        goodDesc: ''
+        goodDesc: 'With this approach, both the Toggle component and its parent component update their state during the event. React batches updates from different components together, so there will only be one render pass.'
     }
 ];
 
@@ -232,7 +232,7 @@ export default function MyApp() {
                             {item.bad}
                         </SyntaxHighlighter>
                         {item.badDesc && (
-                            <p style={{ color: '#e74c3c', fontSize: 14, margin: '6px 0 16px', lineHeight: 1.5 }}>
+                            <p style={{ color: '#e74c3c', fontSize: 14, margin: '6px 0 16px', lineHeight: 1.5, whiteSpace: 'pre-line' }}>
                                 {item.badDesc}
                             </p>
                         )}
