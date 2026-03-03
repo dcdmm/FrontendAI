@@ -22,6 +22,7 @@ import useEffect0 from './hooks/f_useEffect0'
 import useEffect1 from './hooks/f_useEffect1'
 import useEffect2 from './hooks/f_useEffect2'
 import useCallback0 from './hooks/g_useCallback0'
+import useCallback1 from './hooks/g_useCallback1'
 
 
 const demos = [
@@ -45,7 +46,8 @@ const demos = [
     { path: '/j0', name: 'Hooks: useEffect基础', component: useEffect0 },
     { path: '/j1', name: 'Hooks: useEffect清理函数', component: useEffect1 },
     { path: '/j2', name: 'Hooks: useEffect不被滥用', component: useEffect2 },
-    { path: '/k0', name: 'Hooks: useCallback基础', component: useCallback0 }
+    { path: '/k0', name: 'Hooks: useCallback基础', component: useCallback0 },
+    { path: '/k1', name: 'Hooks: useCallback进阶', component: useCallback1 }
 ]
 
 function Home() {
