@@ -53,7 +53,7 @@ export default function MyApp() {
 
     return (
         <>
-            {/* 重新渲染MyApp,(默认)子组件也重新渲染 */}
+            {/* 重新渲染MyApp,(默认)递归重新渲染所有子组件 */}
             <button onClick={() => forceRender(n => n + 1)}>
                 重新渲染所有
             </button>

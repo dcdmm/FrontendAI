@@ -1,70 +1,28 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, memo } from 'react';
+
+const Child = memo(function Child({ onClick }: { onClick: () => void }) {
+    console.log('Child 渲染了');
+    return <button onClick={onClick}>点我</button>;
+});
 
 export default function App() {
-    const [userId, setUserId] = useState(1);
-    const [user, setUser] = useState<any>(null);
-    const [inputText, setInputText] = useState('');
+    const [count, setCount] = useState(0);
+    const [text, setText] = useState('');
 
-    const fetchUserBad = async () => {
-        console.log('❌ fetchUserBad 被调用了！userId =', userId);
-        const res = await fetch(`https://jsonplaceholder.typicode.com/users/${userId}`);
-        return res.json();
-    };
+    // ❌ 普通函数：每次 App 渲染都会创建新的引用 → Child 跟着重新渲染
+    const handleClick = () => setCount(c => c + 1);
 
-    const fetchUserGood = useCallback(async () => {
-        console.log('✅ fetchUserGood 被调用了！userId =', userId);
-        const res = await fetch(`https://jsonplaceholder.typicode.com/users/${userId}`);
-        return res.json();
-    }, [userId]);
-
-    const USE_GOOD_VERSION = true;
-
-    const fetchFn = USE_GOOD_VERSION ? fetchUserGood : fetchUserBad;
-
-    useEffect(() => {
-        fetchFn().then((data: any) => setUser(data));
-    }, [fetchFn]);
+    // ✅ useCallback：text 变化时，handleClick 引用不变 → Child 不会重新渲染
+    // const handleClick = useCallback(() => {
+    //     setCount(c => c + 1);
+    // }, []); // 依赖为空，因为用了函数式更新，不依赖外部变量
 
     return (
         <div style={{ padding: 20 }}>
-            <div style={{ marginBottom: 16 }}>
-                <label>输入任意内容（不应触发请求）：</label>
-                <input
-                    value={inputText}
-                    onChange={(e) => setInputText(e.target.value)}
-                    style={{ marginLeft: 8 }}
-                />
-            </div>
-            <div style={{ marginBottom: 16 }}>
-                <label>切换用户（应该触发请求）：</label>
-                {[1, 2, 3].map((id) => (
-                    <button
-                        key={id}
-                        onClick={() => setUserId(id)}
-                        style={{
-                            margin: 4,
-                            fontWeight: userId === id ? 'bold' : 'normal',
-                            background: userId === id ? '#1890ff' : '#fff',
-                            color: userId === id ? '#fff' : '#000',
-                            border: '1px solid #ccc',
-                            padding: '4px 12px',
-                            borderRadius: 4,
-                            cursor: 'pointer',
-                        }}
-                    >
-                        用户 {id}
-                    </button>
-                ))}
-            </div>
-            {user && (
-                <div style={{ padding: 12, background: '#f5f5f5', borderRadius: 8 }}>
-                    <p><b>姓名：</b>{user.name}</p>
-                    <p><b>邮箱：</b>{user.email}</p>
-                    <p><b>电话：</b>{user.phone}</p>
-                </div>
-            )}
-            <div style={{ marginTop: 24, padding: 16, background: '#fffbe6', borderRadius: 8 }}>
-            </div>
+            <p>count: {count}</p>
+            <input value={text} onChange={e => setText(e.target.value)} placeholder="打字试试" />
+            <Child onClick={handleClick} />
         </div>
     );
 }
+
