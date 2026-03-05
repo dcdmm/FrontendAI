@@ -88,7 +88,7 @@ export default function MyApp() {
                 <Counter0 />
             </div>
             <div>
-                <h1>updater function</h1>
+                <h1>updater function(It takes the pending state and calculates the next state from it)</h1>
                 <Counter1 />
             </div>
             <div>
