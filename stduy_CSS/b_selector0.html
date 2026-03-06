@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        /* 优先级: ID选择器 > 类选择器 > 元素选择器 > 通用选择器 */
+
+        /* 通用选择器(The CSS universal selector (*) matches elements of any type.) */
+        * {
+            color: green;
+        }
+
+        /* 元素选择器(The CSS type selector matches elements by node name. In other words, it selects all elements of the given type within a document.) */
+        h3 {
+            color: red;
+            font-size: 18px;
+        }
+
+        /* 类选择器(The CSS class selector matches elements based on the contents of their class attribute.) */
+        .math {
+            color: blue;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .ai {
+            font-style: italic;
+        }
+
+        /* ID选择器(The CSS ID selector matches an element based on the value of the element's id attribute.) */
+        #name {
+            color: purple;
+            font-size: 18px;
+            text-decoration: underline;
+        }
+
+        /* 选择器列表(The CSS selector list (,) selects all the matching nodes. A selector list is a comma-separated list of selectors.) */
+        h4,
+        h5,
+        h6 {
+            color: orange;
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+    <p>中国</p>
+
+    <h3>JavaScript</h3>
+    <h3>TypeScript</h3>
+    <div>
+        <ul>
+            <li>
+                <h3>Scala</h3>
+            </li>
+            <h3>Java</h3>
+        </ul>
+    </div>
+
+    <p class="math">高等代数</p>
+    <p class="math">线性代数</p>
+    <!-- 多个类选择器 -->
+    <p class="math ai">概率论</p>
+
+    <p id="name">小白</p>
+
+    <h4>HTML</h4>
+    <h5>CSS</h5>
+    <h6>Vue</h6>
+</body>
+
+</html>
