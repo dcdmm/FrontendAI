@@ -1,0 +1,7 @@
+p.external {
+    color: green;
+    font-size: 18px;
+    border: 2px solid green;
+    padding: 8px;
+    border-radius: 4px;
+}

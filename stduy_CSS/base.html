@@ -1,17 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>CSS三种引入方式(作用域越小,优先级越高)</title>
+
+    <link rel="stylsheet" href="base.css">
+
     <style>
-        h3 {
-            color: red;
-            font-size: 24px;
-            font-weight: bold;
+        p.internal {
+            color: blue;
+            font-size: 18px;
+            border: 2px solid blue;
+            padding: 8px;
+            border-radius: 4px;
         }
     </style>
 </head>
+
 <body>
-<h3>python c++ rust</h3>
+
+    <h3>CSS添加样式的三种方式</h3>
+
+    <p style="color: red; font-size: 18px; border: 2px solid red; padding: 8px; border-radius: 4px;">
+        内联样式(仅对当前元素生效)
+    </p>
+
+    <p class="internal">内部样式表(仅对当前页面生效)</p>
+
+    <p class="external">外部样式表(可在多个页面中复用)</p>
+
 </body>
+
 </html>
