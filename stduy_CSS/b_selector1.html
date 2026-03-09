@@ -1,10 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>后代选择器</title>
+    <style>
+        /* 后代选择器(ul中所有的a) */
+        ul a {
+            color: green;
+        }
+
+        /* .nav(类选择器)中所有的li */
+        .nav li {
+            background-color: #c34c4c;
+        }
+
+        /* .container中所有的.box && .box中所有的span */
+        .container .box span {
+            font-weight: bold;
+            color: blue;
+        }
+
+        /* 子代选择器(.parent的直接子元素p) */
+        .parent>p {
+            background-color: #f1cf24;
+        }
+    </style>
 </head>
+
 <body>
+    <h2>后代选择器</h2>
+    <ul>
+        <li><a href="#">a被ul包裹(ul/li/a)</a></li>
+        <li>
+            <div>
+                <a href="#">a被ul包裹(ul/li/div/a)</a>
+            </div>
+        </li>
+    </ul>
+
+    <hr>
+
+    <h2>类选择器 + 后代选择器</h2>
+    <ul class="nav">
+        <li>首页</li>
+        <li>关于</li>
+        <li>联系</li>
+        <li>
+            产品
+            <ul>
+                <li>产品1</li>
+                <li>产品2</li>
+            </ul>
+        </li>
+    </ul>
+
+    <hr>
+
+    <h2>多层嵌套后代选择器</h2>
+    <div class="container">
+        <ul>
+            <div class="box">
+                <p>这里有一个<span>加粗蓝色的span</span></p>
+            </div>
+        </ul>
+    </div>
+
+    <hr>
+
+    <h2>子代选择器</h2>
+    <div class="parent">
+        <p>直接子元素p,有橙色背景</p>
+        <div>
+            <p>非直接子元素p,没有橙色背景</p>
+        </div>
+    </div>
 
 </body>
+
 </html>
