@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <!-- By default, "inline elements" appear next to one another in a webpage. They take up only as much width as they need in a page and fit together horizontally like words in a sentence or books shelved side-by-side in a row. -->
     <title>行内元素</title>
 </head>
 
@@ -13,6 +14,39 @@
     <a href="https://www.baidu.com/">百度</a>
 
     <img src="img/bg0.png" alt="可爱的猫猫" width="200" height="150">
+
+    <input type="text" name="username" placeholder="请输入文本" maxlength="20">
+    <input type="password" name="password" placeholder="请输入密码" maxlength="16">
+    <!-- 
+    Associating a <label> with a form control, such as <input> or <textarea> offers some major advantages:
+    * The label text is not only visually associated with its corresponding text input; it is programmatically associated with it too. This means that, for example, a screen reader will read out the label when the user is focused on the form input, making it easier for an assistive technology user to understand what data should be entered.
+`   * When a user clicks or touches/taps a label, the browser passes the focus to its associated input (the resulting event is also raised for the input). That increased hit area for focusing the input provides an advantage to anyone trying to activate it — including those using a touch-screen device.
+    -->
+    <!-- for: The value is the id of the labelable form control in the same document, associating the <label> with that form control. -->
+    <label for="love_sing">我喜欢唱歌</label>
+    <input type="checkbox" name="hobby" value="sing" id="love_sing"> 复选框:唱歌
+    <input type="checkbox" name="hobby" value="dance"> 复选框:跳舞
+    <input type="checkbox" name="hobby" value="game"> 复选框:打游戏
+    <input type="radio" name="gender" value="male"> 单选框:男
+    <input type="radio" name="gender" value="female"> 单选框:女
+    
+    <!-- submit: The button submits the form data to the server. -->
+    <button type="submit">提交按钮</button>
+    <!-- reset: The button resets all the controls to their initial values. -->
+    <button type="reset">重置按钮</button>
+    <!-- button: The button has no default behavior, and does nothing when pressed by default. It can have client-side scripts listen to the element's events, which are triggered when the events occur. -->
+    <button>按钮</button>
+
+    <!-- 下拉框 -->
+    <select>
+        <option value="">请选择城市</option>
+        <option value="beijing">北京</option>
+        <option value="shanghai">上海</option>
+        <option value="guangzhou">广州</option>
+    </select>
+
+    <!-- 多行文本输入框 -->
+    <textarea rows="4" cols="30" placeholder="请输入留言内容"></textarea>
 </body>
 
 </html>

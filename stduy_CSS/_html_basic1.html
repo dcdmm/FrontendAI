@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <!-- "Block elements," on the other hand, take up the entire width of a webpage. They also take up a full line of a webpage; they do not fit together side-by-side. Instead, they stack like paragraphs in an essay or toy blocks in a tower. -->
     <title>块元素</title>
 </head>
 
@@ -56,6 +57,64 @@
             <td>数据6</td>
         </tr>
     </table>
+
+    <hr>
+
+    <!-- The <form> HTML element represents a document section containing interactive controls for submitting information. -->
+    <form method="post">
+        <!-- fieldset:表单中的相关元素分组 -->
+        <fieldset>
+            <legend>账户密码</legend>
+            <p>
+                <label for="username">用户名:</label>
+                <input type="text" name="username" id="username" placeholder="请输入用户名" required>
+            </p>
+            <p>
+                <label for="pwd">密码:</label>
+                <input type="password" name="password" id="pwd" placeholder="请输入密码">
+            </p>
+        </fieldset>
+
+        <fieldset>
+            <legend>基本信息</legend>
+            <p>
+                性别：
+                <input type="radio" name="gender" value="male" id="male">
+                <label for="male">男</label>
+                <input type="radio" name="gender" value="female" id="female">
+                <label for="female">女</label>
+            </p>
+
+            <p>
+                爱好：
+                <input type="checkbox" name="hobby" value="read" id="read">
+                <label for="read">阅读</label>
+                <input type="checkbox" name="hobby" value="music" id="music">
+                <label for="music">音乐</label>
+                <input type="checkbox" name="hobby" value="sport" id="sport">
+                <label for="sport">运动</label>
+            </p>
+
+            <p>
+                <label for="city">城市：</label>
+                <select name="city" id="city">
+                    <option value="">请选择</option>
+                    <option value="beijing">北京</option>
+                    <option value="shanghai">上海</option>
+                </select>
+            </p>
+
+            <p>
+                <label for="bio">个人简介：</label><br>
+                <textarea name="bio" id="bio" rows="4" cols="30" placeholder="请介绍自己"></textarea>
+            </p>
+
+            <p>
+                <button type="submit">提交整个表单</button>
+                <button type="reset">重置整个表单</button>
+            </p>
+        </fieldset>
+    </form>
 </body>
 
 </html>
