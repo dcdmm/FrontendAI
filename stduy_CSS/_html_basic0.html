@@ -7,11 +7,29 @@
     <title>行内元素</title>
 </head>
 
+<!-- 行内元素可以放到块元素中,块元素不能放到行内元素中(a标签除外) -->
+
 <body>
     <!-- The <span> HTML element is a generic inline container for phrasing content, which does not inherently represent anything. -->
     <span>行内元素.<b>加粗文本</b>,<u>下划线文本</u>,<i>斜体文本</i>,<s>删除线文本</s></span>
 
     <a href="https://www.baidu.com/">百度</a>
+
+    <a href="https://www.baidu.com/">
+        <div>
+            <span><b>百度(点击整个块都能跳转)</b></span>
+            <ul>
+                <li>新闻</li>
+                <li>视频</li>
+                <li>贴吧</li>
+            </ul>
+            <ol>
+                <li>新闻</li>
+                <li>视频</li>
+                <li>贴吧</li>
+            </ol>
+        </div>
+    </a>
 
     <img src="img/bg0.png" alt="可爱的猫猫" width="200" height="150">
 
@@ -29,7 +47,7 @@
     <input type="checkbox" name="hobby" value="game"> 复选框:打游戏
     <input type="radio" name="gender" value="male"> 单选框:男
     <input type="radio" name="gender" value="female"> 单选框:女
-    
+
     <!-- submit: The button submits the form data to the server. -->
     <button type="submit">提交按钮</button>
     <!-- reset: The button resets all the controls to their initial values. -->
