@@ -1,10 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <!--  pseudo-class is a selector that selects elements that are in a specific state, for example, they are the first element of their type, or they are being hovered over by the mouse pointer. They tend to act as if you had applied a class to some part of your document, often helping you cut down on excess classes in your markup, and giving you more flexible, maintainable code. -->
+    <title>伪类选择器</title>
+    <style>
+        .hover-demo {
+            background-color: #409eff;
+        }
+
+        /* :hover The pseudo-class is generally triggered when the user moves the cursor (mouse pointer) over an element without pressing the mouse button */
+        .hover-demo:hover {
+            background-color: #e30bcd;
+        }
+
+        .focus-demo {
+            padding: 8px;
+            border: 2px solid #1ec721;
+            outline: none;
+        }
+
+        /* :focus The :focus CSS pseudo-class represents an element (such as a form input) that has received focus. It is generally triggered when the user clicks or taps on an element or selects it with the keyboard's Tab key. */
+        .focus-demo:focus {
+            border-color: #e70505;
+        }
+
+        /* :first-child The :first-child CSS pseudo-class represents the first element among a group of sibling elements. */
+        .list-demo li:first-child {
+            color: red;
+            font-weight: bold;
+        }
+
+        /* :last-child The :last-child CSS pseudo-class represents the last element among a group of sibling elements. */
+        .list-demo li:last-child {
+            color: blue;
+            font-weight: bold;
+        }
+
+        /* 
+        :nth-child(n) The The :nth-child() CSS pseudo-class matches elements based on the indexes of the elements in the child list of their parents. In other words, the :nth-child() selector selects child elements according to their position among all the sibling elements within a parent element. 
+        
+        :nth-child(odd): 奇数的位置
+        :nth-child(even): 偶数的位置
+        :nth-child(3): 第3个位置
+        */
+        .striped-list li:nth-child(odd) {
+            background-color: rgb(189, 223, 38);
+        }
+
+        .striped-list li:nth-child(even) {
+            background-color: rgb(162, 59, 200);
+        }
+
+        /* :not() The :not() CSS pseudo-class represents elements that do not match a list of selectors. Since it prevents specific items from being selected, it is known as the negation pseudo-class. */
+        .not-demo p:not(.special) {
+            color: rgb(15, 134, 220)
+        }
+
+        .special {
+            color: rgb(220, 15, 15);
+            font-weight: bold;
+        }
+    </style>
 </head>
+
 <body>
+    <h3>:hover</h3>
+    <button class="hover-demo">把鼠标移到我身上</button>
+
+    <h3>:focus</h3>
+    <input class="focus-demo" type="text" placeholder="点击输入框试试">
+
+    <h3>:first-child</h3>
+    <ul class="list-demo">
+        <li>第一项</li>
+        <li>第二项</li>
+        <li>第三项</li>
+        <li>第四项</li>
+    </ul>
+
+    <h3>:nth-child(odd/even)</h3>
+    <ul class="striped-list">
+        <li>第 1 行（odd 奇数）</li>
+        <li>第 2 行（even 偶数）</li>
+        <li>第 3 行（odd 奇数）</li>
+        <li>第 4 行（even 偶数）</li>
+        <li>第 5 行（odd 奇数）</li>
+    </ul>
+
+    <h3>:not()</h3>
+    <div class="not-demo">
+        <p>普通段落(未被排除)</p>
+        <p class="special">特殊段落(被:not(.special)排除)</p>
+        <p>普通段落(未被排除)</p>
+    </div>
 
 </body>
+
 </html>
