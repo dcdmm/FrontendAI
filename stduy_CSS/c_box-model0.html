@@ -1,10 +1,104 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>盒子模型</title>
-</head>
-<body>
+<html lang="zh-CN">
 
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>盒子模型</title>
+	<style>
+		.margin-layer {
+			padding: 20px;
+			border: 2px dashed #fa5252;
+		}
+
+		.border-layer {
+			background-color: #ffd8a8;
+			border: 16px solid #f08c00;
+			position: relative;
+		}
+
+		.border-layer>.label {
+			position: absolute;
+			top: -8px;
+			transform: translateY(-50%);
+			left: 16px;
+		}
+
+		.padding-layer {
+			background-color: #d3f9d8;
+			padding: 24px;
+		}
+
+		.content-layer {
+			background-color: #d0ebff;
+			border: 2px solid #1c7ed6;
+			padding: 16px;
+			text-align: center;
+			font-weight: bold;
+		}
+
+		.label {
+			display: inline-block;
+			margin-bottom: 10px;
+			padding: 2px 10px;
+			background-color: rgba(255, 255, 255, 0.75);
+			border-radius: 999px;
+			font-size: 14px;
+		}
+
+		.demo {
+			width: 200px;
+			height: 200px;
+			background-color: #f08c00;
+			/* 
+			padding: 100px 内边距四条边100px
+			padding: 100px 50px 上下内边距100px,左右内边距50px
+			padding-top: 100px 上内边距100px
+			padding-right: 100px 右内边距100px
+			padding-bottom: 100px 下内边距100px
+			padding-left: 100px 左内边距100px
+			*/
+			padding: 100px; 
+			/*
+			border: 5px solid #fa5252; 四条边框5px,实线,颜色#fa5252
+			border-top: 5px 上边框5px
+			border-right: 5px 右边框5px
+			border-bottom: 5px 下边框5px
+			border-left: 5px 左边框5px
+			*/
+			border: 5px solid #fa5252;
+			/*
+			margin: 40px 外边距四条边40px
+			margin: 40px 50px 上下外边距40px,左右外边距50px
+			margin-top: 40px 上外边距40px
+			margin-right: 40px 右外边距40px
+			margin-bottom: 40px 下外边距40px
+			margin-left: 40px 左外边距40px
+			*/
+			margin: 40px 50px;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>盒子模型可视化</h1>
+	<div>
+		<div class="margin-layer">
+			<div class="label">margin</div>
+			<div class="border-layer">
+				<div class="label">border</div>
+				<div class="padding-layer">
+					<div class="label">padding</div>
+					<div class="content-layer">content</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="demo">
+		python / rust / c++ / java / scaca
+	</div>
+	<p>javascript / typescript/ sql</p>
 </body>
+
 </html>
