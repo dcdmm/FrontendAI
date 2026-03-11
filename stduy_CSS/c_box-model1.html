@@ -3,6 +3,11 @@
 
 <head>
     <meta charset="UTF-8">
+    <!-- 
+    When elements are laid out as flex items, they are laid out along two axes:
+    The main axis is the axis running in the direction the flex items are laid out in (for example, as a row across the page, or a column down the page.) The start and end of this axis are called the main start and main end. The length from the main-start edge to the main-end edge is the main size.
+    The cross axis is the axis running perpendicular to the direction the flex items are laid out in. The start and end of this axis are called the cross start and cross end. The length from the cross-start edge to the cross-end edge is the cross size.
+    -->
     <title>弹性盒子模型</title>
     <style>
         .flex-container {
@@ -20,7 +25,6 @@
             text-align: center;
         }
 
-        /* flex-direction */
         .demo-row {
             flex-direction: row;
         }
@@ -37,9 +41,8 @@
             flex-direction: column-reverse;
         }
 
-        /* justify-content */
         .demo-jc-start {
-            justify-content: flex-start;
+            justify-content: start;
         }
 
         .demo-jc-center {
@@ -47,7 +50,7 @@
         }
 
         .demo-jc-end {
-            justify-content: flex-end;
+            justify-content: end;
         }
 
         .demo-jc-between {
@@ -58,11 +61,6 @@
             justify-content: space-around;
         }
 
-        .demo-jc-evenly {
-            justify-content: space-evenly;
-        }
-
-        /* align-items */
         .demo-ai {
             min-height: 120px;
         }
@@ -71,12 +69,8 @@
             align-items: stretch;
         }
 
-        .demo-ai-stretch .item {
-            padding: 0 16px;
-        }
-
         .demo-ai-start {
-            align-items: flex-start;
+            align-items: start;
         }
 
         .demo-ai-center {
@@ -84,26 +78,9 @@
         }
 
         .demo-ai-end {
-            align-items: flex-end;
+            align-items: end;
         }
 
-        .demo-ai-baseline {
-            align-items: baseline;
-        }
-
-        .demo-ai-baseline .item:nth-child(1) {
-            font-size: 12px;
-        }
-
-        .demo-ai-baseline .item:nth-child(2) {
-            font-size: 24px;
-        }
-
-        .demo-ai-baseline .item:nth-child(3) {
-            font-size: 16px;
-        }
-
-        /* flex-wrap */
         .demo-wrap-container {
             max-width: 400px;
         }
@@ -121,7 +98,6 @@
             min-width: 120px;
         }
 
-        /* flex-grow / shrink / basis */
         .demo-grow .item:nth-child(2) {
             flex-grow: 1;
             background: #ffc107;
@@ -129,83 +105,10 @@
         }
 
         .demo-grow .item:nth-child(3) {
-            flex-grow: 2;
+            flex-grow: 3;
             background: #4caf50;
         }
 
-        .demo-shrink {
-            width: 300px;
-        }
-
-        .demo-shrink .item {
-            min-width: auto;
-            width: 200px;
-        }
-
-        .demo-shrink .item:nth-child(2) {
-            flex-shrink: 0;
-            background: #ffc107;
-            color: #333;
-        }
-
-        .demo-basis .item:nth-child(1) {
-            flex-basis: 100px;
-        }
-
-        .demo-basis .item:nth-child(2) {
-            flex-basis: 200px;
-            background: #ffc107;
-            color: #333;
-        }
-
-        .demo-basis .item:nth-child(3) {
-            flex-basis: 50px;
-            background: #4caf50;
-        }
-
-        .demo-shorthand .item:nth-child(1) {
-            flex: 1;
-        }
-
-        .demo-shorthand .item:nth-child(2) {
-            flex: 2;
-            background: #ffc107;
-            color: #333;
-        }
-
-        .demo-shorthand .item:nth-child(3) {
-            flex: 1;
-            background: #4caf50;
-        }
-
-        /* align-self */
-        .demo-align-self {
-            min-height: 120px;
-            align-items: flex-start;
-        }
-
-        .demo-align-self .item:nth-child(1) {
-            align-self: flex-start;
-        }
-
-        .demo-align-self .item:nth-child(2) {
-            align-self: center;
-            background: #ffc107;
-            color: #333;
-        }
-
-        .demo-align-self .item:nth-child(3) {
-            align-self: flex-end;
-            background: #4caf50;
-        }
-
-        .demo-align-self .item:nth-child(4) {
-            align-self: stretch;
-            background: #9c27b0;
-            padding: 0 16px;
-        }
-
-        /* order */
         .demo-order .item:nth-child(1) {
             order: 3;
         }
@@ -224,94 +127,102 @@
 </head>
 
 <body>
-    <h2>2. flex-direction</h2>
+    <h3>flex-direction(定义主轴的方向)</h3>
+    <h4>flex-direction: row(默认)</h4>
     <div class="flex-container demo-row">
         <div class="item">1</div>
         <div class="item">2</div>
         <div class="item">3</div>
     </div>
+    <h4>flex-direction: row-reverse</h4>
     <div class="flex-container demo-row-reverse">
         <div class="item">1</div>
         <div class="item">2</div>
         <div class="item">3</div>
     </div>
+    <h4>flex-direction: column</h4>
     <div class="flex-container demo-column">
         <div class="item">1</div>
         <div class="item">2</div>
         <div class="item">3</div>
     </div>
+    <h4>flex-direction: column-reverse</h4>
     <div class="flex-container demo-column-reverse">
         <div class="item">1</div>
         <div class="item">2</div>
         <div class="item">3</div>
     </div>
 
-    <h2>3. justify-content</h2>
+    <h3>justify-content(justify-content controls where the flex items sit on the main axis)</h3>
+    <h4>justify-content: flex-start(默认,所有项目位于主轴的起点)</h4>
     <div class="flex-container demo-jc-start">
         <div class="item">1</div>
         <div class="item">2</div>
         <div class="item">3</div>
     </div>
+    <h4>justify-content: center(所有项目位于主轴的中心)</h4>
     <div class="flex-container demo-jc-center">
         <div class="item">1</div>
         <div class="item">2</div>
         <div class="item">3</div>
     </div>
+    <h4>justify-content: end(所有项目位于主轴的末端)</h4>
     <div class="flex-container demo-jc-end">
         <div class="item">1</div>
         <div class="item">2</div>
         <div class="item">3</div>
     </div>
-    <div class="flex-container demo-jc-between">
-        <div class="item">1</div>
-        <div class="item">2</div>
-        <div class="item">3</div>
-    </div>
+    <h4>justify-content: space-around(所有项目均匀地分布在主轴上,并在两端留出一些空间)</h4>
     <div class="flex-container demo-jc-around">
         <div class="item">1</div>
         <div class="item">2</div>
         <div class="item">3</div>
     </div>
-    <div class="flex-container demo-jc-evenly">
+    <h4>justify-content: space-between(与space-around相似,只是两端没有空格)</h4>
+    <div class="flex-container demo-jc-between">
         <div class="item">1</div>
         <div class="item">2</div>
         <div class="item">3</div>
     </div>
 
-    <h2>4. align-items</h2>
+    <h3>align-items(The align-items property controls where the flex items sit on the cross axis.)</h3>
+    <h4>align-items: stretch(默认,This stretches all flex items to fill the parent in the direction of the cross axis)
+    </h4>
     <div class="flex-container demo-ai demo-ai-stretch">
         <div class="item">stretch</div>
         <div class="item">stretch</div>
         <div class="item">stretch</div>
     </div>
+    <h4>align-items: start</h4>
     <div class="flex-container demo-ai demo-ai-start">
         <div class="item">start</div>
         <div class="item">start</div>
         <div class="item">start</div>
     </div>
+    <h4>align-items: center</h4>
     <div class="flex-container demo-ai demo-ai-center">
         <div class="item">center</div>
         <div class="item">center</div>
         <div class="item">center</div>
     </div>
+    <h4>align-items: end</h4>
     <div class="flex-container demo-ai demo-ai-end">
         <div class="item">end</div>
         <div class="item">end</div>
         <div class="item">end</div>
     </div>
-    <div class="flex-container demo-ai demo-ai-baseline">
-        <div class="item">小字</div>
-        <div class="item">大字</div>
-        <div class="item">中字</div>
-    </div>
 
-    <h2>5. flex-wrap</h2>
+    <h3>flex-wrap(The flex-wrap CSS property sets whether flex items are forced onto one line or can wrap onto multiple
+        lines. If wrapping is allowed, it sets the direction that lines are stacked)</h3>
+    <h4>flex-wrap: nowrap(The flex items are laid out in a single line which may cause the flex container to overflow. )
+    </h4>
     <div class="flex-container demo-nowrap demo-wrap-container">
         <div class="item">1</div>
         <div class="item">2</div>
         <div class="item">3</div>
         <div class="item">4</div>
     </div>
+    <h4>flex-wrap: wrap(The flex items break into multiple lines)</h4>
     <div class="flex-container demo-wrap demo-wrap-container">
         <div class="item">1</div>
         <div class="item">2</div>
@@ -319,37 +230,14 @@
         <div class="item">4</div>
     </div>
 
-    <h2>6. flex-grow / flex-shrink / flex-basis / flex</h2>
+    <h2>flex-grow</h2>
     <div class="flex-container demo-grow">
         <div class="item">固定</div>
         <div class="item">grow:1</div>
-        <div class="item">grow:2</div>
-    </div>
-    <div class="flex-container demo-shrink">
-        <div class="item">缩小</div>
-        <div class="item">不缩小</div>
-        <div class="item">缩小</div>
-    </div>
-    <div class="flex-container demo-basis">
-        <div class="item">100px</div>
-        <div class="item">200px</div>
-        <div class="item">50px</div>
-    </div>
-    <div class="flex-container demo-shorthand">
-        <div class="item">flex:1</div>
-        <div class="item">flex:2</div>
-        <div class="item">flex:1</div>
+        <div class="item">grow:3</div>
     </div>
 
-    <h2>7. align-self</h2>
-    <div class="flex-container demo-align-self">
-        <div class="item">start</div>
-        <div class="item">center</div>
-        <div class="item">end</div>
-        <div class="item">stretch</div>
-    </div>
-
-    <h2>8. order</h2>
+    <h2>order</h2>
     <div class="flex-container demo-order">
         <div class="item">1(order:3)</div>
         <div class="item">2(order:1)</div>
