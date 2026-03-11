@@ -1,519 +1,360 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
-    <title>弹性盒子模型 - Flexbox 教程</title>
+    <title>弹性盒子模型</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: "Microsoft YaHei", sans-serif; background: #1a1a2e; color: #eee; padding: 30px; line-height: 1.8; }
-        h1 { text-align: center; color: #e94560; margin-bottom: 10px; font-size: 2em; }
-        .subtitle { text-align: center; color: #888; margin-bottom: 40px; }
-        h2 { color: #0f3460; background: #e94560; display: inline-block; padding: 5px 20px; border-radius: 4px; margin: 30px 0 15px; }
-        h3 { color: #e94560; margin: 20px 0 10px; border-left: 4px solid #e94560; padding-left: 10px; }
-        p, .note { margin: 8px 0; color: #ccc; }
-        .note { background: #16213e; border-left: 4px solid #0f3460; padding: 12px 16px; border-radius: 4px; margin: 15px 0; }
-        code { background: #16213e; color: #e94560; padding: 2px 6px; border-radius: 3px; font-size: 0.95em; }
-
-        /* ===== 示例容器通用样式 ===== */
-        .demo-section { background: #16213e; border-radius: 8px; padding: 20px; margin: 15px 0 30px; }
-        .demo-label { color: #888; font-size: 0.85em; margin-bottom: 8px; }
         .flex-container {
             display: flex;
-            background: #0f3460;
-            border-radius: 6px;
-            padding: 10px;
-            min-height: 80px;
-            gap: 8px;
+            background: #ddd;
+            padding: 8px;
+            margin-bottom: 10px;
+            gap: 6px;
         }
+
         .flex-container .item {
             background: #e94560;
             color: #fff;
-            padding: 15px 20px;
-            border-radius: 4px;
-            font-weight: bold;
+            padding: 12px 16px;
             text-align: center;
-            min-width: 50px;
         }
 
-        /* ===== 第1节: 基本概念 ===== */
-        .demo-basic { justify-content: flex-start; }
-
-        /* ===== 第2节: flex-direction ===== */
-        .demo-row { flex-direction: row; }
-        .demo-row-reverse { flex-direction: row-reverse; }
-        .demo-column { flex-direction: column; }
-        .demo-column-reverse { flex-direction: column-reverse; }
-
-        /* ===== 第3节: justify-content ===== */
-        .demo-jc-start { justify-content: flex-start; }
-        .demo-jc-center { justify-content: center; }
-        .demo-jc-end { justify-content: flex-end; }
-        .demo-jc-between { justify-content: space-between; }
-        .demo-jc-around { justify-content: space-around; }
-        .demo-jc-evenly { justify-content: space-evenly; }
-
-        /* ===== 第4节: align-items ===== */
-        .demo-ai { min-height: 150px; }
-        .demo-ai-stretch { align-items: stretch; }
-        .demo-ai-stretch .item { padding: 0 20px; }
-        .demo-ai-start { align-items: flex-start; }
-        .demo-ai-center { align-items: center; }
-        .demo-ai-end { align-items: flex-end; }
-        .demo-ai-baseline { align-items: baseline; }
-        .demo-ai-baseline .item:nth-child(1) { font-size: 12px; padding: 10px; }
-        .demo-ai-baseline .item:nth-child(2) { font-size: 24px; padding: 20px; }
-        .demo-ai-baseline .item:nth-child(3) { font-size: 16px; padding: 15px; }
-
-        /* ===== 第5节: flex-wrap ===== */
-        .demo-wrap-container { width: 100%; max-width: 400px; }
-        .demo-nowrap { flex-wrap: nowrap; }
-        .demo-wrap { flex-wrap: wrap; }
-        .demo-wrap .item, .demo-nowrap .item { min-width: 120px; }
-
-        /* ===== 第6节: flex 子项属性 ===== */
-        .demo-grow .item:nth-child(2) { flex-grow: 1; background: #ffc107; color: #333; }
-        .demo-grow .item:nth-child(3) { flex-grow: 2; background: #4caf50; }
-        .demo-shrink { width: 300px; }
-        .demo-shrink .item { min-width: auto; width: 200px; }
-        .demo-shrink .item:nth-child(2) { flex-shrink: 0; background: #ffc107; color: #333; }
-        .demo-basis .item:nth-child(1) { flex-basis: 100px; background: #e94560; }
-        .demo-basis .item:nth-child(2) { flex-basis: 200px; background: #ffc107; color: #333; }
-        .demo-basis .item:nth-child(3) { flex-basis: 50px; background: #4caf50; }
-        .demo-shorthand .item:nth-child(1) { flex: 1; }
-        .demo-shorthand .item:nth-child(2) { flex: 2; background: #ffc107; color: #333; }
-        .demo-shorthand .item:nth-child(3) { flex: 1; background: #4caf50; }
-
-        /* ===== 第7节: align-self ===== */
-        .demo-align-self { min-height: 150px; align-items: flex-start; }
-        .demo-align-self .item:nth-child(1) { align-self: flex-start; }
-        .demo-align-self .item:nth-child(2) { align-self: center; background: #ffc107; color: #333; }
-        .demo-align-self .item:nth-child(3) { align-self: flex-end; background: #4caf50; }
-        .demo-align-self .item:nth-child(4) { align-self: stretch; background: #9c27b0; padding: 0 20px; }
-
-        /* ===== 第8节: order ===== */
-        .demo-order .item:nth-child(1) { order: 3; }
-        .demo-order .item:nth-child(2) { order: 1; background: #ffc107; color: #333; }
-        .demo-order .item:nth-child(3) { order: 2; background: #4caf50; }
-
-        /* ===== 第9节: 实战案例 ===== */
-        /* 导航栏 */
-        .demo-navbar {
-            display: flex;
-            background: #0f3460;
-            padding: 0 20px;
-            align-items: center;
-            border-radius: 6px;
+        /* flex-direction */
+        .demo-row {
+            flex-direction: row;
         }
-        .demo-navbar .logo { color: #e94560; font-size: 1.4em; font-weight: bold; margin-right: auto; }
-        .demo-navbar a { color: #ccc; text-decoration: none; padding: 15px 12px; transition: color 0.3s; }
-        .demo-navbar a:hover { color: #e94560; }
 
-        /* 卡片布局 */
-        .demo-cards {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
+        .demo-row-reverse {
+            flex-direction: row-reverse;
         }
-        .card {
-            flex: 1 1 200px;
-            background: #0f3460;
-            border-radius: 8px;
-            padding: 20px;
-            display: flex;
+
+        .demo-column {
             flex-direction: column;
         }
-        .card h4 { color: #e94560; margin-bottom: 10px; }
-        .card p { flex-grow: 1; font-size: 0.9em; color: #aaa; }
-        .card .btn {
-            margin-top: 15px;
-            background: #e94560;
-            color: #fff;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 4px;
-            cursor: pointer;
+
+        .demo-column-reverse {
+            flex-direction: column-reverse;
+        }
+
+        /* justify-content */
+        .demo-jc-start {
+            justify-content: flex-start;
+        }
+
+        .demo-jc-center {
+            justify-content: center;
+        }
+
+        .demo-jc-end {
+            justify-content: flex-end;
+        }
+
+        .demo-jc-between {
+            justify-content: space-between;
+        }
+
+        .demo-jc-around {
+            justify-content: space-around;
+        }
+
+        .demo-jc-evenly {
+            justify-content: space-evenly;
+        }
+
+        /* align-items */
+        .demo-ai {
+            min-height: 120px;
+        }
+
+        .demo-ai-stretch {
+            align-items: stretch;
+        }
+
+        .demo-ai-stretch .item {
+            padding: 0 16px;
+        }
+
+        .demo-ai-start {
+            align-items: flex-start;
+        }
+
+        .demo-ai-center {
+            align-items: center;
+        }
+
+        .demo-ai-end {
+            align-items: flex-end;
+        }
+
+        .demo-ai-baseline {
+            align-items: baseline;
+        }
+
+        .demo-ai-baseline .item:nth-child(1) {
+            font-size: 12px;
+        }
+
+        .demo-ai-baseline .item:nth-child(2) {
+            font-size: 24px;
+        }
+
+        .demo-ai-baseline .item:nth-child(3) {
+            font-size: 16px;
+        }
+
+        /* flex-wrap */
+        .demo-wrap-container {
+            max-width: 400px;
+        }
+
+        .demo-nowrap {
+            flex-wrap: nowrap;
+        }
+
+        .demo-wrap {
+            flex-wrap: wrap;
+        }
+
+        .demo-wrap .item,
+        .demo-nowrap .item {
+            min-width: 120px;
+        }
+
+        /* flex-grow / shrink / basis */
+        .demo-grow .item:nth-child(2) {
+            flex-grow: 1;
+            background: #ffc107;
+            color: #333;
+        }
+
+        .demo-grow .item:nth-child(3) {
+            flex-grow: 2;
+            background: #4caf50;
+        }
+
+        .demo-shrink {
+            width: 300px;
+        }
+
+        .demo-shrink .item {
+            min-width: auto;
+            width: 200px;
+        }
+
+        .demo-shrink .item:nth-child(2) {
+            flex-shrink: 0;
+            background: #ffc107;
+            color: #333;
+        }
+
+        .demo-basis .item:nth-child(1) {
+            flex-basis: 100px;
+        }
+
+        .demo-basis .item:nth-child(2) {
+            flex-basis: 200px;
+            background: #ffc107;
+            color: #333;
+        }
+
+        .demo-basis .item:nth-child(3) {
+            flex-basis: 50px;
+            background: #4caf50;
+        }
+
+        .demo-shorthand .item:nth-child(1) {
+            flex: 1;
+        }
+
+        .demo-shorthand .item:nth-child(2) {
+            flex: 2;
+            background: #ffc107;
+            color: #333;
+        }
+
+        .demo-shorthand .item:nth-child(3) {
+            flex: 1;
+            background: #4caf50;
+        }
+
+        /* align-self */
+        .demo-align-self {
+            min-height: 120px;
+            align-items: flex-start;
+        }
+
+        .demo-align-self .item:nth-child(1) {
             align-self: flex-start;
         }
 
-        /* 居中大法 */
-        .demo-center-box {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: #0f3460;
-            height: 200px;
-            border-radius: 6px;
-        }
-        .center-content {
-            background: #e94560;
-            padding: 30px 40px;
-            border-radius: 8px;
-            font-size: 1.2em;
-            font-weight: bold;
+        .demo-align-self .item:nth-child(2) {
+            align-self: center;
+            background: #ffc107;
+            color: #333;
         }
 
-        /* 圣杯布局 */
-        .demo-holy-grail {
-            display: flex;
-            flex-direction: column;
-            height: 300px;
-            background: #0a0a1a;
-            border-radius: 6px;
-            overflow: hidden;
+        .demo-align-self .item:nth-child(3) {
+            align-self: flex-end;
+            background: #4caf50;
         }
-        .hg-header, .hg-footer {
-            background: #0f3460;
-            padding: 10px 20px;
-            text-align: center;
-            color: #e94560;
-            font-weight: bold;
+
+        .demo-align-self .item:nth-child(4) {
+            align-self: stretch;
+            background: #9c27b0;
+            padding: 0 16px;
         }
-        .hg-body { display: flex; flex: 1; }
-        .hg-sidebar { background: #16213e; padding: 15px; width: 120px; color: #888; font-size: 0.85em; }
-        .hg-main { flex: 1; padding: 15px; color: #ccc; font-size: 0.9em; }
-        .hg-sidebar-right { background: #1a1a3e; }
 
-        /* 对比表格 */
-        table { width: 100%; border-collapse: collapse; margin: 15px 0; }
-        th, td { padding: 10px 15px; text-align: left; border: 1px solid #0f3460; }
-        th { background: #e94560; color: #fff; }
-        td { background: #16213e; }
-        td code { font-size: 0.85em; }
+        /* order */
+        .demo-order .item:nth-child(1) {
+            order: 3;
+        }
 
-        .two-col { display: flex; gap: 15px; flex-wrap: wrap; }
-        .two-col > div { flex: 1; min-width: 280px; }
+        .demo-order .item:nth-child(2) {
+            order: 1;
+            background: #ffc107;
+            color: #333;
+        }
+
+        .demo-order .item:nth-child(3) {
+            order: 2;
+            background: #4caf50;
+        }
     </style>
 </head>
+
 <body>
-
-<h1>Flexbox 弹性盒子完全教程</h1>
-<p class="subtitle">从零掌握 CSS 弹性布局，告别 float 和 position 的痛苦</p>
-
-<!-- ==================== 第1节 ==================== -->
-<h2>1. 什么是 Flexbox？</h2>
-<p>Flexbox（弹性盒子）是 CSS3 中一种<strong>一维布局模型</strong>，专门用来在一个方向上（水平或垂直）分配空间和对齐元素。</p>
-
-<div class="note">
-    <strong>核心概念：</strong>给父容器设置 <code>display: flex</code>，它就变成了<strong>弹性容器</strong>（flex container），其直接子元素自动变成<strong>弹性项目</strong>（flex items）。
-</div>
-
-<div class="demo-section">
-    <div class="demo-label">给父容器加上 display: flex 后，子元素自动横向排列：</div>
-    <div class="flex-container demo-basic">
+    <h2>2. flex-direction</h2>
+    <div class="flex-container demo-row">
         <div class="item">1</div>
         <div class="item">2</div>
         <div class="item">3</div>
     </div>
-</div>
-
-<p>Flexbox 有两条轴：</p>
-<ul style="margin-left:20px; color:#ccc;">
-    <li><strong>主轴（Main Axis）</strong>：默认是水平方向（从左到右）</li>
-    <li><strong>交叉轴（Cross Axis）</strong>：与主轴垂直的方向（默认从上到下）</li>
-</ul>
-
-<!-- ==================== 第2节 ==================== -->
-<h2>2. flex-direction — 主轴方向</h2>
-<p>控制弹性项目的排列方向，即定义主轴的方向。</p>
-
-<table>
-    <tr><th>值</th><th>效果</th></tr>
-    <tr><td><code>row</code>（默认）</td><td>从左到右水平排列</td></tr>
-    <tr><td><code>row-reverse</code></td><td>从右到左水平排列</td></tr>
-    <tr><td><code>column</code></td><td>从上到下垂直排列</td></tr>
-    <tr><td><code>column-reverse</code></td><td>从下到上垂直排列</td></tr>
-</table>
-
-<div class="demo-section">
-    <div class="two-col">
-        <div>
-            <div class="demo-label">flex-direction: row（默认）</div>
-            <div class="flex-container demo-row">
-                <div class="item">1</div><div class="item">2</div><div class="item">3</div>
-            </div>
-        </div>
-        <div>
-            <div class="demo-label">flex-direction: row-reverse</div>
-            <div class="flex-container demo-row-reverse">
-                <div class="item">1</div><div class="item">2</div><div class="item">3</div>
-            </div>
-        </div>
+    <div class="flex-container demo-row-reverse">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
     </div>
-    <div class="two-col" style="margin-top:15px;">
-        <div>
-            <div class="demo-label">flex-direction: column</div>
-            <div class="flex-container demo-column">
-                <div class="item">1</div><div class="item">2</div><div class="item">3</div>
-            </div>
-        </div>
-        <div>
-            <div class="demo-label">flex-direction: column-reverse</div>
-            <div class="flex-container demo-column-reverse">
-                <div class="item">1</div><div class="item">2</div><div class="item">3</div>
-            </div>
-        </div>
+    <div class="flex-container demo-column">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
     </div>
-</div>
+    <div class="flex-container demo-column-reverse">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+    </div>
 
-<!-- ==================== 第3节 ==================== -->
-<h2>3. justify-content — 主轴对齐</h2>
-<p>控制弹性项目在<strong>主轴</strong>上的对齐方式和空间分配。</p>
-
-<div class="demo-section">
-    <div class="demo-label">justify-content: flex-start（默认，靠左）</div>
+    <h2>3. justify-content</h2>
     <div class="flex-container demo-jc-start">
-        <div class="item">1</div><div class="item">2</div><div class="item">3</div>
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
     </div>
-
-    <div class="demo-label" style="margin-top:12px;">justify-content: center（居中）</div>
     <div class="flex-container demo-jc-center">
-        <div class="item">1</div><div class="item">2</div><div class="item">3</div>
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
     </div>
-
-    <div class="demo-label" style="margin-top:12px;">justify-content: flex-end（靠右）</div>
     <div class="flex-container demo-jc-end">
-        <div class="item">1</div><div class="item">2</div><div class="item">3</div>
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
     </div>
-
-    <div class="demo-label" style="margin-top:12px;">justify-content: space-between（两端对齐，中间等分）</div>
     <div class="flex-container demo-jc-between">
-        <div class="item">1</div><div class="item">2</div><div class="item">3</div>
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
     </div>
-
-    <div class="demo-label" style="margin-top:12px;">justify-content: space-around（每项两侧等间距）</div>
     <div class="flex-container demo-jc-around">
-        <div class="item">1</div><div class="item">2</div><div class="item">3</div>
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
     </div>
-
-    <div class="demo-label" style="margin-top:12px;">justify-content: space-evenly（所有间距完全相等）</div>
     <div class="flex-container demo-jc-evenly">
-        <div class="item">1</div><div class="item">2</div><div class="item">3</div>
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
     </div>
-</div>
 
-<!-- ==================== 第4节 ==================== -->
-<h2>4. align-items — 交叉轴对齐</h2>
-<p>控制弹性项目在<strong>交叉轴</strong>上的对齐方式。</p>
-
-<div class="demo-section">
-    <div class="two-col">
-        <div>
-            <div class="demo-label">align-items: stretch（默认，拉伸填满）</div>
-            <div class="flex-container demo-ai demo-ai-stretch">
-                <div class="item">1</div><div class="item">2</div><div class="item">3</div>
-            </div>
-        </div>
-        <div>
-            <div class="demo-label">align-items: flex-start（顶部对齐）</div>
-            <div class="flex-container demo-ai demo-ai-start">
-                <div class="item">1</div><div class="item">2</div><div class="item">3</div>
-            </div>
-        </div>
+    <h2>4. align-items</h2>
+    <div class="flex-container demo-ai demo-ai-stretch">
+        <div class="item">stretch</div>
+        <div class="item">stretch</div>
+        <div class="item">stretch</div>
     </div>
-    <div class="two-col" style="margin-top:15px;">
-        <div>
-            <div class="demo-label">align-items: center（垂直居中）</div>
-            <div class="flex-container demo-ai demo-ai-center">
-                <div class="item">1</div><div class="item">2</div><div class="item">3</div>
-            </div>
-        </div>
-        <div>
-            <div class="demo-label">align-items: flex-end（底部对齐）</div>
-            <div class="flex-container demo-ai demo-ai-end">
-                <div class="item">1</div><div class="item">2</div><div class="item">3</div>
-            </div>
-        </div>
+    <div class="flex-container demo-ai demo-ai-start">
+        <div class="item">start</div>
+        <div class="item">start</div>
+        <div class="item">start</div>
     </div>
-    <div style="margin-top:15px;">
-        <div class="demo-label">align-items: baseline（按文字基线对齐 — 注意不同字号的对齐效果）</div>
-        <div class="flex-container demo-ai demo-ai-baseline">
-            <div class="item">小字</div><div class="item">大字</div><div class="item">中字</div>
-        </div>
+    <div class="flex-container demo-ai demo-ai-center">
+        <div class="item">center</div>
+        <div class="item">center</div>
+        <div class="item">center</div>
     </div>
-</div>
-
-<!-- ==================== 第5节 ==================== -->
-<h2>5. flex-wrap — 换行</h2>
-<p>默认情况下，弹性项目会挤在一行。<code>flex-wrap</code> 控制是否允许换行。</p>
-
-<div class="demo-section">
-    <div class="two-col">
-        <div>
-            <div class="demo-label">flex-wrap: nowrap（默认，不换行，项目被压缩）</div>
-            <div class="flex-container demo-nowrap demo-wrap-container">
-                <div class="item">Item 1</div><div class="item">Item 2</div><div class="item">Item 3</div><div class="item">Item 4</div>
-            </div>
-        </div>
-        <div>
-            <div class="demo-label">flex-wrap: wrap（换行，放不下就换到下一行）</div>
-            <div class="flex-container demo-wrap demo-wrap-container">
-                <div class="item">Item 1</div><div class="item">Item 2</div><div class="item">Item 3</div><div class="item">Item 4</div>
-            </div>
-        </div>
+    <div class="flex-container demo-ai demo-ai-end">
+        <div class="item">end</div>
+        <div class="item">end</div>
+        <div class="item">end</div>
     </div>
-</div>
+    <div class="flex-container demo-ai demo-ai-baseline">
+        <div class="item">小字</div>
+        <div class="item">大字</div>
+        <div class="item">中字</div>
+    </div>
 
-<!-- ==================== 第6节 ==================== -->
-<h2>6. 子项属性 — flex-grow / flex-shrink / flex-basis</h2>
-<p>这三个属性设置在<strong>子元素</strong>上，控制它们如何分配剩余空间。</p>
+    <h2>5. flex-wrap</h2>
+    <div class="flex-container demo-nowrap demo-wrap-container">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+        <div class="item">4</div>
+    </div>
+    <div class="flex-container demo-wrap demo-wrap-container">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+        <div class="item">4</div>
+    </div>
 
-<h3>flex-grow — 放大比例</h3>
-<p>定义项目的放大比例，默认为 <code>0</code>（不放大）。数值越大，分到的剩余空间越多。</p>
-<div class="demo-section">
-    <div class="demo-label">第2项 flex-grow:1（黄色），第3项 flex-grow:2（绿色）→ 绿色分到的空间是黄色的2倍</div>
+    <h2>6. flex-grow / flex-shrink / flex-basis / flex</h2>
     <div class="flex-container demo-grow">
-        <div class="item">固定</div><div class="item">grow:1</div><div class="item">grow:2</div>
+        <div class="item">固定</div>
+        <div class="item">grow:1</div>
+        <div class="item">grow:2</div>
     </div>
-</div>
-
-<h3>flex-shrink — 缩小比例</h3>
-<p>定义项目的缩小比例，默认为 <code>1</code>（等比缩小）。设为 <code>0</code> 表示不缩小。</p>
-<div class="demo-section">
-    <div class="demo-label">容器宽300px，每项宽200px → 第2项 flex-shrink:0（黄色）不缩小，其他项被压缩</div>
     <div class="flex-container demo-shrink">
-        <div class="item">缩小</div><div class="item">不缩小</div><div class="item">缩小</div>
+        <div class="item">缩小</div>
+        <div class="item">不缩小</div>
+        <div class="item">缩小</div>
     </div>
-</div>
-
-<h3>flex-basis — 初始大小</h3>
-<p>设置项目在分配多余空间之前的初始大小，替代 <code>width</code>。</p>
-<div class="demo-section">
-    <div class="demo-label">三个项目的 flex-basis 分别为 100px、200px、50px</div>
     <div class="flex-container demo-basis">
-        <div class="item">100px</div><div class="item">200px</div><div class="item">50px</div>
+        <div class="item">100px</div>
+        <div class="item">200px</div>
+        <div class="item">50px</div>
     </div>
-</div>
-
-<h3>flex 简写</h3>
-<div class="note">
-    <code>flex: &lt;grow&gt; &lt;shrink&gt; &lt;basis&gt;</code><br>
-    常用简写：<code>flex: 1</code> 等于 <code>flex: 1 1 0%</code>（均分空间）
-</div>
-<div class="demo-section">
-    <div class="demo-label">flex:1、flex:2、flex:1 → 中间项占 2/4 = 50% 的空间</div>
     <div class="flex-container demo-shorthand">
-        <div class="item">flex:1</div><div class="item">flex:2</div><div class="item">flex:1</div>
+        <div class="item">flex:1</div>
+        <div class="item">flex:2</div>
+        <div class="item">flex:1</div>
     </div>
-</div>
 
-<!-- ==================== 第7节 ==================== -->
-<h2>7. align-self — 单独对齐</h2>
-<p>允许单个项目覆盖容器的 <code>align-items</code> 设置，拥有不同的交叉轴对齐方式。</p>
-
-<div class="demo-section">
-    <div class="demo-label">每个项目设置了不同的 align-self</div>
+    <h2>7. align-self</h2>
     <div class="flex-container demo-align-self">
         <div class="item">start</div>
         <div class="item">center</div>
         <div class="item">end</div>
         <div class="item">stretch</div>
     </div>
-</div>
 
-<!-- ==================== 第8节 ==================== -->
-<h2>8. order — 排列顺序</h2>
-<p>默认所有项目的 <code>order</code> 为 0，数值越小越靠前。可以不改变 HTML 结构来重新排序。</p>
-
-<div class="demo-section">
-    <div class="demo-label">HTML 顺序是 1、2、3，但 order 设为 3、1、2 → 显示顺序变为 2、3、1</div>
+    <h2>8. order</h2>
     <div class="flex-container demo-order">
-        <div class="item">1 (order:3)</div>
-        <div class="item">2 (order:1)</div>
-        <div class="item">3 (order:2)</div>
+        <div class="item">1(order:3)</div>
+        <div class="item">2(order:1)</div>
+        <div class="item">3(order:2)</div>
     </div>
-</div>
-
-<!-- ==================== 第9节 ==================== -->
-<h2>9. 实战案例</h2>
-
-<h3>案例一：导航栏</h3>
-<p>用 <code>margin-right: auto</code> 把 logo 推到左边，链接自动靠右。</p>
-<div class="demo-section">
-    <div class="demo-navbar">
-        <span class="logo">MyLogo</span>
-        <a href="#">首页</a>
-        <a href="#">产品</a>
-        <a href="#">关于</a>
-        <a href="#">联系</a>
-    </div>
-</div>
-
-<h3>案例二：完美居中</h3>
-<p>只需两行：<code>justify-content: center</code> + <code>align-items: center</code></p>
-<div class="demo-section">
-    <div class="demo-center-box">
-        <div class="center-content">我被完美居中了！</div>
-    </div>
-</div>
-
-<h3>案例三：等高卡片布局</h3>
-<p>用 <code>flex: 1 1 200px</code> 实现自适应等宽，<code>flex-direction: column</code> 让按钮始终在底部。</p>
-<div class="demo-section">
-    <div class="demo-cards">
-        <div class="card">
-            <h4>基础版</h4>
-            <p>适合个人使用，包含基本功能。</p>
-            <button class="btn">了解更多</button>
-        </div>
-        <div class="card">
-            <h4>专业版</h4>
-            <p>适合团队协作，包含高级分析、团队管理和优先技术支持等更多功能。</p>
-            <button class="btn">了解更多</button>
-        </div>
-        <div class="card">
-            <h4>企业版</h4>
-            <p>定制化方案。</p>
-            <button class="btn">了解更多</button>
-        </div>
-    </div>
-</div>
-
-<h3>案例四：经典圣杯布局（Header + 三栏 + Footer）</h3>
-<div class="demo-section">
-    <div class="demo-holy-grail">
-        <div class="hg-header">Header</div>
-        <div class="hg-body">
-            <div class="hg-sidebar">左侧栏<br>导航菜单</div>
-            <div class="hg-main">主内容区域<br>flex: 1 让它自动占满剩余空间</div>
-            <div class="hg-sidebar hg-sidebar-right">右侧栏<br>广告位</div>
-        </div>
-        <div class="hg-footer">Footer</div>
-    </div>
-</div>
-
-<!-- ==================== 总结 ==================== -->
-<h2>10. 属性速查表</h2>
-
-<h3>容器属性（设在父元素上）</h3>
-<table>
-    <tr><th>属性</th><th>作用</th><th>常用值</th></tr>
-    <tr><td><code>display</code></td><td>开启弹性布局</td><td><code>flex</code> / <code>inline-flex</code></td></tr>
-    <tr><td><code>flex-direction</code></td><td>主轴方向</td><td><code>row</code> / <code>column</code></td></tr>
-    <tr><td><code>justify-content</code></td><td>主轴对齐</td><td><code>center</code> / <code>space-between</code> / <code>space-evenly</code></td></tr>
-    <tr><td><code>align-items</code></td><td>交叉轴对齐</td><td><code>center</code> / <code>stretch</code> / <code>flex-start</code></td></tr>
-    <tr><td><code>flex-wrap</code></td><td>是否换行</td><td><code>nowrap</code> / <code>wrap</code></td></tr>
-    <tr><td><code>gap</code></td><td>项目间距</td><td><code>10px</code> / <code>1rem</code></td></tr>
-    <tr><td><code>align-content</code></td><td>多行时的交叉轴对齐</td><td>同 <code>justify-content</code></td></tr>
-</table>
-
-<h3>子项属性（设在子元素上）</h3>
-<table>
-    <tr><th>属性</th><th>作用</th><th>常用值</th></tr>
-    <tr><td><code>flex-grow</code></td><td>放大比例</td><td><code>0</code>（默认）/ <code>1</code></td></tr>
-    <tr><td><code>flex-shrink</code></td><td>缩小比例</td><td><code>1</code>（默认）/ <code>0</code></td></tr>
-    <tr><td><code>flex-basis</code></td><td>初始大小</td><td><code>auto</code> / <code>200px</code></td></tr>
-    <tr><td><code>flex</code></td><td>以上三者的简写</td><td><code>flex: 1</code> / <code>flex: 0 0 auto</code></td></tr>
-    <tr><td><code>align-self</code></td><td>单独交叉轴对齐</td><td><code>center</code> / <code>flex-end</code></td></tr>
-    <tr><td><code>order</code></td><td>排列顺序</td><td><code>0</code>（默认）/ 任意整数</td></tr>
-</table>
-
-<div class="note" style="margin-top:30px;">
-    <strong>学习建议：</strong>在浏览器中打开此页面，按 F12 打开开发者工具，选中任意 flex 容器，修改属性值实时查看效果。这是理解 Flexbox 最快的方式！
-</div>
-
-<div style="text-align:center; padding:40px 0 20px; color:#555;">
-    — Flexbox 弹性盒子教程 · 完 —
-</div>
-
 </body>
+
 </html>
