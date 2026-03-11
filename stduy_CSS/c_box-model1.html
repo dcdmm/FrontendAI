@@ -109,6 +109,12 @@
             background: #4caf50;
         }
 
+        .demo-grow .item:nth-child(4) {
+            flex-grow: 7;
+            background: #b40fb7;
+        }
+
+        /* By default, all flex items have an order value of 0. */
         .demo-order .item:nth-child(1) {
             order: 3;
         }
@@ -230,14 +236,15 @@
         <div class="item">4</div>
     </div>
 
-    <h2>flex-grow</h2>
+    <h3>flex-grow(The flex-grow CSS property sets the flex grow factor, which specifies how much of the flex container's positive free space, if any, should be assigned to the flex item's main size)</h3>
     <div class="flex-container demo-grow">
         <div class="item">固定</div>
         <div class="item">grow:1</div>
         <div class="item">grow:3</div>
+        <div class="item">grow:7</div>
     </div>
 
-    <h2>order</h2>
+    <h3>order(改变项目的排列顺序)</h3>
     <div class="flex-container demo-order">
         <div class="item">1(order:3)</div>
         <div class="item">2(order:1)</div>
