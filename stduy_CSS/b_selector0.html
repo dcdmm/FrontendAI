@@ -6,7 +6,7 @@
     <title>选择器基础</title>
 
     <style>
-        /* 优先级: ID选择器 > 类选择器 > 元素选择器 > 通用选择器 */
+        /* 优先级(权重比较): ID选择器 > 类选择器 > 元素选择器 > 通用选择器 */
 
         /* 通用选择器(The CSS universal selector (*) matches elements of any type.) */
         * {
@@ -30,12 +30,12 @@
             font-style: italic;
         }
 
-        /* 所有同时具有类选择器math和类选择器hight的元素 */
+        /* 所有同时具有类选择器math和类选择器hight的元素(权重比.math更高) */
         .math.hight {
             background-color: yellow;
         }
 
-        /* 所有b元素(同时具有类选择器math和类选择器computer) */
+        /* 所有b元素(同时具有类选择器math和类选择器computer)(权重比.math.computer更高) */
         b.math.computer {
             color: violet;
             background-color: rgb(128, 255, 0);

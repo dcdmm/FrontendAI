@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <title>浮动(Float)</title>
+    <style>
+        body {
+            font-family: "Microsoft YaHei", sans-serif;
+            padding: 20px;
+        }
+
+        h2 {
+            border-bottom: 2px solid #333;
+            padding-bottom: 5px;
+        }
+
+        .demo {
+            margin-bottom: 40px;
+            background: #f9f9f9;
+            padding: 15px;
+            border: 1px solid #ddd;
+        }
+
+        .no-float .box {
+            width: 100px;
+            height: 100px;
+            margin: 5px;
+        }
+
+        .red {
+            background: #e74c3c;
+        }
+
+        .green {
+            background: #2ecc71;
+        }
+
+        .blue {
+            background: #3498db;
+        }
+
+        /* ===================== */
+        /*  例2: 左浮动          */
+        /* ===================== */
+        .float-left .box {
+            width: 100px;
+            height: 100px;
+            margin: 5px;
+            float: left;
+            /* 关键: 向左浮动, 元素会脱离文档流并排排列 */
+        }
+
+        /* ===================== */
+        /*  例3: 右浮动          */
+        /* ===================== */
+        .float-right .box {
+            width: 100px;
+            height: 100px;
+            margin: 5px;
+            float: right;
+            /* 关键: 向右浮动, 元素靠右并排 */
+        }
+
+        /* ===================== */
+        /*  例4: 文字环绕图片     */
+        /*  这是 float 最经典的用途 */
+        /* ===================== */
+        .text-wrap .img-box {
+            width: 120px;
+            height: 120px;
+            background: #9b59b6;
+            float: left;
+            /* 图片左浮动, 文字自动环绕 */
+            margin: 0 15px 10px 0;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        /* ===================== */
+        /*  例5: 浮动塌陷问题     */
+        /* ===================== */
+        .collapse .parent {
+            background: #f39c12;
+            border: 2px solid #e67e22;
+            /* 父元素没有设置高度, 子元素全部浮动后, 父元素高度会塌陷为0 */
+        }
+
+        .collapse .box {
+            width: 80px;
+            height: 80px;
+            margin: 5px;
+            float: left;
+        }
+
+        /* ===================== */
+        /*  例6: 清除浮动 (解决塌陷) */
+        /* ===================== */
+        .clearfix .parent {
+            background: #1abc9c;
+            border: 2px solid #16a085;
+        }
+
+        /* 经典清除浮动方法: 伪元素 clearfix */
+        .clearfix .parent::after {
+            content: "";
+            display: block;
+            clear: both;
+            /* 关键: 清除浮动, 让父元素重新包裹子元素 */
+        }
+
+        .clearfix .box {
+            width: 80px;
+            height: 80px;
+            margin: 5px;
+            float: left;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>没有浮动(div默认从上往下排列)</h2>
+    <div class="demo no-float">
+        <div class="box red"></div>
+        <div class="box green"></div>
+        <div class="box blue"></div>
+    </div>
+
+    <h2>float: left(元素脱离文档流,从左往右并排)</h2>
+    <div class="demo float-left">
+        <div class="box red"></div>
+        <div class="box green"></div>
+        <div class="box blue"></div>
+        <div style="clear: both;"></div>
+    </div>
+
+    <!-- 例3: 右浮动 -->
+    <h2>例3: float: right — 元素靠右并排 (注意顺序反转)</h2>
+    <div class="demo float-right">
+        <div class="box red"></div>
+        <div class="box green"></div>
+        <div class="box blue"></div>
+        <div style="clear: both;"></div>
+    </div>
+
+    <!-- 例4: 文字环绕 -->
+    <h2>例4: 文字环绕 — float 最经典的用途</h2>
+    <div class="demo text-wrap">
+        <div class="img-box">假装是图片</div>
+        <p>这是一段很长的文字, 用来演示浮动的经典效果——文字环绕。
+            当一个元素设置了 float: left 后, 它会脱离正常的文档流,
+            但周围的文字内容会自动环绕在它的周围, 就像报纸排版一样。
+            这其实就是 float 最初被设计出来的目的。
+            我们再多写一些文字来让效果更明显。
+            浮动让元素像水中的浮标一样"浮"起来,
+            而文字就像水流一样绕过它继续流动。
+            这个效果非常直观, 也是理解浮动的最好方式。</p>
+        <div style="clear: both;"></div>
+    </div>
+
+    <!-- 例5: 高度塌陷 -->
+    <h2>例5: 浮动塌陷 — 父元素高度变为 0 (常见坑!)</h2>
+    <div class="demo collapse">
+        <p>下面橙色的父元素高度塌陷了, 因为子元素全部浮动:</p>
+        <div class="parent">
+            <div class="box red"></div>
+            <div class="box green"></div>
+            <div class="box blue"></div>
+            <!-- 没有清除浮动, 父元素包不住子元素 -->
+        </div>
+        <p style="margin-top: 100px;">⬆ 看, 橙色区域几乎看不见了!</p>
+    </div>
+
+    <!-- 例6: 清除浮动 -->
+    <h2>例6: clearfix 清除浮动 — 解决塌陷问题</h2>
+    <div class="demo clearfix">
+        <p>使用 ::after 伪元素 + clear: both, 父元素恢复正常:</p>
+        <div class="parent">
+            <div class="box red"></div>
+            <div class="box green"></div>
+            <div class="box blue"></div>
+        </div>
+        <p>⬆ 绿色父元素正确包裹了所有子元素!</p>
+    </div>
+
+</body>
+
+</html>
