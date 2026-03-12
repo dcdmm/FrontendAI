@@ -5,17 +5,18 @@
     <meta charset="UTF-8">
     <title>后代选择器/子代选择器</title>
     <style>
-        /* 后代选择器(ul中所有的a) */
+        /* 后代选择器(ul后代中所有的a) */
+        
         ul a {
             color: green;
         }
 
-        /* .nav(类选择器)中所有的li */
+        /* .nav(类选择器)后代中所有的li */
         .nav li {
             background-color: #c34c4c;
         }
 
-        /* .container中所有的.box && .box中所有的span */
+        /* .container后代中所有的.box后代中所有的span */
         .container .box span {
             font-weight: bold;
             color: blue;

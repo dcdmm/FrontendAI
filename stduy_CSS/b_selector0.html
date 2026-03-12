@@ -30,6 +30,17 @@
             font-style: italic;
         }
 
+        /* 所有同时具有类选择器math和类选择器hight的元素 */
+        .math.hight {
+            background-color: yellow;
+        }
+
+        /* 所有b元素(同时具有类选择器math和类选择器computer) */
+        b.math.computer {
+            color: violet;
+            background-color: rgb(128, 255, 0);
+        }
+
         /* ID选择器(The CSS ID selector matches an element based on the value of the element's id attribute.) */
         #name {
             color: purple;
@@ -68,6 +79,9 @@
     <p class="math">线性代数</p>
     <!-- 多个类选择器 -->
     <p class="math ai">概率论</p>
+    <p class="math hight">实变分析</p>
+    <p class="math computer">图论</p>
+    <p><b class="math computer">离散数学</b></p>
 
     <p id="name">小白</p>
 
