@@ -54,6 +54,10 @@
             float: right;
         }
 
+        .collapse {
+            display: flow-root;
+        }
+
         .collapse .parent {
             background: #f39c12;
             border: 2px solid #e67e22;
@@ -70,6 +74,7 @@
             background: #1abc9c;
             border: 2px solid #16a085;
             display: flow-root;
+            /* 清除浮动(Block Formatting Context,块级格式化上下文),父元素计算高度时将浮动子元素也算进去 */
         }
 
         .clearfix .box {
@@ -109,7 +114,7 @@
         <div style="clear: both;"></div>
     </div>
 
-    <h2>浮动塌陷</h2>
+    <h2>浮动塌陷(父元素高度塌陷变为0)</h2>
     <div class="demo collapse">
         <div class="parent">
             <div class="box red"></div>
@@ -117,7 +122,6 @@
             <div class="box blue"></div>
         </div>
     </div>
-    <div style="clear: both;"></div>
 
     <h2>清除浮动</h2>
     <div class="demo clearfix">
@@ -128,13 +132,12 @@
         </div>
     </div>
 
-    <h2>文字环绕(应用)</h2>
+    <h2>文字环绕(实际用途)</h2>
     <div class="demo text-wrap">
         <img src="img/bg0.png" alt="示例图片" style="zoom:5%">
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla luctus aliquam dolor, eu lacinia lorem
             placerat vulputate. Duis felis orci, pulvinar id metus ut, rutrum luctus orci. Cras porttitor imperdiet
             nunc, at ultricies tellus laoreet sit amet.</p>
-        <div style="clear: both;"></div>
     </div>
 </body>
 
