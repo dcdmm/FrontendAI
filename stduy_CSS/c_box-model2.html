@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <!--
+    Grid Layout 核心概念：
+    - Grid Container: 设置了 display: grid 的父元素
+    - Grid Item: 容器内的直接子元素
+    - Grid Line: 构成网格结构的分界线（水平线和垂直线）
+    - Grid Track: 两条相邻网格线之间的空间（即一行或一列）
+    - Grid Cell: 两条相邻行线和两条相邻列线之间的空间（即一个格子）
+    - Grid Area: 由四条网格线围成的矩形区域（可以跨多个格子）
+    -->
+    <title>网格布局模型(Grid)</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 16px;
+        }
+
+        h3 {
+            margin-top: 32px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 4px;
+        }
+
+        .grid-container {
+            display: grid;
+            background: #ddd;
+            padding: 8px;
+            margin-bottom: 10px;
+            gap: 6px;
+        }
+
+        .grid-container .item {
+            background: #e94560;
+            color: #fff;
+            padding: 12px 16px;
+            text-align: center;
+        }
+
+        /* ========== 1. 基础：定义列和行 ========== */
+        .demo-columns {
+            grid-template-columns: 100px 200px 100px;
+        }
+
+        .demo-columns-fr {
+            grid-template-columns: 1fr 2fr 1fr;
+        }
+
+        .demo-rows {
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 60px 100px;
+        }
+
+        /* ========== 2. repeat() 简写 ========== */
+        .demo-repeat {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .demo-repeat-mixed {
+            grid-template-columns: 100px repeat(3, 1fr);
+        }
+
+        /* ========== 3. minmax() 响应式 ========== */
+        .demo-minmax {
+            grid-template-columns: repeat(3, minmax(100px, 1fr));
+        }
+
+        /* ========== 4. auto-fill / auto-fit ========== */
+        .demo-auto-fill {
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        }
+
+        .demo-auto-fit {
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        }
+
+        /* ========== 5. gap 间距 ========== */
+        .demo-gap {
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px 40px; /* row-gap column-gap */
+        }
+
+        /* ========== 6. 项目跨行/跨列 ========== */
+        .demo-span {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .demo-span .item:nth-child(1) {
+            grid-column: 1 / 3; /* 从第1条列线到第3条列线，占2列 */
+            background: #ffc107;
+            color: #333;
+        }
+
+        .demo-span .item:nth-child(4) {
+            grid-row: 2 / 4; /* 从第2条行线到第4条行线，占2行 */
+            background: #4caf50;
+        }
+
+        /* 也可以用 span 关键字 */
+        .demo-span .item:nth-child(5) {
+            grid-column: span 2; /* 跨2列 */
+            background: #b40fb7;
+        }
+
+        /* ========== 7. grid-template-areas 命名区域 ========== */
+        .demo-areas {
+            grid-template-columns: 200px 1fr 200px;
+            grid-template-rows: 60px 1fr 40px;
+            min-height: 300px;
+            grid-template-areas:
+                "header  header  header"
+                "sidebar content aside"
+                "footer  footer  footer";
+        }
+
+        .demo-areas .header {
+            grid-area: header;
+            background: #e94560;
+        }
+
+        .demo-areas .sidebar {
+            grid-area: sidebar;
+            background: #ffc107;
+            color: #333;
+        }
+
+        .demo-areas .content {
+            grid-area: content;
+            background: #4caf50;
+        }
+
+        .demo-areas .aside {
+            grid-area: aside;
+            background: #2196f3;
+        }
+
+        .demo-areas .footer {
+            grid-area: footer;
+            background: #9c27b0;
+        }
+
+        /* ========== 8. justify-items / align-items（控制格子内项目的对齐） ========== */
+        .demo-justify-items {
+            grid-template-columns: repeat(3, 1fr);
+            min-height: 100px;
+        }
+
+        .demo-ji-start {
+            justify-items: start;
+        }
+
+        .demo-ji-center {
+            justify-items: center;
+        }
+
+        .demo-ji-end {
+            justify-items: end;
+        }
+
+        .demo-ai-center {
+            align-items: center;
+            min-height: 120px;
+        }
+
+        /* ========== 9. justify-content / align-content（控制整个网格在容器中的对齐） ========== */
+        .demo-jc {
+            grid-template-columns: repeat(3, 80px);
+            min-height: 100px;
+        }
+
+        .demo-jc-center {
+            justify-content: center;
+        }
+
+        .demo-jc-between {
+            justify-content: space-between;
+        }
+
+        .demo-jc-evenly {
+            justify-content: space-evenly;
+        }
+
+        /* ========== 10. place-self（单个项目的对齐） ========== */
+        .demo-self {
+            grid-template-columns: repeat(3, 1fr);
+            min-height: 120px;
+        }
+
+        .demo-self .item:nth-child(1) {
+            place-self: start start;
+            background: #ffc107;
+            color: #333;
+        }
+
+        .demo-self .item:nth-child(2) {
+            place-self: center center;
+            background: #4caf50;
+        }
+
+        .demo-self .item:nth-child(3) {
+            place-self: end end;
+            background: #2196f3;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>CSS Grid 网格布局</h2>
+
+    <!-- 1. 基础列定义 -->
+    <h3>1. grid-template-columns（定义列）</h3>
+
+    <h4>固定宽度: grid-template-columns: 100px 200px 100px</h4>
+    <div class="grid-container demo-columns">
+        <div class="item">100px</div>
+        <div class="item">200px</div>
+        <div class="item">100px</div>
+    </div>
+
+    <h4>弹性单位 fr: grid-template-columns: 1fr 2fr 1fr（按比例分配空间）</h4>
+    <div class="grid-container demo-columns-fr">
+        <div class="item">1fr</div>
+        <div class="item">2fr</div>
+        <div class="item">1fr</div>
+    </div>
+
+    <h4>grid-template-rows: 60px 100px（定义行高）</h4>
+    <div class="grid-container demo-rows">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+        <div class="item">4</div>
+        <div class="item">5</div>
+        <div class="item">6</div>
+    </div>
+
+    <!-- 2. repeat() -->
+    <h3>2. repeat() 简写</h3>
+
+    <h4>repeat(4, 1fr) — 4列等宽</h4>
+    <div class="grid-container demo-repeat">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+        <div class="item">4</div>
+    </div>
+
+    <h4>100px repeat(3, 1fr) — 第一列固定，其余等分</h4>
+    <div class="grid-container demo-repeat-mixed">
+        <div class="item">固定100px</div>
+        <div class="item">1fr</div>
+        <div class="item">1fr</div>
+        <div class="item">1fr</div>
+    </div>
+
+    <!-- 3. minmax() -->
+    <h3>3. minmax()（设置最小和最大尺寸）</h3>
+    <h4>repeat(3, minmax(100px, 1fr)) — 每列最小100px，最大平分</h4>
+    <div class="grid-container demo-minmax">
+        <div class="item">min:100px</div>
+        <div class="item">min:100px</div>
+        <div class="item">min:100px</div>
+    </div>
+
+    <!-- 4. auto-fill / auto-fit -->
+    <h3>4. auto-fill vs auto-fit（自动填充列数）</h3>
+    <h4>auto-fill: 尽可能多地创建列（即使是空列）</h4>
+    <div class="grid-container demo-auto-fill">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+    </div>
+    <h4>auto-fit: 类似 auto-fill，但空列会被折叠，项目会拉伸填满</h4>
+    <div class="grid-container demo-auto-fit">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+    </div>
+
+    <!-- 5. gap -->
+    <h3>5. gap（项目间距）</h3>
+    <h4>gap: 20px 40px（行间距20px，列间距40px）</h4>
+    <div class="grid-container demo-gap">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+        <div class="item">4</div>
+        <div class="item">5</div>
+        <div class="item">6</div>
+    </div>
+
+    <!-- 6. 跨行跨列 -->
+    <h3>6. grid-column / grid-row（跨行跨列）</h3>
+    <h4>项目1: grid-column: 1/3（占2列）| 项目4: grid-row: 2/4（占2行）| 项目5: grid-column: span 2</h4>
+    <div class="grid-container demo-span">
+        <div class="item">1 (跨2列)</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+        <div class="item">4 (跨2行)</div>
+        <div class="item">5 (span 2列)</div>
+        <div class="item">6</div>
+        <div class="item">7</div>
+    </div>
+
+    <!-- 7. grid-template-areas -->
+    <h3>7. grid-template-areas（命名区域布局 — 最直观的方式！）</h3>
+    <h4>经典的 Header / Sidebar / Content / Aside / Footer 布局</h4>
+    <div class="grid-container demo-areas">
+        <div class="item header">Header</div>
+        <div class="item sidebar">Sidebar</div>
+        <div class="item content">Content</div>
+        <div class="item aside">Aside</div>
+        <div class="item footer">Footer</div>
+    </div>
+
+    <!-- 8. justify-items / align-items -->
+    <h3>8. justify-items（控制项目在格子内的水平对齐）</h3>
+    <h4>justify-items: start</h4>
+    <div class="grid-container demo-justify-items demo-ji-start">
+        <div class="item">start</div>
+        <div class="item">start</div>
+        <div class="item">start</div>
+    </div>
+    <h4>justify-items: center</h4>
+    <div class="grid-container demo-justify-items demo-ji-center">
+        <div class="item">center</div>
+        <div class="item">center</div>
+        <div class="item">center</div>
+    </div>
+    <h4>justify-items: end</h4>
+    <div class="grid-container demo-justify-items demo-ji-end">
+        <div class="item">end</div>
+        <div class="item">end</div>
+        <div class="item">end</div>
+    </div>
+
+    <h4>align-items: center（垂直居中）</h4>
+    <div class="grid-container demo-justify-items demo-ai-center">
+        <div class="item">垂直居中</div>
+        <div class="item">垂直居中</div>
+        <div class="item">垂直居中</div>
+    </div>
+
+    <!-- 9. justify-content -->
+    <h3>9. justify-content（控制整个网格在容器中的水平位置）</h3>
+    <h4>justify-content: center</h4>
+    <div class="grid-container demo-jc demo-jc-center">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+    </div>
+    <h4>justify-content: space-between</h4>
+    <div class="grid-container demo-jc demo-jc-between">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+    </div>
+    <h4>justify-content: space-evenly</h4>
+    <div class="grid-container demo-jc demo-jc-evenly">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+    </div>
+
+    <!-- 10. place-self -->
+    <h3>10. place-self（单个项目的独立对齐）</h3>
+    <h4>每个项目可以有自己的对齐方式: place-self: align-self justify-self</h4>
+    <div class="grid-container demo-self">
+        <div class="item">start start</div>
+        <div class="item">center center</div>
+        <div class="item">end end</div>
+    </div>
+</body>
+
+</html>
