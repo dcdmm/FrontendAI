@@ -3,18 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>定位(Positioning)</title>
+    <title>定位(position)</title>
     <style>
-        body {
-            font-family: "Microsoft YaHei", sans-serif;
-            padding: 20px;
-        }
-
-        h2 {
-            border-bottom: 2px solid #333;
-            padding-bottom: 5px;
-        }
-
         .demo {
             margin-bottom: 40px;
             background: #f9f9f9;
@@ -22,29 +12,18 @@
             border: 1px solid #ddd;
         }
 
-        /* ========== 1. static（默认值）========== */
-        .static-demo .box {
-            width: 100px;
-            height: 100px;
-            margin: 5px;
-            /* position: static 是默认值，top/left 等属性无效 */
-        }
-
-        /* ========== 2. relative ========== */
         .relative-demo .box {
             width: 100px;
             height: 100px;
             margin: 5px;
-            display: inline-block;
         }
 
-        .relative-demo .moved {
+        .relative-demo .relative {
             position: relative;
-            top: 30px;
-            left: 50px;
+            top: 50px;
+            left: 20px;
         }
 
-        /* ========== 3. absolute ========== */
         .absolute-demo .parent {
             position: relative;
             width: 300px;
@@ -53,63 +32,31 @@
             border: 2px solid #e67e22;
         }
 
-        .absolute-demo .badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
+        .absolute-demo .box {
             background: #e74c3c;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 10px;
-            font-size: 14px;
+            width: 100px;
+            height: 100px;
         }
 
-        .absolute-demo .bottom-text {
+        .absolute-demo .absolute {
             position: absolute;
-            bottom: 10px;
-            left: 10px;
-            color: white;
-            font-size: 14px;
+            top: 50px;
+            left: 20px;
+            background: #31cbbe;
+            width: 60px;
+            height: 30px;
         }
 
-        /* ========== 4. fixed ========== */
-        .fixed-btn {
+        .fixed-div {
             position: fixed;
             bottom: 30px;
             right: 30px;
             width: 50px;
             height: 50px;
             background: #e74c3c;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            font-size: 20px;
-            cursor: pointer;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
         }
 
-        /* ========== 5. sticky ========== */
-        .sticky-demo {
-            height: 200px;
-            overflow-y: scroll;
-            background: #ecf0f1;
-        }
 
-        .sticky-demo .sticky-header {
-            position: sticky;
-            top: 0;
-            background: #3498db;
-            color: white;
-            padding: 10px;
-            font-weight: bold;
-        }
-
-        .sticky-demo .item {
-            padding: 15px;
-            border-bottom: 1px solid #ddd;
-        }
-
-        /* ========== 6. z-index ========== */
         .zindex-demo {
             position: relative;
             height: 180px;
@@ -147,249 +94,37 @@
             background: rgba(52, 152, 219, 0.9);
             z-index: 3;
         }
-
-        /* ========== 7. 实战：卡片组件 ========== */
-        .card {
-            position: relative;
-            width: 280px;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
-        }
-
-        .card img {
-            width: 100%;
-            height: 160px;
-            object-fit: cover;
-            display: block;
-            background: #bdc3c7;
-        }
-
-        .card .tag {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: #e74c3c;
-            color: white;
-            padding: 3px 10px;
-            border-radius: 4px;
-            font-size: 12px;
-        }
-
-        .card .info {
-            padding: 12px;
-        }
-
-        .card .info h3 {
-            margin: 0 0 5px;
-        }
-
-        .card .info p {
-            margin: 0;
-            color: #777;
-            font-size: 14px;
-        }
-
-        /* ========== 8. 实战：下拉菜单 ========== */
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
-        .dropdown .btn {
-            padding: 10px 20px;
-            background: #3498db;
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-size: 14px;
-            border-radius: 4px;
-        }
-
-        .dropdown .menu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background: white;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-            border-radius: 4px;
-            min-width: 150px;
-            z-index: 10;
-        }
-
-        .dropdown:hover .menu {
-            display: block;
-        }
-
-        .dropdown .menu a {
-            display: block;
-            padding: 10px 15px;
-            color: #333;
-            text-decoration: none;
-        }
-
-        .dropdown .menu a:hover {
-            background: #ecf0f1;
-        }
-
-        /* ========== 9. 实战：居中弹窗 ========== */
-        .modal-demo {
-            position: relative;
-            height: 250px;
-            background: #ecf0f1;
-            overflow: hidden;
-        }
-
-        .modal-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-box {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .modal-box h3 {
-            margin: 0 0 10px;
-        }
-
-        .modal-box p {
-            margin: 0 0 15px;
-            color: #666;
-        }
-
-        .modal-box button {
-            padding: 8px 24px;
-            background: #3498db;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
     </style>
 </head>
 
 <body>
-    <h1>CSS 定位（Positioning）完全指南</h1>
-
-    <!-- 1. static -->
-    <h2>1. static（默认值 —— top/left 无效）</h2>
-    <div class="demo static-demo">
-        <div class="box" style="background:#e74c3c;"></div>
-        <div class="box" style="background:#2ecc71;"></div>
-        <div class="box" style="background:#3498db;"></div>
-        <p>所有元素默认 position: static，按文档流从上往下排列，设置 top/left 等属性无效。</p>
-    </div>
-
-    <!-- 2. relative -->
-    <h2>2. relative（相对自身原位置偏移，原位置仍占空间）</h2>
+    <!-- The element is positioned according to the normal flow of the document, and then offset relative to itself based on the values of top, right, bottom, and left. The offset does not affect the position of any other elements; -->
+    <h2>relative(相对定位)</h2>
     <div class="demo relative-demo">
         <div class="box" style="background:#e74c3c;"></div>
-        <div class="box moved" style="background:#2ecc71;">我偏移了</div>
+        <div class="box relative" style="background:#2ecc71;"></div>
         <div class="box" style="background:#3498db;"></div>
-        <p>绿色方块设置了 <code>position: relative; top: 30px; left: 50px;</code><br>
-            它相对于自己原来的位置移动了，但原位置的空间仍然保留（蓝色没有顶上去）。</p>
     </div>
 
-    <!-- 3. absolute -->
-    <h2>3. absolute（相对于最近的定位祖先，脱离文档流）</h2>
+    <!-- The element is removed from the normal document flow, and no space is created for the element in the page layout. The element is positioned relative to its closest positioned ancestor (if any) or to the initial containing block. -->
+    <h2>absolute(绝对定位)</h2>
     <div class="demo absolute-demo">
         <div class="parent">
-            <span class="badge">HOT</span>
-            <span class="bottom-text">父元素设置了 position: relative</span>
+            <div class="box"></div>
+            <div class="absolute"></div>
         </div>
-        <p>absolute 元素会找最近的 <code>position 不是 static</code> 的祖先作为参考。<br>
-            所以常见搭配：<strong>父 relative + 子 absolute</strong>。</p>
     </div>
 
-    <!-- 4. fixed -->
-    <h2>4. fixed（相对于浏览器窗口，滚动时不动）</h2>
-    <div class="demo">
-        <p>右下角的红色圆形按钮就是 <code>position: fixed</code>，无论怎么滚动页面它都固定在那里。</p>
-        <p>常见用途：固定导航栏、回到顶部按钮、悬浮客服图标。</p>
-    </div>
-    <button class="fixed-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})">&uarr;</button>
+    <!-- Let's now look at fixed positioning. This works in exactly the same way as absolute positioning, with one key difference: whereas absolute positioning fixes an element in place relative to its nearest positioned ancestor (the initial containing block if there isn't one), fixed positioning fixes an element in place relative to the visible portion of the viewport. This means that you can create useful UI items that are fixed in place, like persistent navigation menus that are always visible no matter how much the page scrolls. -->
+    <h2>fixed(固定定位)</h2>
+    <div class="fixed-div">固定</div>
 
-    <!-- 5. sticky -->
-    <h2>5. sticky（滚动到阈值时"粘住"）</h2>
-    <div class="demo sticky-demo">
-        <div class="sticky-header">水果分类（我会粘住 ↓ 试试滚动）</div>
-        <div class="item">苹果</div>
-        <div class="item">香蕉</div>
-        <div class="item">橙子</div>
-        <div class="sticky-header">蔬菜分类（我也会粘住）</div>
-        <div class="item">西红柿</div>
-        <div class="item">黄瓜</div>
-        <div class="item">土豆</div>
-        <div class="sticky-header">饮料分类（我也会粘住）</div>
-        <div class="item">可乐</div>
-        <div class="item">果汁</div>
-        <div class="item">咖啡</div>
-    </div>
-    <p style="color:#999; font-size:14px;">sticky = relative + fixed 的结合：没到阈值时是 relative，滚到阈值后变成 fixed。</p>
-
-    <!-- 6. z-index -->
-    <h2>6. z-index（控制层叠顺序，值越大越在上面）</h2>
+    <h2>z-index(改变堆叠顺序)</h2>
     <div class="demo zindex-demo">
         <div class="layer layer1">z-index: 1</div>
         <div class="layer layer2">z-index: 2</div>
         <div class="layer layer3">z-index: 3</div>
     </div>
-    <p style="color:#999; font-size:14px;">z-index 只对 position 不是 static 的元素有效。</p>
-
-    <!-- 7. 实战：卡片 -->
-    <h2>7. 实战：卡片角标（relative + absolute）</h2>
-    <div class="demo">
-        <div class="card">
-            <img src="img/bg0.png" alt="卡片图片">
-            <div class="tag">新品</div>
-            <div class="info">
-                <h3>商品标题</h3>
-                <p>左上角的"新品"标签就是用 absolute 定位到卡片角落的。</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- 8. 实战：下拉菜单 -->
-    <h2>8. 实战：下拉菜单（relative + absolute）</h2>
-    <div class="demo">
-        <div class="dropdown">
-            <button class="btn">鼠标悬停我 ▼</button>
-            <div class="menu">
-                <a href="#">个人中心</a>
-                <a href="#">我的订单</a>
-                <a href="#">设置</a>
-                <a href="#">退出登录</a>
-            </div>
-        </div>
-        <p style="margin-top:15px;">菜单用 <code>position: absolute; top: 100%;</code> 紧贴按钮下方，不占文档流空间。</p>
-    </div>
-
-    <!-- 9. 实战：居中弹窗 -->
-    <h2>9. 实战：弹窗（absolute + flex 居中）</h2>
-    <div class="demo modal-demo">
-        <div class="modal-overlay">
-            <div class="modal-box">
-                <h3>提示</h3>
-                <p>这是一个居中弹窗</p>
-                <button>确 定</button>
-            </div>
-        </div>
-    </div>
-    <p style="color:#999; font-size:14px;">遮罩层用 absolute 铺满父容器（top/left/right/bottom 全为 0），弹窗用 flex 居中。</p>
-
 </body>
 
 </html>
