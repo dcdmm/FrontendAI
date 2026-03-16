@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>常见属性</title>
+	<style>
+		body {
+			font-family: sans-serif;
+			padding: 20px;
+			color: #333;
+		}
+
+		.box {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			width: 120px;
+			height: 70px;
+			margin: 8px;
+			background-color: #4dabf7;
+			color: white;
+			font-size: 13px;
+			text-align: center;
+			border-radius: 6px;
+		}
+
+		.demo-row {
+			margin: 10px 0;
+		}
+
+		hr {
+			border: none;
+			border-top: 1px dashed #ccc;
+			margin: 25px 0;
+		}
+
+		h2 {
+			color: #1c7ed6;
+			margin-bottom: 5px;
+		}
+
+		.fs-12 {
+			font-size: 12px;
+		}
+
+		.fs-20 {
+			font-size: 20px;
+		}
+
+		.fs-32 {
+			font-size: 32px;
+		}
+
+		.fw-normal {
+			font-weight: normal;
+		}
+
+		.fw-bold {
+			font-weight: bold;
+		}
+
+		.fw-900 {
+			font-weight: 900;
+		}
+
+		.ff-serif {
+			font-family: Georgia, serif;
+		}
+
+		.ff-mono {
+			font-family: monospace;
+		}
+
+		.c-red {
+			color: #e03131;
+		}
+
+		.c-green {
+			color: #2f9e44;
+		}
+
+		.c-blue {
+			color: #1971c2;
+		}
+
+		.lh-tight {
+			line-height: 1.2;
+		}
+
+		.lh-loose {
+			line-height: 2.5;
+		}
+
+		.ta-left {
+			text-align: left;
+		}
+
+		.ta-center {
+			text-align: center;
+		}
+
+		.ta-right {
+			text-align: right;
+		}
+
+		.td-underline {
+			text-decoration: underline;
+		}
+
+		.td-line-through {
+			text-decoration: line-through;
+		}
+
+		.ls-wide {
+			letter-spacing: 5px;
+		}
+
+		.bg-tomato {
+			background-color: red;
+			color: white;
+			padding: 6px 12px;
+		}
+
+		.bg-rgba {
+			background-color: rgba(0, 0, 0, 0.1);
+			padding: 6px 12px;
+		}
+
+		.bg-gradient {
+			background-image: linear-gradient(to right, rgb(247, 77, 111), rgb(138, 237, 16));
+			color: white;
+			padding: 6px 12px;
+		}
+
+		.size-demo {
+			width: 200px;
+			height: 60px;
+			background-color: #ffd8a8;
+			border: 1px solid #f08c00;
+			padding: 4px;
+		}
+
+		.minmax-demo {
+			min-width: 800px;
+			max-width: 1000px;
+			background-color: #d3f9d8;
+			border: 1px solid #2f9e44;
+			padding: 8px;
+		}
+
+		.b-solid {
+			border: 2px solid #333;
+			padding: 8px;
+			margin: 4px;
+		}
+
+		.b-dashed {
+			border: 2px dashed #e03131;
+			padding: 8px;
+			margin: 4px;
+		}
+
+		.b-dotted {
+			border: 2px dotted #1971c2;
+			padding: 8px;
+			margin: 4px;
+		}
+
+		.br-circle {
+			border-radius: 30%;
+			width: 70px;
+			height: 70px;
+		}
+
+		.text-shadow-demo {
+			font-size: 28px;
+			font-weight: bold;
+			text-shadow: 2px 2px 4px rgba(4, 244, 76, 0.3);
+		}
+
+		.op-1 {
+			opacity: 1;
+		}
+
+		.op-05 {
+			opacity: 0.5;
+		}
+
+		.op-02 {
+			opacity: 0.2;
+		}
+	</style>
+</head>
+
+<body>
+	<h2>font-size:字号</h2>
+	<p class="fs-12">12px</p>
+	<p class="fs-20">20px</p>
+	<p class="fs-32">32px</p>
+
+	<h2>font-weight:字重</h2>
+	<p class="fw-normal">normal</p>
+	<p class="fw-bold">bold</p>
+	<p class="fw-900">900</p>
+
+	<h2>font-family:字体</h2>
+	<p class="ff-serif">Georgia衬线体</p>
+	<p class="ff-mono">monospace等宽体</p>
+
+	<h2>color:文字颜色</h2>
+	<span class="c-red">红色</span>
+	<span class="c-green">绿色</span>
+	<span class="c-blue">蓝色</span>
+
+	<h2>line-height:行高</h2>
+	<p class="lh-tight" style="background:#f1f3f5; width:300px;">line-height: 1.2 紧凑<br>第二行</p>
+	<p class="lh-loose" style="background:#f1f3f5; width:300px;">line-height: 2.5 宽松<br>第二行</p>
+
+	<h2>text-align:文本对齐</h2>
+	<p class="ta-left" style="background:#f1f3f5; width:250px;">left左对齐</p>
+	<p class="ta-center" style="background:#f1f3f5; width:250px;">center居中对齐</p>
+	<p class="ta-right" style="background:#f1f3f5; width:250px;">right右对齐</p>
+
+	<h2>text-decoration:装饰线</h2>
+	<span class="td-underline">underline下划线 </span>
+	<span class="td-line-through">line-through删除线</span>
+
+	<h2>letter-spacing:字间距</h2>
+	<span class="ls-wide">letter-spacing:5px</span>
+
+	<h2>background-color:背景色</h2>
+	<span class="bg-tomato">red</span>
+	<span class="bg-rgba">rgba半透明</span>
+
+	<h2>background-image:渐变背景</h2>
+	<p class="bg-gradient">linear-gradient(to right, rgb(247, 77, 111), rgb(138, 237, 16))</p>
+
+	<h2>width/height:宽高</h2>
+	<div class="size-demo">width:200px;height:60px</div>
+
+	<h2>min-width/max-width:最小/最大宽度</h2>
+	<div class="minmax-demo">min-width:200px;max-width:700px</div>
+
+	<h2>border:边框样式</h2>
+	<div class="b-solid">solid实线</div>
+	<div class="b-dashed">dashed虚线</div>
+	<div class="b-dotted">dotted点线</div>
+
+	<h2>border-radius:圆角</h2>
+	<div class="box br-circle">30%圆形</div>
+
+	<h2>text-shadow:文字阴影</h2>
+	<p class="text-shadow-demo">带阴影的文字</p>
+
+	<h2>opacity:不透明度</h2>
+	<div class="box op-1">1 不透明</div>
+	<div class="box op-05">0.5 半透明</div>
+	<div class="box op-02">0.2 几乎透明</div>
+</body>
+
+</html>
