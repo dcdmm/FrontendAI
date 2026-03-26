@@ -6,13 +6,17 @@ interface TodoListProps {
     todos: Todo[]
     loading: boolean
     error: string | null
+    selectedIds: Set<number>
     formatDate: (dateString: string) => string
     onRefresh: () => void
     onToggle: (todo: Todo) => void
     onDelete: (id: number) => void
+    onToggleSelect: (id: number) => void
+    onToggleSelectAll: () => void
+    onBatchDelete: () => void
 }
 
-function TodoList({ todos, loading, error, formatDate, onRefresh, onToggle, onDelete }: TodoListProps) {
+function TodoList({ todos, loading, error, selectedIds, formatDate, onRefresh, onToggle, onDelete, onToggleSelect, onToggleSelectAll, onBatchDelete }: TodoListProps) {
     let content: React.ReactNode
 
     if (loading) {
@@ -28,22 +32,43 @@ function TodoList({ todos, loading, error, formatDate, onRefresh, onToggle, onDe
                     <TodoItem
                         key={todo.id}
                         todo={todo}
+                        selected={selectedIds.has(todo.id)}
                         formatDate={formatDate}
                         onToggle={onToggle}
                         onDelete={onDelete}
+                        onToggleSelect={onToggleSelect}
                     />
                 ))}
             </div>
         )
     }
 
+    const allSelected = todos.length > 0 && selectedIds.size === todos.length
+
     return (
         <div className="todos-container">
             <div className="todos-header">
                 <h2>任务列表 ({todos.length})</h2>
-                <button onClick={onRefresh} className="btn-refresh">
-                    🔄 刷新
-                </button>
+                <div className="todos-header-actions">
+                    {todos.length > 0 && (
+                        <label className="select-all-label">
+                            <input
+                                type="checkbox"
+                                checked={allSelected}
+                                onChange={onToggleSelectAll}
+                            />
+                            全选
+                        </label>
+                    )}
+                    {selectedIds.size > 0 && (
+                        <button onClick={onBatchDelete} className="btn-batch-delete">
+                            🗑️ 批量删除 ({selectedIds.size})
+                        </button>
+                    )}
+                    <button onClick={onRefresh} className="btn-refresh">
+                        🔄 刷新
+                    </button>
+                </div>
             </div>
             {content}
         </div>

@@ -3,12 +3,14 @@ import './TodoItem.css'
 
 interface TodoItemProps {
     todo: Todo
+    selected: boolean
     formatDate: (dateString: string) => string
     onToggle: (todo: Todo) => void
     onDelete: (id: number) => void
+    onToggleSelect: (id: number) => void
 }
 
-function TodoItem({ todo, formatDate, onToggle, onDelete }: TodoItemProps) {
+function TodoItem({ todo, selected, formatDate, onToggle, onDelete, onToggleSelect }: TodoItemProps) {
     const handleToggle = (): void => {
         onToggle(todo)
     }
@@ -20,8 +22,14 @@ function TodoItem({ todo, formatDate, onToggle, onDelete }: TodoItemProps) {
     }
 
     return (
-        <div className={`todo-item${todo.completed ? ' completed' : ''}`}>
+        <div className={`todo-item${todo.completed ? ' completed' : ''}${selected ? ' selected' : ''}`}>
             <div className="todo-content">
+                <input
+                    type="checkbox"
+                    checked={selected}
+                    onChange={() => onToggleSelect(todo.id)}
+                    className="select-checkbox"
+                />
                 <input
                     type="checkbox"
                     checked={todo.completed}

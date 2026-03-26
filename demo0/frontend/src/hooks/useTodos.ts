@@ -5,17 +5,22 @@ export interface UseTodosReturn {
     todos: Todo[]
     loading: boolean
     error: string | null
+    selectedIds: Set<number>
     fetchTodos: () => Promise<void>
     createTodo: (todoData: CreateTodoData) => Promise<void>
     updateTodo: (id: number, updateData: UpdateTodoData) => Promise<void>
     toggleTodo: (todo: Todo) => Promise<void>
     deleteTodo: (id: number) => Promise<void>
+    toggleSelect: (id: number) => void
+    toggleSelectAll: () => void
+    batchDeleteTodos: () => Promise<void>
 }
 
 export function useTodos(): UseTodosReturn {
     const [todos, setTodos] = useState<Todo[]>([])
     const [loading, setLoading] = useState<boolean>(false)
     const [error, setError] = useState<string | null>(null)
+    const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set())
 
     const fetchTodos = useCallback(async (): Promise<void> => {
         setLoading(true)
@@ -73,6 +78,11 @@ export function useTodos(): UseTodosReturn {
         try {
             await todoApi.delete(id)
             setTodos(prev => prev.filter(t => t.id !== id))
+            setSelectedIds(prev => {
+                const next = new Set(prev)
+                next.delete(id)
+                return next
+            })
         } catch (err) {
             setError('删除待办失败')
             console.error('删除待办失败:', err)
@@ -80,14 +90,53 @@ export function useTodos(): UseTodosReturn {
         }
     }, [])
 
+    const toggleSelect = useCallback((id: number): void => {
+        setSelectedIds(prev => {
+            const next = new Set(prev)
+            if (next.has(id)) {
+                next.delete(id)
+            } else {
+                next.add(id)
+            }
+            return next
+        })
+    }, [])
+
+    const toggleSelectAll = useCallback((): void => {
+        setSelectedIds(prev => {
+            if (prev.size === todos.length) {
+                return new Set()
+            }
+            return new Set(todos.map(t => t.id))
+        })
+    }, [todos])
+
+    const batchDeleteTodos = useCallback(async (): Promise<void> => {
+        setError(null)
+        try {
+            const ids = Array.from(selectedIds)
+            await todoApi.batchDelete(ids)
+            setTodos(prev => prev.filter(t => !selectedIds.has(t.id)))
+            setSelectedIds(new Set())
+        } catch (err) {
+            setError('批量删除失败')
+            console.error('批量删除失败:', err)
+            throw err
+        }
+    }, [selectedIds])
+
     return {
         todos,
         loading,
         error,
+        selectedIds,
         fetchTodos,
         createTodo,
         updateTodo,
         toggleTodo,
         deleteTodo,
+        toggleSelect,
+        toggleSelectAll,
+        batchDeleteTodos,
     }
 }

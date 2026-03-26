@@ -25,6 +25,18 @@
     flex: 1;
 }
 
+.select-checkbox {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: #667eea;
+}
+
+.todo-item.selected {
+    border-color: #667eea;
+    background: #f0f3ff;
+}
+
 .todo-checkbox {
     width: 20px;
     height: 20px;

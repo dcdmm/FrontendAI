@@ -11,10 +11,14 @@ function App() {
         todos,
         loading,
         error,
+        selectedIds,
         fetchTodos,
         createTodo,
         toggleTodo,
         deleteTodo,
+        toggleSelect,
+        toggleSelectAll,
+        batchDeleteTodos,
     } = useTodos()
 
     const handleAddTodo = async (todoData: CreateTodoData): Promise<void> => {
@@ -41,6 +45,16 @@ function App() {
         }
     }
 
+    const handleBatchDelete = async (): Promise<void> => {
+        if (confirm(`确定要删除选中的 ${selectedIds.size} 个任务吗？`)) {
+            try {
+                await batchDeleteTodos()
+            } catch (err) {
+                console.error('批量删除失败:', err)
+            }
+        }
+    }
+
     useEffect(() => {
         fetchTodos()
     }, [fetchTodos])
@@ -56,10 +70,14 @@ function App() {
                 todos={todos}
                 loading={loading}
                 error={error}
+                selectedIds={selectedIds}
                 formatDate={formatDate}
                 onRefresh={fetchTodos}
                 onToggle={handleToggleTodo}
                 onDelete={handleDeleteTodo}
+                onToggleSelect={toggleSelect}
+                onToggleSelectAll={toggleSelectAll}
+                onBatchDelete={handleBatchDelete}
             />
         </div>
     )

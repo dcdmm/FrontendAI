@@ -71,4 +71,8 @@ export const todoApi = {
 	async delete(id: number): Promise<void> {
 		await apiClient.delete(`/todos/${id}`)
 	},
+
+	async batchDelete(ids: number[]): Promise<void> {
+		await apiClient.post('/todos/batch-delete', ids)
+	},
 }

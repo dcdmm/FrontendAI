@@ -48,6 +48,16 @@ async def get_todos():
     return todos_db
 
 
+@app.post("/api/todos/batch-delete")
+async def batch_delete_todos(ids: List[int]):
+    """批量删除待办事项"""
+    global todos_db
+    before_count = len(todos_db)
+    todos_db = [todo for todo in todos_db if todo.id not in ids]
+    deleted_count = before_count - len(todos_db)
+    return {"message": f"Deleted {deleted_count} todos"}
+
+
 @app.get("/api/todos/{todo_id}", response_model=Todo)
 async def get_todo(todo_id: int):
     """获取单个待办事项"""

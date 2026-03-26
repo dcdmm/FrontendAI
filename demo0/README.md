@@ -63,23 +63,76 @@ demo0/
 
 ## 架构说明
 
-```
-用户操作
-  ↓
-组件层 (components/)        ← UI 渲染 + 事件处理
-  ↓
-App.tsx                     ← 状态分发 + 事件协调
-  ↓
-Hook 层 (hooks/useTodos)    ← 业务逻辑 + 状态管理 (useState/useCallback)
-  ↓
-服务层 (services/api)       ← HTTP 请求 (Axios)
-  ↓
-Vite Dev Server (proxy)     ← /api → localhost:8000
-  ↓
-FastAPI 后端                ← 数据存储 (内存列表)
+```mermaid
+graph TB
+    subgraph 浏览器
+        User([用户操作: 添加/勾选/删除/刷新])
+
+        subgraph React 前端 - localhost:5173
+            direction TB
+
+            subgraph 组件层 - components/
+                TodoForm[TodoForm.tsx<br/>添加任务表单]
+                TodoList[TodoList.tsx<br/>任务列表容器<br/>加载/错误/空状态]
+                TodoItem[TodoItem.tsx<br/>单个任务项<br/>勾选/删除]
+            end
+
+            App[App.tsx<br/>根组件<br/>状态分发 + 事件协调]
+
+            subgraph Hook 层 - hooks/
+                useTodos[useTodos.ts<br/>useState + useCallback<br/>todos / loading / error 状态<br/>fetchTodos / createTodo / toggleTodo / deleteTodo]
+            end
+
+            subgraph 服务层 - services/
+                API[api.ts<br/>Axios 实例<br/>Todo 类型定义<br/>请求拦截 + 错误处理]
+            end
+
+            subgraph 工具层 - utils/
+                Format[format.ts<br/>日期格式化 zh-CN]
+            end
+        end
+    end
+
+    subgraph Vite Dev Server
+        Proxy[代理<br/>/api → localhost:8000]
+    end
+
+    subgraph 后端 - localhost:8000
+        FastAPI[main.py<br/>FastAPI<br/>CORS 中间件<br/>REST API]
+        DB[(内存列表<br/>todos_db)]
+    end
+
+    User -->|点击/输入| TodoForm
+    User -->|勾选/删除| TodoItem
+    User -->|刷新| TodoList
+
+    TodoForm -->|onSubmit 回调| App
+    TodoList -->|onRefresh 回调| App
+    TodoItem -->|onToggle/onDelete 回调| App
+
+    App -->|调用 CRUD 方法| useTodos
+    App -->|传递 props: todos/loading/error| TodoList
+    App -->|传递 props: formatDate| TodoList
+    TodoList -->|传递 props| TodoItem
+
+    useTodos -->|调用 todoApi| API
+    App -.->|导入| Format
+
+    API -->|HTTP 请求: GET/POST/PUT/DELETE| Proxy
+    Proxy -->|转发请求| FastAPI
+    FastAPI -->|读写数据| DB
+    FastAPI -->|JSON 响应| Proxy
+    Proxy -->|返回数据| API
+    API -->|返回 Promise| useTodos
+    useTodos -->|更新 state| App
 ```
 
-**数据流说明**：组件通过 props 接收数据和回调函数，不直接调用 API。所有状态集中在 `useTodos` Hook 中管理，组件仅负责渲染和触发事件。
+### 数据流说明
+
+- **Props 向下**：`App.tsx` 将 `todos`、`loading`、`error`、回调函数通过 props 传给组件，组件不直接调用 API
+- **事件向上**：组件触发事件 → 调用 App 的回调 → 调用 `useTodos` 的方法 → 调用 `api.ts` 发请求
+- **状态集中**：所有业务状态（`todos`、`loading`、`error`）集中在 `useTodos` Hook 中管理
+- **请求代理**：开发模式下 Vite 将 `/api` 前缀的请求代理到后端 `localhost:8000`，避免跨域
 
 ## 启动项目
 
