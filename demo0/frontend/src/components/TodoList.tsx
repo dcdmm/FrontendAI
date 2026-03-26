@@ -20,11 +20,27 @@ function TodoList({ todos, loading, error, selectedIds, formatDate, onRefresh, o
     let content: React.ReactNode
 
     if (loading) {
-        content = <div className="loading">加载中...</div>
+        content = (
+            <div className="state-empty">
+                <div className="state-icon">...</div>
+                <p>加载中</p>
+            </div>
+        )
     } else if (error) {
-        content = <div className="error-state"><p>{error}</p></div>
+        content = (
+            <div className="state-empty state-error">
+                <div className="state-icon">!</div>
+                <p>{error}</p>
+            </div>
+        )
     } else if (todos.length === 0) {
-        content = <div className="empty-state"><p>暂无任务，开始添加第一个吧！</p></div>
+        content = (
+            <div className="state-empty">
+                <div className="state-icon">+</div>
+                <p>暂无任务</p>
+                <span className="state-hint">在上方输入框中添加第一个任务</span>
+            </div>
+        )
     } else {
         content = (
             <div className="todos-list">
@@ -44,11 +60,22 @@ function TodoList({ todos, loading, error, selectedIds, formatDate, onRefresh, o
     }
 
     const allSelected = todos.length > 0 && selectedIds.size === todos.length
+    const completedCount = todos.filter(t => t.completed).length
 
     return (
         <div className="todos-container">
             <div className="todos-header">
-                <h2>任务列表 ({todos.length})</h2>
+                <div className="todos-header-left">
+                    <h2 className="todos-title">
+                        任务
+                        <span className="todos-count">{todos.length}</span>
+                    </h2>
+                    {todos.length > 0 && (
+                        <span className="todos-stats">
+                            {completedCount} / {todos.length} 已完成
+                        </span>
+                    )}
+                </div>
                 <div className="todos-header-actions">
                     {todos.length > 0 && (
                         <label className="select-all-label">
@@ -57,19 +84,30 @@ function TodoList({ todos, loading, error, selectedIds, formatDate, onRefresh, o
                                 checked={allSelected}
                                 onChange={onToggleSelectAll}
                             />
-                            全选
+                            <span>全选</span>
                         </label>
                     )}
                     {selectedIds.size > 0 && (
                         <button onClick={onBatchDelete} className="btn-batch-delete">
-                            🗑️ 批量删除 ({selectedIds.size})
+                            删除所选 ({selectedIds.size})
                         </button>
                     )}
-                    <button onClick={onRefresh} className="btn-refresh">
-                        🔄 刷新
+                    <button onClick={onRefresh} className="btn-refresh" title="刷新列表">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <polyline points="23 4 23 10 17 10"></polyline>
+                            <polyline points="1 20 1 14 7 14"></polyline>
+                            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                        </svg>
                     </button>
                 </div>
             </div>
+
+            {todos.length > 0 && (
+                <div className="todos-progress">
+                    <div className="todos-progress-bar" style={{ width: `${todos.length > 0 ? (completedCount / todos.length) * 100 : 0}%` }} />
+                </div>
+            )}
+
             {content}
         </div>
     )

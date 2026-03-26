@@ -60,9 +60,11 @@ function App() {
     }, [fetchTodos])
 
     return (
-        <div className="app-container">
-            <h1 className="app-title">📝 Todo 应用</h1>
-            <p className="app-subtitle">React + FastAPI 全栈示例</p>
+        <>
+            <div className="app-header">
+                <h1 className="app-title">Todo</h1>
+                <p className="app-subtitle">React + FastAPI</p>
+            </div>
 
             <TodoForm onSubmit={handleAddTodo} />
 
@@ -79,7 +81,7 @@ function App() {
                 onToggleSelectAll={toggleSelectAll}
                 onBatchDelete={handleBatchDelete}
             />
-        </div>
+        </>
     )
 }
 
