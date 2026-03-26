@@ -10,7 +10,7 @@ app = FastAPI(title="Todo API", version="1.0.0")
 # 浏览器的同源策略会阻止不同端口间的请求,前端(5173)和后端(8000)端口不同需要配置CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:4173", "http://localhost:5173"],  # 允许的前端地址,只有该地址可以访问API
+    allow_origins=["http://localhost:4173", "http://localhost:5173"],  # 白名单:只有这两个前端地址可以跨域访问API
     allow_credentials=True,  # 允许携带认证信息(cookies、Authorization头等)
     allow_methods=["*"],  # 允许所有HTTP方法(GET/POST/PUT/DELETE等)
     allow_headers=["*"],  # 允许所有请求头(Content-Type/Authorization等)
