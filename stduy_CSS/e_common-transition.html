@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>transition动画</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Microsoft YaHei", sans-serif;
+            background: #f0f2f5;
+            padding: 30px;
+            color: #333;
+        }
+
+        .section h2 {
+            font-size: 18px;
+            margin-bottom: 16px;
+            color: #1a1a1a;
+        }
+
+        .section {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .demo-row {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .demo-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .label {
+            font-size: 12px;
+            color: #888;
+        }
+
+        .box-prop {
+            width: 100px;
+            height: 100px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: white;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        #b-color {
+            background: #4361ee;
+            transition-property: background-color;
+            transition-duration: 0.5s;
+        }
+
+        #b-color:hover {
+            background: #ef233c;
+        }
+
+        #b-size {
+            background: #7209b7;
+            transition-property: width, height;
+            transition-duration: 0.5s;
+        }
+
+        #b-size:hover {
+            width: 140px;
+            height: 140px;
+        }
+
+        #b-all {
+            background: #2ec4b6;
+            transition-property: all;
+            transition-duration: 0.5s;
+        }
+
+        #b-all:hover {
+            background: #e76f51;
+            width: 140px;
+            border-radius: 30%;
+        }
+
+        .box-dur {
+            width: 100px;
+            height: 60px;
+            background: #4361ee;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            transition-property: background-color, transform;
+        }
+
+        #d-fast {
+            transition-duration: 0.1s;
+        }
+
+        #d-med {
+            transition-duration: 0.5s;
+        }
+
+        #d-slow {
+            transition-duration: 2s;
+        }
+
+        .box-dur:hover {
+            background: #ef233c;
+        }
+
+        .track {
+            width: 600px;
+            height: 20px;
+            background: #eee;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ball {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #4361ee;
+            position: absolute;
+            left: 0;
+            transition-property: left;
+            transition-duration: 1.5s;
+        }
+
+        .track:hover .ball {
+            left: 600px;
+        }
+
+        #tf-linear .ball {
+            transition-timing-function: linear;
+        }
+
+        #tf-ease .ball {
+            transition-timing-function: ease;
+        }
+
+        #tf-in .ball {
+            transition-timing-function: ease-in;
+        }
+
+        #tf-out .ball {
+            transition-timing-function: ease-out;
+        }
+
+        #tf-inout .ball {
+            transition-timing-function: ease-in-out;
+        }
+
+        .tf-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 14px;
+        }
+
+        .tf-name {
+            width: 220px;
+            font-size: 13px;
+            color: #555;
+        }
+
+        .delay-group {
+            display: flex;
+            gap: 12px;
+        }
+
+        .box-delay {
+            width: 80px;
+            height: 80px;
+            background: #7209b7;
+            border-radius: 8px;
+            cursor: pointer;
+            transition-property: transform, background-color;
+            transition-duration: 0.4s;
+        }
+
+        .delay-group:hover .box-delay {
+            transform: translateY(-20px);
+            background: #e76f51;
+        }
+
+        #dl-0 {
+            transition-delay: 0s;
+        }
+
+        #dl-1 {
+            transition-delay: 0.1s;
+        }
+
+        #dl-2 {
+            transition-delay: 0.2s;
+        }
+
+        #dl-3 {
+            transition-delay: 0.3s;
+        }
+
+        #dl-4 {
+            transition-delay: 0.4s;
+        }
+
+        .shorthand-demo {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, #4361ee, #7209b7);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.6s ease-in-out 0s;
+        }
+
+        .shorthand-demo:hover {
+            background: linear-gradient(135deg, #ef233c, #e76f51);
+            border-radius: 50%;
+            transform: rotate(15deg) scale(1.1);
+        }
+
+        .multi-demo {
+            width: 160px;
+            height: 160px;
+            background: #2ec4b6;
+            border-radius: 8px;
+            cursor: pointer;
+            transition:
+                background-color 0.3s ease,
+                border-radius 0.8s ease-in-out,
+                transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+
+        .multi-demo:hover {
+            background: #4361ee;
+            border-radius: 50%;
+            transform: rotate(45deg);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="section">
+        <h2>transition-property: 设置过渡属性</h2>
+        <div class="demo-row">
+            <div class="demo-item">
+                <div class="box-prop" id="b-color">background-color</div>
+                <div class="label">只过渡颜色</div>
+            </div>
+            <div class="demo-item">
+                <div class="box-prop" id="b-size">width, height</div>
+                <div class="label">只过渡尺寸</div>
+            </div>
+            <div class="demo-item">
+                <div class="box-prop" id="b-all">all</div>
+                <div class="label">过渡全部</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>transition-duration: 设置过渡时长</h2>
+        <div class="demo-row">
+            <div class="demo-item">
+                <div class="box-dur" id="d-fast">0.1s 极快</div>
+                <div class="label">0.1s</div>
+            </div>
+            <div class="demo-item">
+                <div class="box-dur" id="d-med">0.5s 适中</div>
+                <div class="label">0.5s</div>
+            </div>
+            <div class="demo-item">
+                <div class="box-dur" id="d-slow">2s 慢</div>
+                <div class="label">2s</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>transition-timing-function: 设置缓动函数</h2>
+        <div class="tf-row">
+            <div class="tf-name">linear（匀速）</div>
+            <div class="track" id="tf-linear">
+                <div class="ball"></div>
+            </div>
+        </div>
+        <div class="tf-row">
+            <div class="tf-name">ease（缓慢->陡然加速->逐渐减速）</div>
+            <div class="track" id="tf-ease">
+                <div class="ball"></div>
+            </div>
+        </div>
+        <div class="tf-row">
+            <div class="tf-name">ease-in（缓慢->逐渐加速）</div>
+            <div class="track" id="tf-in">
+                <div class="ball"></div>
+            </div>
+        </div>
+        <div class="tf-row">
+            <div class="tf-name">ease-out（突然开始->逐渐减速）</div>
+            <div class="track" id="tf-out">
+                <div class="ball"></div>
+            </div>
+        </div>
+        <div class="tf-row">
+            <div class="tf-name">ease-in-out（缓慢->加速->减速）</div>
+            <div class="track" id="tf-inout">
+                <div class="ball"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="section">
+        <h2>transition-delay: 设置过渡延迟</h2>
+        <div class="delay-group">
+            <div class="box-delay" id="dl-0"></div>
+            <div class="box-delay" id="dl-1"></div>
+            <div class="box-delay" id="dl-2"></div>
+            <div class="box-delay" id="dl-3"></div>
+            <div class="box-delay" id="dl-4"></div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>transition: 统一设置过渡属性、时长、缓动函数和延迟</h2>
+        <div class="demo-row">
+            <div class="demo-item">
+                <div class="shorthand-demo">悬停我</div>
+                <div class="label">transition: all 0.6s ease-in-out</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>多属性不同transition设置</h2>
+        <div class="demo-row">
+            <div class="demo-item">
+                <div class="multi-demo"></div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+</body>
+
+</html>
