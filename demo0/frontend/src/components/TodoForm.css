@@ -20,7 +20,7 @@
 }
 
 .todo-form-input {
-    flex: 1;
+    flex-grow: 1;
     border: none;
     padding: 10px 12px;
     font-size: 15px;

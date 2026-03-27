@@ -100,6 +100,13 @@
             min-width: 120px;
         }
 
+        .demo-grow .item:nth-child(1) {
+            /* flex-grow默认值为0(宽度由自身设定的宽度或自身内容的宽度决定) */
+            flex-grow: 0;
+            background: #1f15aa;
+            min-width: 140px;
+        }
+
         .demo-grow .item:nth-child(2) {
             flex-grow: 1;
             background: #ffc107;
@@ -241,7 +248,7 @@
     <h3>flex-grow(The flex-grow CSS property sets the flex grow factor, which specifies how much of the flex container's
         positive free space, if any, should be assigned to the flex item's main size)</h3>
     <div class="flex-container demo-grow">
-        <div class="item">固定</div>
+        <div class="item">grow:0(默认)</div>
         <div class="item">grow:1</div>
         <div class="item">grow:3</div>
         <div class="item">grow:7</div>
