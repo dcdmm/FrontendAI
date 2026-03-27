@@ -40,6 +40,7 @@ function TodoForm({ onSubmit }: TodoFormProps) {
                     添加
                 </button>
             </div>
+            {/* 条件渲染 */}
             {expanded && (
                 <textarea
                     value={description}
