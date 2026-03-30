@@ -37,7 +37,7 @@ export function useTodos(): UseTodosReturn {
         }
     }, [])
 
-    const createTodo = useCallback(async (todoData: CreateTodoData): Promise<void> => {
+    const createTodo = async (todoData: CreateTodoData): Promise<void> => {
         setError(null)
         try {
             const newTodo = await todoApi.create(todoData)
@@ -47,9 +47,9 @@ export function useTodos(): UseTodosReturn {
             console.error('添加待办失败:', err)
             throw err
         }
-    }, [])
+    }
 
-    const updateTodo = useCallback(async (id: number, updateData: UpdateTodoData): Promise<void> => {
+    const updateTodo = async (id: number, updateData: UpdateTodoData): Promise<void> => {
         setError(null)
         try {
             const updated = await todoApi.update(id, updateData)
@@ -59,9 +59,9 @@ export function useTodos(): UseTodosReturn {
             console.error('更新待办失败:', err)
             throw err
         }
-    }, [])
+    }
 
-    const toggleTodo = useCallback(async (todo: Todo): Promise<void> => {
+    const toggleTodo = async (todo: Todo): Promise<void> => {
         setError(null)
         try {
             const updated = await todoApi.update(todo.id, { completed: !todo.completed })
@@ -71,9 +71,9 @@ export function useTodos(): UseTodosReturn {
             console.error('更新待办失败:', err)
             throw err
         }
-    }, [])
+    }
 
-    const deleteTodo = useCallback(async (id: number): Promise<void> => {
+    const deleteTodo = async (id: number): Promise<void> => {
         setError(null)
         try {
             await todoApi.delete(id)
@@ -88,9 +88,9 @@ export function useTodos(): UseTodosReturn {
             console.error('删除待办失败:', err)
             throw err
         }
-    }, [])
+    }
 
-    const toggleSelect = useCallback((id: number): void => {
+    const toggleSelect = (id: number): void => {
         setSelectedIds(prev => {
             const next = new Set(prev)
             if (next.has(id)) {
@@ -100,18 +100,18 @@ export function useTodos(): UseTodosReturn {
             }
             return next
         })
-    }, [])
+    }
 
-    const toggleSelectAll = useCallback((): void => {
+    const toggleSelectAll = (): void => {
         setSelectedIds(prev => {
             if (prev.size === todos.length) {
                 return new Set()
             }
             return new Set(todos.map(t => t.id))
         })
-    }, [todos])
+    }
 
-    const batchDeleteTodos = useCallback(async (): Promise<void> => {
+    const batchDeleteTodos = async (): Promise<void> => {
         setError(null)
         try {
             const ids = Array.from(selectedIds)
@@ -123,7 +123,7 @@ export function useTodos(): UseTodosReturn {
             console.error('批量删除失败:', err)
             throw err
         }
-    }, [selectedIds])
+    }
 
     return {
         todos,
