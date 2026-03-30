@@ -41,7 +41,7 @@ export function useTodos(): UseTodosReturn {
         setError(null)
         try {
             const newTodo = await todoApi.create(todoData)
-            setTodos(prev => [...prev, newTodo])
+            setTodos(prev => [...prev, newTodo]) // 通过更新函数更新状态
         } catch (err) {
             setError('添加待办失败')
             console.error('添加待办失败:', err)

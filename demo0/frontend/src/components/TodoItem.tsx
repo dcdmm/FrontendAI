@@ -22,6 +22,7 @@ function TodoItem({ todo, selected, formatDate, onToggle, onDelete, onToggleSele
     }
 
     return (
+        /* 动态className */
         <div className={`todo-item${todo.completed ? ' completed' : ''}${selected ? ' selected' : ''}`}>
             <input
                 type="checkbox"

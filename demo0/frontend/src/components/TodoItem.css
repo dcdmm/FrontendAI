@@ -23,7 +23,6 @@
     opacity: 0.65;
 }
 
-/* Select checkbox */
 .select-checkbox {
     width: 16px;
     height: 16px;
@@ -32,7 +31,6 @@
     flex-shrink: 0;
 }
 
-/* Toggle button (circle) */
 .toggle-btn {
     width: 22px;
     height: 22px;
@@ -57,7 +55,6 @@
     color: white;
 }
 
-/* Body */
 .todo-body {
     flex: 1;
     min-width: 0;
@@ -100,7 +97,6 @@
     flex-shrink: 0;
 }
 
-/* Delete button */
 .btn-delete {
     display: flex;
     align-items: center;
