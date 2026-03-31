@@ -26,10 +26,10 @@ npm run build  # 打包构建生产版本(代码压缩、优化到dist文件夹)
 npm run preview  # 本地预览build产物
 ```
 
-#### Docker 部署(生产环境)
+#### Docker+Nginx生产环境部署
 
 ```bash
-docker-compose build   
-docker-compose up -d  
-docker-compose down  
+docker compose build   
+docker compose up -d  
+docker compose down  
 ```
