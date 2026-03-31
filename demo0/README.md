@@ -5,7 +5,9 @@
 ```bash
 cd backend
 
-python main.py
+uv lock
+uv sync  
+uv run uvicorn main:app --reload 
 ```
 
 #### 前端
@@ -22,4 +24,12 @@ npm run lint  # 代码规范检查
 
 npm run build  # 打包构建生产版本(代码压缩、优化到dist文件夹)
 npm run preview  # 本地预览build产物
+```
+
+#### Docker 部署(生产环境)
+
+```bash
+docker-compose build   
+docker-compose up -d  
+docker-compose down  
 ```
