@@ -1,10 +1,8 @@
 [Unit]
-Description=Demo0 Backend (FastAPI)
+Description=Demo0 Backend
 After=network.target
 
 [Service]
-User=www-data
-Group=www-data
 WorkingDirectory=__APP_DIR__/backend
 ExecStart=__APP_DIR__/backend/.venv/bin/uvicorn main:app --host 127.0.0.1 --port 8000
 Restart=always
