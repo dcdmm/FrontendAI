@@ -1,6 +1,9 @@
 services:
   frontend:
-    build: ./frontend
+    image: my-frontend:latest
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
     ports:
       - "80:80"
     volumes:
@@ -9,6 +12,9 @@ services:
       - backend
 
   backend:
-    build: ./backend
+    image: my-backend:latest
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
     expose:
       - "8000"
