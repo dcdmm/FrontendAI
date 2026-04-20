@@ -29,3 +29,5 @@ sed "s|__APP_DIR__|$APP_DIR|g" "$APP_DIR/deploy/demo0-backend.service" > /etc/sy
 systemctl daemon-reload
 systemctl enable demo0-backend
 systemctl restart demo0-backend
+
+echo "===== 部署完成 ====="

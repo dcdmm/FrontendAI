@@ -2,7 +2,7 @@
 
 #### 后端
 
-```bash
+```shell
 cd backend
 
 uv lock
@@ -12,7 +12,7 @@ uv run uvicorn main:app --reload
 
 #### 前端
 
-```bash
+```shell
 cd frontend
 
 npm install  # 安装依赖
@@ -26,9 +26,17 @@ npm run build  # 打包构建生产版本(代码压缩、优化到dist文件夹)
 npm run preview  # 本地预览build产物
 ```
 
+#### 本地部署
+
+```shell
+cd deploy
+
+bash deploy.sh
+```
+
 #### Docker+Nginx生产环境
 
-```bash
+```shell
 docker compose build   
 docker compose up -d  
 docker compose down  
