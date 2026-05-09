@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>flex VS inline-flex</title>
+    <style>
+        .box {
+            background: #ddd;
+            padding: 8px;
+            gap: 8px;
+        }
+
+        .box .item {
+            background: #e94560;
+            color: #fff;
+            padding: 8px 14px;
+        }
+
+        .demo-flex {
+            display: flex;
+        }
+
+        .demo-inline-flex {
+            display: inline-flex;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>flex </h2>
+    前面有文字
+    <!-- 块级(独占一行) -->
+    <div class="box demo-flex">
+        <div class="item">A</div>
+        <div class="item">B</div>
+        <div class="item">C</div>
+    </div>
+    后面有文字
+
+    <h2>inline-flex </h2>
+    前面有文字
+    <!-- 行内(宽度由内容决定,属性含义与flex相同) -->
+    <div class="box demo-inline-flex">
+        <div class="item">A</div>
+        <div class="item">B</div>
+        <div class="item">C</div>
+    </div>
+    后面有文字
+</body>
+
+</html>
