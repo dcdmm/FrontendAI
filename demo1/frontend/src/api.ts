@@ -1,8 +1,8 @@
 export type ChatMessage = { role: 'user' | 'assistant' | 'system'; content: string };
 
 export const BACKENDS = {
-  openrouter: { label: 'OpenRouter (Hono)', baseUrl: 'http://localhost:8787' },
-  dashscope: { label: '阿里 DashScope (FastAPI)', baseUrl: 'http://localhost:8000' },
+  openrouter: { label: 'OpenRouter(Hono)', baseUrl: 'http://localhost:8787' },
+  dashscope: { label: '阿里DashScope(FastAPI)', baseUrl: 'http://localhost:8000' },
 } as const;
 
 export type BackendKey = keyof typeof BACKENDS;
@@ -14,6 +14,7 @@ export async function fetchModels(backend: BackendKey): Promise<ModelsResponse> 
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   return res.json();
 }
+
 
 export async function* streamChat(
   backend: BackendKey,
@@ -45,13 +46,13 @@ export async function* streamChat(
 
     for (const line of lines) {
       if (!line.startsWith('data: ')) continue;
-      const data = line.slice(6).trim();
+      const data = line.slice(6).trim(); // 去掉前缀"data: "
       if (data === '[DONE]') return;
       try {
         const { delta } = JSON.parse(data) as { delta: string };
         if (delta) yield delta;
       } catch {
-        // ignore malformed chunks
+        // ignore
       }
     }
   }

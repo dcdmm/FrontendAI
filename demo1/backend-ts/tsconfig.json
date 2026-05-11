@@ -3,14 +3,20 @@
     "target": "ES2022",
     "module": "ESNext",
     "moduleResolution": "Bundler",
+    // TS编译后的JS文件将输出到此目录
     "outDir": "dist",
+    // 编译时会以此目录为基准,保留内部目录结构输出到outDir
     "rootDir": "src",
     "strict": true,
-    "types": ["node"],
+    "types": [
+      "node"
+    ],
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true
   },
-  "include": ["src"]
+  "include": [
+    "src"
+  ]
 }
