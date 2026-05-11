@@ -1,16 +1,34 @@
-import { useRef, useState } from 'react';
-import { BACKENDS, BackendKey, ChatMessage, streamChat } from './api';
+import { useEffect, useRef, useState } from 'react';
+import { BACKENDS, BackendKey, ChatMessage, fetchModels, streamChat } from './api';
 
 export default function App() {
   const [backend, setBackend] = useState<BackendKey>('openrouter');
+  const [models, setModels] = useState<string[]>([]);
+  const [model, setModel] = useState<string>('');
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const abortRef = useRef<AbortController | null>(null);
 
+  useEffect(() => {
+    let cancelled = false;
+    setModels([]);
+    setModel('');
+    fetchModels(backend)
+      .then((r) => {
+        if (cancelled) return;
+        setModels(r.models);
+        setModel(r.default);
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, [backend]);
+
   async function handleSend() {
     const text = input.trim();
-    if (!text || loading) return;
+    if (!text || loading || !model) return;
 
     const next: ChatMessage[] = [...messages, { role: 'user', content: text }];
     setMessages([...next, { role: 'assistant', content: '' }]);
@@ -22,7 +40,7 @@ export default function App() {
 
     try {
       let acc = '';
-      for await (const delta of streamChat(backend, next, ctrl.signal)) {
+      for await (const delta of streamChat(backend, model, next, ctrl.signal)) {
         acc += delta;
         setMessages((prev) => {
           const copy = [...prev];
@@ -51,15 +69,27 @@ export default function App() {
     <div className="app">
       <header className="header">
         <h1>AI Chat Demo</h1>
-        <select
-          value={backend}
-          onChange={(e) => setBackend(e.target.value as BackendKey)}
-          disabled={loading}
-        >
-          {Object.entries(BACKENDS).map(([k, v]) => (
-            <option key={k} value={k}>{v.label}</option>
-          ))}
-        </select>
+        <div className="selectors">
+          <select
+            value={backend}
+            onChange={(e) => setBackend(e.target.value as BackendKey)}
+            disabled={loading}
+          >
+            {Object.entries(BACKENDS).map(([k, v]) => (
+              <option key={k} value={k}>{v.label}</option>
+            ))}
+          </select>
+          <select
+            value={model}
+            onChange={(e) => setModel(e.target.value)}
+            disabled={loading || models.length === 0}
+          >
+            {models.length === 0 && <option value="">(无可用模型)</option>}
+            {models.map((m) => (
+              <option key={m} value={m}>{m}</option>
+            ))}
+          </select>
+        </div>
       </header>
 
       <main className="messages">
@@ -88,7 +118,7 @@ export default function App() {
         {loading ? (
           <button onClick={handleStop}>停止</button>
         ) : (
-          <button onClick={handleSend} disabled={!input.trim()}>发送</button>
+          <button onClick={handleSend} disabled={!input.trim() || !model}>发送</button>
         )}
       </footer>
     </div>

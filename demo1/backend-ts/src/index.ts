@@ -1,11 +1,20 @@
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { dirname, resolve } from 'node:path';
 import { serve } from '@hono/node-server';
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 import { stream } from 'hono/streaming';
+import { HTTPException } from 'hono/http-exception';
 import OpenAI from 'openai';
 
-const PORT = Number(process.env.PORT ?? 8787);
-const MODEL = process.env.OPENROUTER_MODEL ?? 'openai/gpt-4o-mini';
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const MODELS_PATH = resolve(__dirname, '../../models.json');
+const { default: DEFAULT_MODEL, models: MODELS } = JSON.parse(
+  readFileSync(MODELS_PATH, 'utf-8'),
+).openrouter as { default: string; models: string[] };
+
+const PORT = Number(process.env.OPENROUTER_PORT ?? 8787);
 const BASE_URL = process.env.OPENROUTER_BASE_URL ?? 'https://openrouter.ai/api/v1';
 
 const client = new OpenAI({
@@ -14,19 +23,25 @@ const client = new OpenAI({
 });
 
 type ChatMessage = { role: 'user' | 'assistant' | 'system'; content: string };
-type ChatRequest = { messages: ChatMessage[] };
+type ChatRequest = { messages: ChatMessage[]; model?: string };
 
 const app = new Hono();
 
 app.use('/*', cors());
 
-app.get('/health', (c) => c.json({ ok: true, backend: 'hono+openrouter', model: MODEL }));
+app.get('/health', (c) => c.json({ ok: true, backend: 'hono+openrouter' }));
+
+app.get('/models', (c) => c.json({ models: MODELS, default: DEFAULT_MODEL }));
 
 app.post('/chat', async (c) => {
-  const { messages } = await c.req.json<ChatRequest>();
+  const { messages, model } = await c.req.json<ChatRequest>();
+  const chosen = model ?? DEFAULT_MODEL;
+  if (!MODELS.includes(chosen)) {
+    throw new HTTPException(400, { message: `model ${chosen} not in allow-list` });
+  }
 
   const completion = await client.chat.completions.create({
-    model: MODEL,
+    model: chosen,
     messages,
     stream: true,
   });

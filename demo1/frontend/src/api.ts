@@ -1,21 +1,30 @@
 export type ChatMessage = { role: 'user' | 'assistant' | 'system'; content: string };
 
 export const BACKENDS = {
-  openrouter: { label: 'OpenRouter (Hono)', url: 'http://localhost:8787/chat' },
-  dashscope: { label: '阿里 DashScope (FastAPI)', url: 'http://localhost:8000/chat' },
+  openrouter: { label: 'OpenRouter (Hono)', baseUrl: 'http://localhost:8787' },
+  dashscope: { label: '阿里 DashScope (FastAPI)', baseUrl: 'http://localhost:8000' },
 } as const;
 
 export type BackendKey = keyof typeof BACKENDS;
 
+export type ModelsResponse = { models: string[]; default: string };
+
+export async function fetchModels(backend: BackendKey): Promise<ModelsResponse> {
+  const res = await fetch(`${BACKENDS[backend].baseUrl}/models`);
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();
+}
+
 export async function* streamChat(
   backend: BackendKey,
+  model: string,
   messages: ChatMessage[],
   signal: AbortSignal,
 ): AsyncGenerator<string> {
-  const res = await fetch(BACKENDS[backend].url, {
+  const res = await fetch(`${BACKENDS[backend].baseUrl}/chat`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ messages }),
+    body: JSON.stringify({ messages, model }),
     signal,
   });
   if (!res.ok || !res.body) {

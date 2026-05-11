@@ -1,18 +1,23 @@
 import json
 import os
+from pathlib import Path
 from typing import AsyncIterator, Literal
 
 from dotenv import load_dotenv
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 from openai import AsyncOpenAI
 from pydantic import BaseModel
 
-load_dotenv()
+ROOT = Path(__file__).resolve().parent.parent
+load_dotenv(ROOT / ".env")
 
-MODEL = os.getenv("DASHSCOPE_MODEL", "qwen-plus")
-BASE_URL = os.getenv("DASHSCOPE_BASE_URL", "https://dashscope.aliyuncs.com/compatible-mode/v1")
+_cfg = json.loads((ROOT / "models.json").read_text(encoding="utf-8"))["dashscope"]
+MODELS: list[str] = _cfg["models"]
+DEFAULT_MODEL: str = _cfg["default"]
+
+BASE_URL = os.getenv("DASHSCOPE_BASE_URL")
 
 client = AsyncOpenAI(
     api_key=os.getenv("DASHSCOPE_API_KEY"),
@@ -27,6 +32,7 @@ class ChatMessage(BaseModel):
 
 class ChatRequest(BaseModel):
     messages: list[ChatMessage]
+    model: str | None = None
 
 
 app = FastAPI()
@@ -38,14 +44,14 @@ app.add_middleware(
 )
 
 
-@app.get("/health")
-async def health() -> dict:
-    return {"ok": True, "backend": "fastapi+dashscope", "model": MODEL}
+@app.get("/models")
+async def list_models() -> dict:
+    return {"models": MODELS, "default": DEFAULT_MODEL}
 
 
-async def sse_stream(messages: list[ChatMessage]) -> AsyncIterator[str]:
+async def sse_stream(messages: list[ChatMessage], model: str) -> AsyncIterator[str]:
     completion = await client.chat.completions.create(
-        model=MODEL,
+        model=model,
         messages=[m.model_dump() for m in messages],
         stream=True,
     )
@@ -60,4 +66,7 @@ async def sse_stream(messages: list[ChatMessage]) -> AsyncIterator[str]:
 
 @app.post("/chat")
 async def chat(req: ChatRequest) -> StreamingResponse:
-    return StreamingResponse(sse_stream(req.messages), media_type="text/event-stream")
+    chosen = req.model or DEFAULT_MODEL
+    if chosen not in MODELS:
+        raise HTTPException(400, f"model {chosen} not in allow-list")
+    return StreamingResponse(sse_stream(req.messages, chosen), media_type="text/event-stream")
