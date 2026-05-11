@@ -12,10 +12,11 @@ from pydantic import BaseModel
 load_dotenv()
 
 MODEL = os.getenv("DASHSCOPE_MODEL", "qwen-plus")
+BASE_URL = os.getenv("DASHSCOPE_BASE_URL", "https://dashscope.aliyuncs.com/compatible-mode/v1")
 
 client = AsyncOpenAI(
     api_key=os.getenv("DASHSCOPE_API_KEY"),
-    base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
+    base_url=BASE_URL,
 )
 
 
@@ -49,6 +50,8 @@ async def sse_stream(messages: list[ChatMessage]) -> AsyncIterator[str]:
         stream=True,
     )
     async for chunk in completion:
+        if not chunk.choices:
+            continue
         delta = chunk.choices[0].delta.content or ""
         if delta:
             yield f"data: {json.dumps({'delta': delta})}\n\n"

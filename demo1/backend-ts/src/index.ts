@@ -6,10 +6,11 @@ import OpenAI from 'openai';
 
 const PORT = Number(process.env.PORT ?? 8787);
 const MODEL = process.env.OPENROUTER_MODEL ?? 'openai/gpt-4o-mini';
+const BASE_URL = process.env.OPENROUTER_BASE_URL ?? 'https://openrouter.ai/api/v1';
 
 const client = new OpenAI({
   apiKey: process.env.OPENROUTER_API_KEY,
-  baseURL: 'https://openrouter.ai/api/v1',
+  baseURL: BASE_URL,
 });
 
 type ChatMessage = { role: 'user' | 'assistant' | 'system'; content: string };
