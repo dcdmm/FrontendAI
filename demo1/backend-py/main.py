@@ -50,17 +50,14 @@ async def list_models() -> dict:
 
 
 async def sse_stream(messages: list[ChatMessage], model: str) -> AsyncIterator[str]:
-    completion = await client.chat.completions.create(
+    stream = await client.responses.create(
         model=model,
-        messages=[m.model_dump() for m in messages],
+        input=[m.model_dump() for m in messages],
         stream=True,
     )
-    async for chunk in completion:
-        if not chunk.choices:
-            continue
-        delta = chunk.choices[0].delta.content or ""
-        if delta:
-            yield f"data: {json.dumps({'delta': delta})}\n\n"
+    async for event in stream:
+        if event.type == "response.output_text.delta" and event.delta:
+            yield f"data: {json.dumps({'delta': event.delta})}\n\n"
     yield "data: [DONE]\n\n"
 
 

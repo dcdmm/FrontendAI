@@ -38,9 +38,9 @@ app.post('/chat', async (c) => {
     throw new HTTPException(400, { message: `model ${chosen} not in allow-list` });
   }
 
-  const completion = await client.chat.completions.create({
+  const completion = await client.responses.create({
     model: chosen,
-    messages,
+    input: messages,
     stream: true,
   });
 
@@ -49,10 +49,9 @@ app.post('/chat', async (c) => {
   c.header('Connection', 'keep-alive');
 
   return stream(c, async (s) => {
-    for await (const chunk of completion) {
-      const delta = chunk.choices[0]?.delta?.content ?? '';
-      if (delta) {
-        await s.write(`data: ${JSON.stringify({ delta })}\n\n`);
+    for await (const event of completion) {
+      if (event.type === 'response.output_text.delta' && event.delta) {
+        await s.write(`data: ${JSON.stringify({ delta: event.delta })}\n\n`);
       }
     }
     await s.write('data: [DONE]\n\n');
