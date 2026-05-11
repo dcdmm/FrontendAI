@@ -17,7 +17,7 @@ _cfg = json.loads((ROOT / "models.json").read_text(encoding="utf-8"))["dashscope
 MODELS: list[str] = _cfg["models"]
 DEFAULT_MODEL: str = _cfg["default"]
 
-BASE_URL = os.getenv("DASHSCOPE_BASE_URL")
+BASE_URL = os.getenv("DASHSCOPE_BASE_URL", "https://dashscope.aliyuncs.com/compatible-mode/v1")
 
 client = AsyncOpenAI(
     api_key=os.getenv("DASHSCOPE_API_KEY"),

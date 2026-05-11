@@ -1,7 +1,7 @@
 [project]
 name = "backend-py"
 version = "1.0.0"
-description = "FastAPI + OpenAI SDK → 阿里 DashScope, 流式聊天后端"
+description = "fastapi + "
 requires-python = ">=3.11"
 dependencies = [
     "fastapi>=0.115.6",

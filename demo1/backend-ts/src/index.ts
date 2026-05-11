@@ -29,8 +29,6 @@ const app = new Hono();
 
 app.use('/*', cors());
 
-app.get('/health', (c) => c.json({ ok: true, backend: 'hono+openrouter' }));
-
 app.get('/models', (c) => c.json({ models: MODELS, default: DEFAULT_MODEL }));
 
 app.post('/chat', async (c) => {
