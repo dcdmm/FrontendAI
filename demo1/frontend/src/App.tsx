@@ -20,7 +20,7 @@ export default function App() {
         setModels(r.models);
         setModel(r.default);
       })
-      .catch(() => {});
+      .catch(() => { });
     return () => {
       cancelled = true;
     };
@@ -67,6 +67,12 @@ export default function App() {
     abortRef.current?.abort();
   }
 
+  function handleNewChat() {
+    abortRef.current?.abort();
+    setMessages([]);
+    setInput('');
+  }
+
   return (
     <div className="app">
       <header className="header">
@@ -91,6 +97,9 @@ export default function App() {
               <option key={m} value={m}>{m}</option>
             ))}
           </select>
+          <button onClick={handleNewChat} disabled={messages.length === 0}>
+            新对话
+          </button>
         </div>
       </header>
 
