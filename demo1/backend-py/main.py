@@ -50,6 +50,9 @@ async def list_models() -> dict:
 
 
 async def sse_stream(messages: list[ChatMessage], model: str) -> AsyncIterator[str]:
+    def emit(event: str, **payload) -> str:
+        return f"event: {event}\ndata: {json.dumps(payload)}\n\n"
+
     stream = await client.responses.create(
         model=model,
         input=[m.model_dump() for m in messages],
@@ -57,8 +60,7 @@ async def sse_stream(messages: list[ChatMessage], model: str) -> AsyncIterator[s
     )
     async for event in stream:
         if event.type == "response.output_text.delta" and event.delta:
-            yield f"data: {json.dumps({'delta': event.delta})}\n\n"
-    yield "data: [DONE]\n\n"
+            yield emit("delta", text=event.delta)
 
 
 @app.post("/chat")

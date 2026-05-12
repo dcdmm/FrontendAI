@@ -40,14 +40,16 @@ export default function App() {
 
     try {
       let acc = '';
-      for await (const delta of streamChat(backend, model, next, ctrl.signal)) {
-        acc += delta;
-        setMessages((prev) => {
-          const copy = [...prev];
-          copy[copy.length - 1] = { role: 'assistant', content: acc };
-          return copy;
-        });
-      }
+      await streamChat(backend, model, next, ctrl.signal, {
+        delta: ({ text }) => {
+          acc += text;
+          setMessages((prev) => {
+            const copy = [...prev];
+            copy[copy.length - 1] = { role: 'assistant', content: acc };
+            return copy;
+          });
+        },
+      });
     } catch (err) {
       const msg = err instanceof Error ? err.message : String(err);
       setMessages((prev) => {

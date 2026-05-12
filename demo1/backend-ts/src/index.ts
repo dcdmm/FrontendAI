@@ -4,7 +4,7 @@ import { dirname, resolve } from 'node:path';
 import { serve } from '@hono/node-server';
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
-import { stream } from 'hono/streaming';
+import { streamSSE } from 'hono/streaming';
 import { HTTPException } from 'hono/http-exception';
 import OpenAI from 'openai';
 
@@ -44,17 +44,15 @@ app.post('/chat', async (c) => {
     stream: true,
   });
 
-  c.header('Content-Type', 'text/event-stream');
-  c.header('Cache-Control', 'no-cache');
-  c.header('Connection', 'keep-alive');
+  return streamSSE(c, async (s) => {
+    const emit = (event: string, data: unknown) =>
+      s.writeSSE({ event, data: JSON.stringify(data) });
 
-  return stream(c, async (s) => {
     for await (const event of completion) {
       if (event.type === 'response.output_text.delta' && event.delta) {
-        await s.write(`data: ${JSON.stringify({ delta: event.delta })}\n\n`);
+        await emit('delta', { text: event.delta });
       }
     }
-    await s.write('data: [DONE]\n\n');
   });
 });
 
