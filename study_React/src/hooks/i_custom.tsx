@@ -37,4 +37,31 @@ function SearchBox() {
     );
 }
 
-export default SearchBox;
+function QuantityCounter() {
+    const [quantity, setQuantity] = useState(0);
+    const debouncedQuantity = useDebounce(quantity, 3000);
+
+    useEffect(() => {
+        console.log('数量稳定后:', debouncedQuantity);
+    }, [debouncedQuantity]);
+
+    return (
+        <div>
+            <button onClick={() => setQuantity((q) => q - 1)}>-</button>
+            <button onClick={() => setQuantity((q) => q + 1)}>+</button>
+            <p>实时数量: {quantity}</p>
+            <p>防抖后数量: {debouncedQuantity}</p>
+        </div>
+    );
+}
+
+function CustomHookDemo() {
+    return (
+        <div>
+            <SearchBox />
+            <QuantityCounter />
+        </div>
+    );
+}
+
+export default CustomHookDemo;
