@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 
 
-// 自定义Hook
-// * use开头,后跟一个大写字母
-// * 内部调用了其他Hook
+// 自定义Hook(函数名use开头,后跟一个大写字母.内部调用了其他Hook)
+// * Custom Hooks let you share logic between components.
+// * Custom Hooks only share stateful logic, not state itself.
 function useDebounce<T>(value: T, delay: number): T {
     const [debouncedValue, setDebouncedValue] = useState<T>(value);
 
