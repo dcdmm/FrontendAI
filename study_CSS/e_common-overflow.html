@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <title>溢出(Overflow)</title>
+    <style>
+        body {
+            font-family: "Microsoft YaHei", sans-serif;
+            padding: 20px;
+        }
+
+        h2 {
+            border-bottom: 2px solid #333;
+            padding-bottom: 5px;
+            margin-top: 40px;
+        }
+
+        .note {
+            color: #888;
+            font-size: 14px;
+            margin: 5px 0 15px;
+        }
+
+        .box {
+            width: 200px;
+            height: 100px;
+            padding: 10px;
+            border: 2px solid #3498db;
+            background: #f9f9f9;
+            margin-bottom: 10px;
+        }
+
+        .visible {
+            overflow: visible;
+        }
+
+        .hidden {
+            overflow: hidden;
+        }
+
+        .scroll {
+            overflow: scroll;
+        }
+
+        .auto {
+            overflow: auto;
+        }
+
+        .xy {
+            overflow-x: hidden;
+            overflow-y: scroll;
+        }
+
+        .big {
+            width: 400px;
+            height: 300px;
+            background: linear-gradient(135deg, #3498db, #2ecc71);
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>1. overflow: visible(默认值)</h2>
+    <p class="note">verflow content is not clipped and may be visible outside the element's padding box</p>
+    <div class="box visible">
+        少年儿童的茁壮成长，是习近平总书记心头的温暖牵挂。“六一”国际儿童节，重温“大朋友”习近平对孩子们的关爱和期望，祝所有的小朋友们儿童节快乐！（人民日报客户端）
+    </div>
+
+    <h2>2. overflow: hidden</h2>
+    <p class="note">Overflow content is clipped at the element's padding box. There are no scroll bars, and the clipped
+        content is not visible (i.e., clipped content is hidden), but the content still exists</p>
+    <div class="box hidden">
+        少年儿童的茁壮成长，是习近平总书记心头的温暖牵挂。“六一”国际儿童节，重温“大朋友”习近平对孩子们的关爱和期望，祝所有的小朋友们儿童节快乐！（人民日报客户端）。
+    </div>
+
+    <h2>3. overflow: scroll</h2>
+    <p class="note">verflow content is clipped at the element's padding box, and overflow content can be scrolled into
+        view using scroll bars. User agents display scroll bars whether or not any content is overflowing, so in the
+        horizontal and vertical directions if the value applies to both directions.</p>
+    <div class="box scroll">
+        少年儿童的茁壮成长，是习近平总书记心头的温暖牵挂。“六一”国际儿童节，重温“大朋友”习近平对孩子们的关爱和期望，祝所有的小朋友们儿童节快乐！（人民日报客户端）
+    </div>
+
+    <h2>4. overflow: auto(最常用)</h2>
+    <p class="note">Overflow content is clipped at the element's padding box, and overflow content can be scrolled into
+        view using scroll bars. Unlike scroll, user agents display scroll bars only if the content is overflowing. If
+        content fits inside the element's padding box, it looks the same as with visible but still establishes a new
+        formatting context. </p>
+    <div class="box auto">
+        少年儿童的茁壮成长，是习近平总书记心头的温暖牵挂。“六一”国际儿童节，重温“大朋友”习近平对孩子们的关爱和期望，祝所有的小朋友们儿童节快乐！（人民日报客户端）
+    </div>
+
+    <h2>5. overflow-x / overflow-y(分别控制水平方向/垂直方向)</h2>
+    <p class="note">容器 200×100,里面放了一个 400×300 的子元素。overflow-x: hidden 把横向超出的部分裁掉(没有横向滚动条),overflow-y: scroll 让纵向可以滚动。</p>
+    <div class="box xy">
+        <div class="big">我是 400×300 的子元素,横向超出的部分被裁掉了,纵向超出的部分可以向下滚动查看。</div>
+    </div>
+</body>
+
+</html>
