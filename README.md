@@ -1,1 +1,1 @@
-# FrontendAI
+# FrontendAIStudy
